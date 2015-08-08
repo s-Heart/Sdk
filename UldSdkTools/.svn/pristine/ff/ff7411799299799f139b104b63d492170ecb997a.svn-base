@@ -1,0 +1,121 @@
+﻿package uld.sdk.socket;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+
+import uld.sdk.model.MessageBody;
+import uld.sdk.model.MessageHeader;
+import uld.sdk.model.MessageReturn;
+
+public class ThreadManager {
+	private static final String SERVERIP = "www.ulaoda.com";
+
+	// 傲剑统一端口
+	private static final int SERVERPORT = 9409;
+
+	/*
+	 * 超时时间10秒钟
+	 */
+	private static final int TIMEOUT = 10000;
+
+	/**
+	 * 发送消息并接收消息
+	 * 
+	 * @param messageHeader
+	 *        消息头
+	 * @param messageBody
+	 *        消息体
+	 */
+	public static MessageReturn sendMessage(MessageHeader messageHeader, MessageBody messageBody) {
+		Socket socket = null;
+		ObjectOutputStream oosStream = null;
+		ObjectInputStream oisStream = null;
+		MessageReturn messageReturn = null;
+
+		try {
+			socket = new Socket();
+			socket.connect(new InetSocketAddress(SERVERIP, SERVERPORT), TIMEOUT);
+			oosStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+			oosStream.writeObject(messageHeader);
+			oosStream.writeObject(messageBody);
+			oosStream.flush();
+
+			oisStream = new ObjectInputStream(new BufferedInputStream(socket.getInputStream()));
+			messageReturn = (MessageReturn) oisStream.readObject();
+
+		} catch (SocketTimeoutException e) {
+			messageReturn = new MessageReturn(-1, "连接超时");
+		} catch (Exception e) {
+			messageReturn = new MessageReturn(-1, e.getMessage());
+		} finally {
+			try {
+				if (oosStream != null) {
+					oosStream.close();
+				}
+			} catch (Exception e) {
+			}
+			try {
+				if (oisStream != null) {
+					oisStream.close();
+				}
+			} catch (Exception e) {
+			}
+			try {
+				if (socket != null) {
+					socket.close();
+				}
+			} catch (Exception e) {
+			}
+		}
+		return messageReturn;
+	}
+
+	/**
+	 * 发送消息不接收消息
+	 * 
+	 * @param messageHeader
+	 *        消息头
+	 * @param messageBody
+	 *        消息体
+	 */
+	public static void sendMessageInvoke(final MessageHeader messageHeader, final MessageBody messageBody) {
+		new Thread(new Runnable() {
+			Socket socket = null;
+			ObjectOutputStream oosStream = null;
+
+			@Override
+			public void run() {
+				try {
+					socket = new Socket();
+					socket.setSoTimeout(100);
+					socket.connect(new InetSocketAddress(SERVERIP, SERVERPORT));
+
+					oosStream = new ObjectOutputStream(new BufferedOutputStream(socket.getOutputStream()));
+					oosStream.writeObject(messageHeader);
+					oosStream.writeObject(messageBody);
+					oosStream.flush();
+				} catch (SocketTimeoutException e) {
+				} catch (Exception e) {
+				} finally {
+					try {
+						if (oosStream != null) {
+							oosStream.close();
+						}
+					} catch (Exception e) {
+					}
+					try {
+						if (socket != null) {
+							socket.close();
+						}
+					} catch (Exception e) {
+					}
+				}
+			}
+		}).start();
+	}
+}

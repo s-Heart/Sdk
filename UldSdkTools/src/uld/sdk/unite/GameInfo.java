@@ -1,0 +1,136 @@
+﻿package uld.sdk.unite;
+
+
+public class GameInfo {
+	/*
+	 * 游老大分配给游戏方的游戏编号
+	 */
+	int gameId = 0;
+	/*
+	 * 游戏方的服务器编号
+	 */
+	int serverId = 0;
+	/*
+	 * 游戏方角色编号
+	 */
+	String playerId = null;
+	
+	String roleName=null;
+	
+	String grade=null;
+
+	/*
+	 * 游老大分配给游戏方的pid
+	 */
+	String uldPid = null;
+	String uldLoginKey = null;
+	
+	/*
+	 * 充值key
+	 */
+	String uldRechargeKey = null;
+	/*
+	 * 查询用户key
+	 */
+	String uldQueryInfoKey = null;
+	
+	/**
+	 * 用于金立的自动登录，目前只有金立使用
+	 */
+	
+	Boolean UldIsAutoLogin = true;
+	
+	/*
+	 * 自动登录，目前只有金立SDK使用,默认自动登录
+	 */
+	Boolean uldIsAutoLogin = null;
+	
+	public Boolean getUldIsAutoLogin() {
+		return uldIsAutoLogin;
+	}
+
+	public void setUldIsAutoLogin(Boolean uldIsAutoLogin) {
+		this.uldIsAutoLogin = uldIsAutoLogin;
+	}
+
+	public GameInfo() {
+		uldPid = "";
+		gameId = 0;
+		serverId = 0;
+		uldLoginKey = "";
+		uldRechargeKey = "";
+		uldQueryInfoKey = "";
+		UldIsAutoLogin = true;
+	}
+	
+	public int getGameId() {
+		return gameId;
+	}
+	public void setGameId(int gameId) {
+		this.gameId = gameId;
+	}
+	public int getServerId() {
+		return serverId;
+	}
+	public void setServerId(int serverId) {
+		this.serverId = serverId;
+	}
+	public String getUldPid() {
+		return uldPid;
+	}
+	public void setUldPid(String uldPid) {
+		this.uldPid = uldPid;
+	}
+	public String getUldLoginKey() {
+		return uldLoginKey;
+	}
+	public void setUldLoginKey(String uldLoginKey) {
+		this.uldLoginKey = uldLoginKey;
+	}
+	public String getUldRechargeKey() {
+		return uldRechargeKey;
+	}
+	public void setUldRechargeKey(String uldRechargeKey) {
+		this.uldRechargeKey = uldRechargeKey;
+	}
+	public String getUldQueryInfoKey() {
+		return uldQueryInfoKey;
+	}
+	public void setUldQueryInfoKey(String uldQueryInfoKey) {
+		this.uldQueryInfoKey = uldQueryInfoKey;
+	}
+
+	
+	/**
+	 * @return the playerId
+	 */
+	public String getPlayerId() {
+		return playerId;
+	}
+
+	/**
+	 * @param playerId the playerId to set
+	 */
+	public void setPlayerId(String playerId) {
+		this.playerId = playerId;
+	}
+	
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	
+	
+}

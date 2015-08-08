@@ -1,0 +1,5 @@
+package uld.sdk.unite;
+
+public interface OnInitFinishListener {
+	public void onComplete(String flag);
+}
