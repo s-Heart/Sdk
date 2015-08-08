@@ -1,0 +1,559 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SdkStyle"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".RechargeActivity" >
+
+    <RelativeLayout
+        style="@style/TitleStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="46dp" >
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/TitleButtonTitleLeftStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:text="@string/uld_back" />
+
+        <TextView
+            style="@style/TitleFontStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/uld_recharge" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="0dp"
+        android:background="@drawable/uld_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="37dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/uld_bg_title_other"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="@string/uld_rechargetypetip"
+                android:textColor="@color/uld_gray"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="0dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="-5dp"
+                android:background="@drawable/uld_bg_shape_rectangle_d5d8de"
+                android:orientation="vertical" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/uld_bg_shape_rectangle_gray_allrounded"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="1dp" >
+
+                    <RelativeLayout
+                        android:id="@+id/rlalif"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/uld_bg_layout_paytype_top"
+                        android:gravity="center_vertical" >
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/uld_icon_alipay_f" />
+
+                        <Button
+                            android:id="@+id/btnAliPayf"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_marginLeft="45dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/uld_alipay_f"
+                            android:textColor="@color/uld_gray"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imageAlif"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/uld_icon_arrow" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+                    
+                    
+                    <RelativeLayout
+                        android:id="@+id/rlaliqianbao"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/uld_bg_layout_paytype_top"
+                        android:gravity="center_vertical" >
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/uld_icon_alipay_qianbao" />
+
+                        <Button
+                            android:id="@+id/btnAliPayQianbao"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_marginLeft="45dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/uld_alipay_qianbao"
+                            android:textColor="@color/uld_gray"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imageAliQianbao"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/uld_icon_arrow" />
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/vAliQianBao"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlali"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/uld_bg_layout_paytype_top"
+                        android:gravity="center_vertical" >
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/uld_icon_alipay" />
+
+                        <Button
+                            android:id="@+id/btnAliPay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_marginLeft="45dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/uld_alipay"
+                            android:textColor="@color/uld_gray"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imageAli"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/uld_icon_arrow" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlYinlian"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/uld_bg_layout_paytype_middle"
+                        android:gravity="center_vertical" >
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/uld_icon_yinlian" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_marginLeft="45dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/uld_ylzf"
+                            android:textColor="@color/uld_gray"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imageYinlian"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/uld_icon_arrow" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlYD"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/uld_bg_layout_paytype_middle"
+                        android:gravity="center_vertical" >
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/uld_icon_cmcc" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_marginLeft="45dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/uld_zgydk"
+                            android:textColor="@color/uld_gray"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imageYD"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/uld_icon_arrow" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlLT"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/uld_bg_layout_paytype_middle"
+                        android:gravity="center_vertical" >
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/uld_icon_chinaunicom" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_marginLeft="45dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/uld_zglt"
+                            android:textColor="@color/uld_gray"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imageLT"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/uld_icon_arrow" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlDX"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/uld_bg_layout_paytype_bottom"
+                        android:gravity="center_vertical" >
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="8dp"
+                            android:src="@drawable/uld_icon_chinatelcom" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_marginLeft="45dp"
+                            android:background="@null"
+                            android:clickable="false"
+                            android:gravity="center_vertical"
+                            android:text="@string/uld_zgdx"
+                            android:textColor="@color/uld_gray"
+                            android:textSize="18sp" />
+
+                        <ImageView
+                            android:id="@+id/imageDX"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="15dp"
+                            android:src="@drawable/uld_icon_arrow" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="18dp"
+                    android:background="@drawable/uld_bg_shape_rectangle_gray_allrounded"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="1dp" >
+
+                    <RelativeLayout
+                        android:id="@+id/rlJwykt"
+                        android:layout_width="fill_parent"
+                        android:layout_height="45dp"
+                        android:background="@drawable/uld_bg_layout_paytype_top"
+                        android:gravity="center_vertical" >
+
+                        <TextView
+                            style="@style/RechargeNoIconPayTypeStringStyle"
+                            android:layout_marginTop="-2dp"
+                            android:text="@string/uld_jwykt" />
+
+                        <ImageView
+                            android:id="@+id/imageJwykt"
+                            android:layout_width="9dp"
+                            android:layout_height="13dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="3dp"
+                            android:src="@drawable/uld_icon_arrow" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlSdk"
+                        style="@style/RechargeListMiddleStyle" >
+
+                        <TextView
+                            style="@style/RechargeNoIconPayTypeStringStyle"
+                            android:text="@string/uld_sdk" />
+
+                        <ImageView
+                            android:id="@+id/imageSdk"
+                            style="@style/RechargeListMiddleArrowStyle" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlWyykt"
+                        style="@style/RechargeListMiddleStyle" >
+
+                        <TextView
+                            style="@style/RechargeNoIconPayTypeStringStyle"
+                            android:text="@string/uld_wyykt" />
+
+                        <ImageView
+                            android:id="@+id/imageWyykt"
+                            style="@style/RechargeListMiddleArrowStyle" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlWmykt"
+                        style="@style/RechargeListMiddleStyle" >
+
+                        <TextView
+                            style="@style/RechargeNoIconPayTypeStringStyle"
+                            android:text="@string/uld_wmykt" />
+
+                        <ImageView
+                            android:id="@+id/imageWmykt"
+                            style="@style/RechargeListMiddleArrowStyle"
+                            android:src="@drawable/uld_icon_arrow" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlZtk"
+                        style="@style/RechargeListMiddleStyle" >
+
+                        <TextView
+                            style="@style/RechargeNoIconPayTypeStringStyle"
+                            android:text="@string/uld_ztk" />
+
+                        <ImageView
+                            android:id="@+id/imageZtk"
+                            style="@style/RechargeListMiddleArrowStyle" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlJyykt"
+                        style="@style/RechargeListMiddleStyle" >
+
+                        <TextView
+                            style="@style/RechargeNoIconPayTypeStringStyle"
+                            android:text="@string/uld_jyykt" />
+
+                        <ImageView
+                            android:id="@+id/imageJyykt"
+                            style="@style/RechargeListMiddleArrowStyle" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlYbekt"
+                        style="@style/RechargeListMiddleStyle" >
+
+                        <TextView
+                            style="@style/RechargeNoIconPayTypeStringStyle"
+                            android:text="@string/uld_ybekt" />
+
+                        <ImageView
+                            android:id="@+id/imageYbekt"
+                            style="@style/RechargeListMiddleArrowStyle" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlZyykt"
+                        style="@style/RechargeListMiddleStyle" >
+
+                        <TextView
+                            style="@style/RechargeNoIconPayTypeStringStyle"
+                            android:text="@string/uld_zyykt" />
+
+                        <ImageView
+                            android:id="@+id/imageZyykt"
+                            style="@style/RechargeListMiddleArrowStyle" />
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5dp"
+                        android:background="@color/uld_gray" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlTxykt"
+                        style="@style/RechargeListBottomStyle" >
+
+                        <TextView
+                            style="@style/RechargeNoIconPayTypeStringStyle"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/uld_txykt" />
+
+                        <ImageView
+                            android:id="@+id/imageTxykt"
+                            style="@style/RechargeListBottomArrowStyle" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</LinearLayout>

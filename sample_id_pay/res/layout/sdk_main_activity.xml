@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#6fbaf5" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:baselineAligned="false"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+
+            <LinearLayout style="@style/demo_layout" >
+
+
+                <Button
+                    android:id="@+id/pay_anci"
+                    style="@style/demo_btn"
+                    android:text="按次购买" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_layout" >
+
+
+                <Button
+                    android:id="@+id/pay_maiduan"
+                    style="@style/demo_btn"
+                    android:text="买断" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+
+            <LinearLayout style="@style/demo_layout" >
+
+
+                <Button
+                    android:id="@+id/pay_pilianggoumai"
+                    style="@style/demo_btn"
+                    android:text="批量购买" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_layout" >
+
+
+                <Button
+                    android:id="@+id/pay_baoci"
+                    style="@style/demo_btn"
+                    android:text="包次数" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+
+            <LinearLayout style="@style/demo_layout" >
+
+
+                <Button
+                    android:id="@+id/pay_baoshichang"
+                    style="@style/demo_btn"
+                    android:text="包账期" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/demo_layout" >
+
+
+                <Button
+                    android:id="@+id/pay_mianfei"
+                    style="@style/demo_btn"
+                    android:text="按次免费试用" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:baselineAligned="false"
+            android:orientation="horizontal" >
+
+            <LinearLayout style="@style/demo_layout" android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/et_price"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:digits="1234567890"
+                    android:ems="10"
+                    android:hint="分"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:numeric="decimal" />
+
+                <Button
+                    android:id="@+id/pay_kaifangjiage"
+                    style="@style/demo_btn"
+                    android:text="开放价格" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>

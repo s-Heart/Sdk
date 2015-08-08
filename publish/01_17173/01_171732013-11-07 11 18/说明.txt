@@ -1,0 +1,24 @@
+1. copy libs中文件到游戏对应项目中
+2. copy assets中文件到游戏对应项目中
+3. 在androidManifest.xml加入响应权限及注册界面
+    <!-- 17173begin -->
+		<uses-permission android:name="android.permission.INTERNET" />
+		<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+		<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 17173end -->
+    
+	<!-- 17173begin -->
+		<meta-data
+            android:name="gameId"
+            android:value="\017" />
+        <meta-data
+            android:name="gameSecret"
+            android:value="\059746684b5fabfbec78e20ecbde1110e" />
+        <meta-data
+            android:name="distributionChannel"
+            android:value="\04" />
+        <meta-data
+            android:name="vendorName"
+            android:value="chuanglianshixun" />
+    <!-- 17173end -->
+4.角标添加

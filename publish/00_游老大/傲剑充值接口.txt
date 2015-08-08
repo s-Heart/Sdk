@@ -1,0 +1,22 @@
+回调地址(请提供贵方的回调地址)：
+http://
+
+
+请求参数
+serverId      服务器编号（傲剑）
+orderId       订单编号(游老大的订单编号)
+userId        用户编号(游老大的用户编号)
+channelId     渠道编号(游老大的渠道编号)
+success       订单状态(0充值成功，1订单已提交，2充值失败）       充值成功后游老大一定会调用贵方接口，充值失败时未必调用。
+amount        订单金额(单位为元)
+key=884060364cb1d63fd135d33dfd2c08bd
+sign          加密结果 md5(serverId+userId+orderId+success+amount+key)
+
+
+成功返回 ok
+失败返回 fail
+
+
+
+
+

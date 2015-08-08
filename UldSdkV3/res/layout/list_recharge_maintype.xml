@@ -1,0 +1,36 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="45dp"
+    android:gravity="center_vertical" >
+
+    <ImageView
+        android:id="@+id/imgIcon"
+        android:layout_width="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="1dp"
+        android:layout_height="30dp">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/tvItemPayTypeMain"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="2dp"
+        android:layout_width="wrap_content"
+        android:textSize="17sp"
+        android:gravity="center_vertical"
+        android:textColor="@color/uld_gray"
+        android:layout_height="wrap_content" >
+    </TextView>
+
+    <ImageView
+        android:id="@+id/imgArrow"
+        android:layout_width="9dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:layout_height="13dp"
+        android:layout_marginRight="13dp"
+        android:src="@drawable/uld_icon_arrow" >
+    </ImageView>
+
+</RelativeLayout>

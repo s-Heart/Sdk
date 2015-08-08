@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">游戏Demo1</string>
+
+    <!-- 公用 -->
+    <string name="pub_account_info">帐号信息</string>
+    <string name="pub_login">登录</string>
+   	<string name="pub_not_login_dialog_title">您还没有登录</string>
+    <string name="pub_please_login">您需要登录NearMe帐号才可继续。</string>
+    <string name="usercenter_not_installed">安装NearMe个人中心才能继续!</string>
+    <string name="pub_sd_card_full">您的SD卡已满，无法加载图片，请及时清理</string>
+    <string name="pub_read_user_info_failed">读取用户信息失败，请点击"我的主页"刷新</string>
+
+    <string name="pub_exit">退出</string>
+	<string name="pub_exit_confim_title">确定要退出吗?</string>
+    <string name="pub_setting">设置</string>
+
+    <string name="pub_yes">是</string>
+    <string name="pub_no">否</string>
+    <string name="pub_confim">确定</string>
+    <string name="pub_cancel">取消</string>
+    <string name="pub_about">关于</string>
+    <string name="pub_delete">删除</string>
+    <string name="pub_delete_all">全部删除</string>
+    <string name="pub_retry">重试</string>
+    <string name="pub_data_error">加载数据失败，点击重试</string>
+    <string name="pub_send">发送</string>
+    <string name="pub_send_ok">发表成功</string>
+
+    <string name="pub_more">更多</string>
+    <string name="pub_fail">操作失败</string>
+    <string name="pub_loading">加载中\u2026</string>
+
+    <string name="pub_no_app">您没有安装市场，请尽快去下载NearMe市场吧！</string> <!--为以后从多个市场下载的时候使用-->
+
+    <string name="pub_submit">提交</string>
+    <string name="pub_save">保存</string>
+
+    <string name="pub_sending">正在发送，请稍候\u2026</string>
+    <string name="pub_delete_save">是否确定删除?</string>
+    <string name="pub_edit_save">是否取消修改?</string>
+    <string name="pub_cancel_send">是否取消发送?</string>
+
+    <string name="pub_search">搜索</string>
+    <string name="pub_input_check">请输入内容</string>
+    <string name="pub_free_download">免费下载</string>
+    <string name="pub_price">%s元</string>
+    <string name="pub_bounds">%s积分</string>
+   	<string name="pub_open">打开游戏</string>
+   	<string name="pub_update">更新游戏</string>
+
+	<!--
+    <string name="pull_to_refresh_tap_label">点击刷新..</string>
+	-->
+    <string name="pub_achievement">成就</string>
+    <string name="pub_leaderboard">排行榜</string>
+
+
+    <string name="pub_send_failed">网络原因提交失败, 请稍后重试?</string>
+    <string name="sending_request">正在提交，请稍候\u2026</string>
+    <string name="pub_tip_dialog_title">温馨提示</string>
+
+    <!-- 首页推荐 -->
+    <string name="prompt_type_game">游戏</string>
+    <string name="prompt_type_contest">比赛</string>
+    <string name="prompt_type_theme">专题</string>
+    <string name="prompt_type_evaluation">评测</string>
+
+    <!-- Menu -->
+    <string name="menu_setting">设置</string>
+    <string name="menu_feedback">反馈</string>
+    <string name="menu_about">关于</string>
+
+    <!-- 登录 -->
+    <string name="pub_not_logined_tip">点我登录，才能看到更多好玩的。</string>
+
+    <!-- 输入框管理 -->
+    <string name="write_words_suggest_limited">140</string>
+    <string name="write_word_status_limited">40</string>
+    <string name="write_word_reply_limited">140</string>
+    <string name="write_words_post_limited">1000</string>
+    <string name="indicator_write_word_limited">%1$s/%2$s</string>
+
+    <!-- 按钮条 -->
+    <string name="menu_bar_game">游戏</string>
+    <string name="menu_bar_square">动态</string>
+    <string name="menu_bar_profile_page">我的主页</string>
+    <string name="menu_bar_friends">好友</string>
+    <string name="menu_bar_friends_number">好友%s</string>
+    <string name="menu_bar_hot_post">热帖</string>
+    <string name="menu_bar_Recommend">推荐</string>
+    <string name="menu_bar_category">分类</string>
+    <string name="menu_bar_friends_game">好友游戏</string>
+    <string name="menu_bar_friends_request">好友申请</string>
+    <string name="menu_bar_friends_request_number">好友申请%s</string>
+    <string name="menu_bar_search_friends">搜索好友</string>
+    <string name="menu_bar_add_friend">添加好友</string>
+
+    <!-- 好友游戏 -->
+    <string name="friends_game_player_count">%s位好友玩过此游戏</string>
+    <string name="no_friend_game_list">你还没有好友玩过任何一款游戏，请邀请更多好友和你一起玩吧。</string>
+
+    <!-- 好友社交 -->
+    <string name="add_friend">加为好友</string>
+    <string name="friend_already">已是好友</string>
+    <string name="friend_full">好友人数已满，不能继续添加好友</string>
+
+    <string name="friend_level_tip">等级 : %s级</string>
+
+	<!--
+    <string name="send_over">已发好友申请</string>
+	-->
+    <string name="accept_add_friend">接受</string>
+    <string name="refuse_add_friend">拒绝</string>
+    <string name="delete_friend">删除好友</string>
+
+    <string name="input_nickname">输入昵称查找好友</string>
+    <string name="tip_delete_friend">确定解除与%s的好友关系?</string>
+    <string name="deleting_friend">正在删除好友，请稍后\u2026</string>
+    <string name="adding_friend">正在加为好友，请稍后\u2026</string>
+	<string name="accepting_friend_request">正在接受好友申请，请稍候\u2026</string>
+    <string name="refusing_friend_request">正在拒绝好友申请，请稍候\u2026</string>
+    <string name="refusing_friend_failed">网络原因导致拒绝好友申请失败，请稍候重试</string>
+    <string name="accepting_friend_failed">网络原因导致接受好友申请失败，请稍候重试</string>
+    <string name="playing_game">正在玩  %s</string>
+    <string name="last_played_game">最近在玩  %s</string>
+
+	<string name="have_no_friend">暂时没有好友</string>
+    <string name="no_request_data">暂时没有好友申请</string>
+	<!--  -->
+    <string name="add_friend_sucess">成功加TA为好友</string>
+    <string name="refuse_friend_sucess">成功拒绝TA的好友申请</string>
+
+    <string name="delete_friend_failed">网络原因导致删除好友失败，请稍候重试</string>
+    <string name="add_friend_failed">网络原因导致加为好友失败，请稍候重试</string>
+
+    <!-- 搜索 -->
+    <string name="please_input_keyword">请输入关键词!</string>
+    <string name="no_data_matched">没有搜索到相关好友</string>
+    <string name="search_by_nickName">输入昵称查找好友</string>
+    <string name="search_friend_hint">搜索好友</string>
+    <string name="search_result_title">你可能感兴趣的人</string>
+
+    <!-- 我的主页 -->
+    <string name="my_page_title">我的主页</string>
+    <string name="profile_page_feeds">新鲜事</string>
+    <string name="profile_page_game">游戏</string>
+    <string name="profile_page_post">帖子</string>
+    <string name="profile_page_letter">留言</string>
+    <string name="profile_page_friend">好友</string>
+    <string name="profile_page_my_game">我的游戏</string>
+    <string name="profile_page_my_game_num">我的游戏(%s)</string>
+    <string name="profile_page_my_post">我的帖子</string>
+    <string name="profile_page_my_post_num">我的帖子(%s)</string>
+    <string name="profile_page_my_letter">我的留言</string>
+    <string name="profile_page_my_letter_num">我的留言(%s)</string>
+
+    <string name="profile_page_contest_num">比赛(%s)</string>
+    <string name="profile_page_letter_num">留言(%s)</string>
+    <string name="profile_page_friend_num">好友(%s)</string>
+	<string name="profile_page_visitor">访客</string>
+	<string name="profile_page_unread_msg_tip">%s条未读私信</string>
+	<string name="profile_page_unread_msg_tip_content">您有未读的私信，点此查看</string>
+
+    <string name="no_my_visitor_tip">没人访问过您，赶快去加些好友吧。</string>
+    <string name="no_user_visitor_tip">没人访问过您，赶快去加些好友吧。</string>
+
+	<string name="profile_setting_title">设置个人信息</string>
+	<string name="profile_user_setting_title">个人信息</string>
+    <string name="profile_setting_sex">性别:</string>
+    <string name="profile_setting_male">男</string>
+    <string name="profile_setting_female">女</string>
+    <string name="profile_setting_nickname">昵称:</string>
+    <string name="profile_setting_constallation">星座:</string>
+    <string name="profile_setting_constallation_title">选择星座</string>
+    <string name="profile_setting_city">城市:</string>
+    <string name="profile_setting_summary">简介:</string>
+
+    <string name="profile_setting_item_content_default">未添加</string>
+
+    <!-- 选择城市 -->
+    <string name="choose_region_title">选择地区</string>
+    <string name="choose_province_title">省/直辖市/自治区/特区</string>
+
+
+    <string name="no_my_game_tip">您没有玩过任何一款游戏</string>
+    <string name="no_my_post_tip">您没有发过帖子，赶快去论坛畅所欲言吧。</string>
+    <string name="no_my_letter_tip">您朋友太少啦，没人给您留言呢。</string>
+
+
+    <!-- 新鲜事 -->
+    <string name="feed_title_dynamic">动态详情</string>
+    <string name="feed_title_mood">心情详情</string>
+    <string name="feed_title_leaved_msg">留言详情</string>
+    <string name="no_feed_tip">暂时没有新鲜事</string>
+    <string name="no_user_feed_tip">暂时没有动态</string>
+    <string name="feed_reply_item_title">%1$s回复%2$s</string>
+	<string name="add_comment">添加评论</string>
+
+    <!-- 修改昵称 -->
+    <string name="status_user_nickName_exits">昵称已被占用，请重新输入</string>
+    <string name="status_user_nickName_invalid">昵称包含敏感词语，请重新输入</string>
+    <string name="name_could_not_null">请输入2~12个中文、英文字符或数字</string>
+    <string name="name_could_not_be_11_number">昵称不能为11位纯数字，请重新输入</string>
+
+    <!-- 修改头像 -->
+    <string name="change_avatar">修改头像</string>
+    <string name="new_photo">新照片</string>
+    <string name="choose_from_album">从相册中选</string>
+    <string name="revert_default_photo">恢复默认</string>
+    <string name="take_photo_failed">获取照片失败，请重试!</string>
+
+    <string name="handling_message">正在保存，请稍候\u2026</string>
+    <string name="photo_picker_not_found">无法找到图片选择器!</string>
+    <string name="save_person_setting_tip">正在保存, 请稍后\u2026</string>
+    <string name="save_person_setting_failed">网络原因修改资料保存失败，请稍后重试。</string>
+
+    <!-- 信箱 -->
+    <string name="private_msg_send_success">私信发送成功</string>
+    <string name="msg_unread">未读</string>
+    <string name="msg_history">历史</string>
+    <string name="msg_pm_title">私信</string>
+    <string name="msg_sys_title">系统消息</string>
+    <string name="new_msg_button_title">新建私信</string>
+    <string name="delete_msg_title">删除私信</string>
+    <string name="delete_private_msg_failed">网络原因导致删除私信失败，请稍候重试</string>
+    <string name="chatter_last_msg_content">来自%s</string>
+    <string name="chat_with_someone">与%s的对话</string>
+    <string name="never_chat_with_somebody">还没有人给您发过私信\u2026<br/>点击此处给好友发私信吧！</string>
+    <string name="no_system_msg">系统消息暂无更新，先去其它版块逛逛吧。</string>
+    <string name="delete_all_msg_title">删除所有私信</string>
+    <string name="delete_all_private_msg">确定删除与该好友的所有私信？</string>
+   	<string name="delete_all_private_msg_failed">网络原因导致删除所有私信失败，请稍候重试</string>
+    <string name="new_msg_text_hint">输入内容（可输入140字）</string>
+    <string name="private_msg_send_sucess">私信发送成功</string>
+
+    <string name="loading_history_msg">加载更多历史记录</string>
+
+    <!-- 选择好友 -->
+    <string name="choose_friend">选择好友</string>
+    <string name="recent_contacts">最近联系</string>
+    <string name="friends_all">所有好友</string>
+    <string name="send_invite_btn_title">发送游戏邀请</string>
+
+    <string name="no_friend_for_choose">您没有好友，赶快去加些好友吧。</string>
+    <string name="never_contact_somebody_with_msg">您从未用私信联系过其他人</string>
+
+    <!-- 个人主页 -->
+    <string name="profile_page_user_visitor">TA的访客</string>
+    <string name="profile_page_user_feed">TA的动态</string>
+
+    <string name="profile_page_title">%s的主页</string>
+    <string name="profile_page_user_game">TA的游戏</string>
+    <string name="profile_page_user_game_num">TA的游戏(%s)</string>
+    <string name="profile_page_user_post">TA的帖子</string>
+    <string name="profile_page_user_post_num">TA的帖子(%s)</string>
+    <string name="profile_page_user_letter">TA的留言</string>
+    <string name="profile_page_user_letter_num">TA的留言(%s)</string>
+    <string name="profile_page_user_friend">TA的好友</string>
+    <string name="profile_page_user_friend_num">TA的好友(%s)</string>
+
+    <string name="profile_user_game_list_title">TA玩过的游戏</string>
+    <string name="profile_user_game_list_title1">TA的成就</string>
+    <string name="profile_user_game_list_title2">我的成就</string>
+
+    <string name="hint_leave_message">留言：好久没联系了，说点什么吧#8230</string>
+    <string name="person_friend_common">共同好友</string>
+    <string name="profile_title_achivement">成就：</string>
+    <string name="profile_title_level">%s 级</string>
+    <string name="profile_my_game_score">%1$s/%2$s</string>
+    <string name="comment_num_title">评论: %s</string>
+
+    <string name="user_have_no_friend">TA没有好友，赶快加TA为好友吧。</string>
+    <string name="user_have_no_game">TA没有玩过任何一款游戏</string>
+    <string name="no_user_post_tip">TA没有发过帖子，邀请TA到论坛逛逛吧。</string>
+    <string name="no_user_letter_tip">没人给TA留言呢，您说点东西吧。</string>
+
+
+    <string name="person_bottom_btn_add">加为好友</string>
+    <string name="person_bottom_btn_letter">私信</string>
+    <string name="person_bottom_btn_leave_msg">留言</string>
+
+    <!-- 发送 -->
+    <string name="write_title_comment">评论</string>
+    <string name="write_title_reply">回复</string>
+    <string name="write_hint_comment">输入评论（可输入%s字）</string>
+    <string name="write_hint_reply">输入回复（可输入%s字）</string>
+    <string name="write_title_leave_msg">留言</string>
+    <string name="write_title_new_post">发表新帖</string>
+    <string name="write_hint_new_post">添加内容(可输入%s字)</string>
+    <string name="write_hint_input">输入内容(可输入%s字)</string>
+
+    <string name="write_title_motion">发表心情</string>
+    <string name="write_hint_motion">发表点东西\u2026（可输入%s字）</string>
+
+    <string name="write_title_send">发给%s</string>
+
+    <string name="write_del_words">确定清除内容?</string>
+
+    <string name="write_check">请输入内容</string>
+
+    <string name="write_hint_title">标题(可输入%s字)</string>
+
+     <string name="write_title_suggest">反馈建议</string>
+
+    <!-- 排行榜 -->
+    <string name="lb_day">今天</string>
+    <string name="lb_week">本周</string>
+    <string name="lb_total">全部</string>
+    <string name="lb_no_name">未知用户</string>
+    <string name="lb_no_score">没有玩家提交分数，您赶快行动吧。</string>
+    <string name="lb_self_tag">自己</string>
+    <string name="lb_friend_tag">好友</string>
+    <string name="lb_all_tag">全部</string>
+    <string name="title_lb_score">在本排行榜中获得的分数</string>
+    <string name="title_lb_num">排行榜(%s)</string>
+    <string name="lb_rank">第%s名</string>
+    <!-- 成就 -->
+    <string name="title_achieve_num">成就(%s)</string>
+    <string name="achieve_secret">秘密</string>
+    <string name="achieve_secret_tip">您只有解锁完这个成就才能看到描述</string>
+
+    <!-- 游戏分类 -->
+    <string name="game_player_num">%s位玩家玩过</string>
+    <string name="category_newest">最新</string>
+    <string name="category_hotest">最热</string>
+
+    <!-- 游戏详情 -->
+    <string name="game_buy">购买游戏</string>
+	<!--
+    <string name="game_game_button">游戏主页</string>
+	-->
+    <string name="game_leaderboard">排行</string>
+    <string name="game_achievement">成就</string>
+    <string name="game_open">打开游戏</string>
+    <string name="game_price">%s元</string>
+    <string name="game_fav_num">%s位玩家的最爱</string>
+    <string name="game_playing_num">%s位玩家玩过</string>
+    <string name="game_download_num">%s位好友玩过</string>
+
+    <!-- 游戏主页 -->
+    <string name="game_page_leadboard">排行榜</string>
+    <string name="game_page_achievement">成就</string>
+    <string name="game_page_contest">官方大赛</string>
+    <string name="game_page_fans">论坛</string>
+    <string name="game_page_playing">谁在玩</string>
+    <string name="game_page_playing_name">谁在玩(%s等)</string>
+    <string name="game_page_achievement_content">成就（%1$s/%2$s）</string>
+   	<string name="game_no_player">没有玩家玩过此游戏，您赶快试试吧。</string>
+
+   	<string name="please_choose_market">请选择下载市场</string>
+   	<string name="no_market_available">找不到可用的市场，无法下载游戏。</string>
+   	<string name="no_nearme_market">您的手机没有安装NearMe市场，无法下载游戏。</string>
+
+   	<string name="game_not_installed">你还没有下载该游戏</string>
+
+    <string name="fans_club_mark">标记最爱</string>
+    <string name="fans_club_marking">标记中</string>
+    <string name="fans_club_unmarking">取消中</string>
+    <string name="fans_club_unmark">取消最爱</string>
+    <string name="fans_club_marked_done">标记最爱成功，感谢您对游戏的支持</string>
+    <string name="fans_club_unmark_done">取消标记最爱，感谢您的参与</string>
+	<string name="fans_clb_could_not_mark">您没有玩过此游戏，不能将其设为最爱</string>
+    <string name="fans_club_unmark_failed">取消最爱失败，请重试</string>
+    <string name="fans_club_mark_failed">标记最爱失败，请重试</string>
+
+    <string name="fans_club_invite">邀请好友一起玩</string>
+    <string name="fans_club_other_games">开发者的更多游戏</string>
+
+    <!-- 邀请 -->
+    <string name="send_invite_sucess">游戏邀请发送成功</string>
+
+    <!-- 建议 -->
+    <string name="send_suggest_success">建议发送成功，感谢您对游戏的支持</string>
+    <string name="send_suggest_failed">建议发送失败，请稍后重试？</string>
+
+
+	<!-- 动态 -->
+	<string name="feed_of_mine_title">我的动态</string>
+	<string name="feed_of_friend_title">好友动态</string>
+
+
+	<string name="no_feed_of_friend">暂时没有好友动态，赶快去加些吧。</string>
+	<string name="no_feed_of_mine">您暂时没有动态，说说您的心情？</string>
+
+
+    <!-- 论坛 -->
+    <string name="forum_post_reply_num">评论: %s</string>
+    <string name="forum_post_review_num">查看: %s</string>
+    <string name="forum_post_floor">%s楼</string>
+    <string name="forum_no_post">暂时没有帖子</string>
+
+    <string name="forum_new_post">发表新帖</string>
+    <string name="send_post_success">发布新帖成功</string>
+    <string name="send_post_failed">网络原因提交失败，请稍后重试。</string>
+    <string name="send_post_within_interval">您发帖太频繁了，歇一会再发帖吧\u2026</string>
+
+    <!-- 帖子 -->
+    <string name="forum_post_word_more">查看全文</string>
+    <string name="forum_post_word_shrink">点击收起</string>
+    <string name="forum_post_detail">帖子详情</string>
+    <string name="no_reply_for_post">该帖子没有人回复，赶快来抢沙发吧。</string>
+
+    <string name="no_hot_post">暂时没有热帖</string>
+
+
+     <!-- 关于 -->
+    <string name="about_version">版\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020本：</string>
+    <string name="about_web">官网网址：</string>
+    <string name="about_qq">QQ客服\u0020\u0020：</string>
+    <string name="about_email">联系邮箱：</string>
+    <string name="about_weibo">新浪微博：</string>
+
+    <string name="value_about_web"><u>http://www.nearme.com.cn</u></string>
+    <string name="value_about_qq">373333904</string>
+    <string name="value_about_email"><u>xuhaoxiang@nearme.com.cn</u></string>
+    <string name="value_about_weibo">\@NearMe游戏中心</string>
+	<string name="about_help"><u>帮\u0020\u0020助</u></string>
+
+    <!-- 反馈 -->
+    <string name="send_platform_suggest_failed">反馈提交失败, 请稍后重试?</string>
+
+
+    <!-- 网络 -->
+    <string name="network_error_dialog_title">温馨提示</string>
+    <string name="network_error_msg">您的网络好像不通畅哦!是否设置网络?</string>
+
+
+    <!-- 网络返回状态信息 -->
+	<!--
+    <string name="status_right">正常</string>
+	-->
+
+    <!-- 设置 （菜单） -->
+    <string name="setting_menu_title_person">设置个人信息</string>
+    <string name="setting_menu_title_clean">清理图片缓存</string>
+    <string name="setting_menu_clean_content">是否清理系统缓存?</string>
+    <string name="setting_menu_clean_doing">正在清理缓存，请稍等。</string>
+    <string name="setting_menu_title_other_setting">其他设置</string>
+    <string name="setting_menu_title_notify_enabled">通知栏私信提醒</string>
+    <string name="setting_menu_title_update">检查更新</string>
+
+    <string name="setting_menu_clean_done">缓存文件清理完毕！</string>
+	<!--
+    <string name="seeting_dialog_title">检测更新</string>
+	-->
+
+  	<!-- 时间 -->
+ 	<string name="minute_before">分钟前</string>
+ 	<string name="hour_before">小时前</string>
+ 	<string name="year">年</string>
+ 	<string name="month">月</string>
+ 	<string name="day1">日</string>
+ 	<string name="day">天</string>
+ 	<string name="hour">小时</string>
+ 	<string name="minute">分钟</string>
+ 	<string name="seconds">秒</string>
+ 	<string name="justnow">刚刚</string>
+
+ 	<!-- 以下不需要翻译 -->
+    <!-- 链接 -->
+    <string name="href_tag_name">nearmegamecenter</string>
+    <string name="href_name_user">user</string>
+    <string name="href_name_game">game</string>
+    <string name="href_name_contest">contest</string>
+    <string name="href_name_login">login</string>
+
+    <string name="key_reply_user">key_reply_user</string>
+    <string name="key_reply_id">key_reply_id</string>
+
+    <string name="key_id">key_id</string>
+    <string name="key_name">key_name</string>
+    <string name="key_sex">key_sex</string>
+
+    <string name="key_url">key_url</string>
+    <string name="key_original_type">key_original_type</string>
+    <string name="key_original_id">key_original_id</string>
+
+    <string name="key_position">key_position</string>
+
+    <string name="key_prompt_object">key_prompt_object</string>
+    <string name="key_prompt_status">key_prompt_status</string>
+
+    <string name="key_type">key_type</string>
+    <string name="key_notice">key_notice</string>
+
+    <!-- 状态 -->
+    <string name="key_status">key_status</string>
+
+    <!-- 标签 -->
+    <string name="key_no_data_tip">no data tip</string>
+
+	<!-- 注册 -->
+	<string name="register_page_progress">%s\%</string>
+
+	<string name="loginUrl">http://uc1.wanyol.com:8087/user_login</string>
+	<string name="registerUrl">http://uc1.wanyol.com:8087/newuser/index.jsp</string>
+</resources>
+

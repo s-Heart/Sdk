@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <item name="com.nearme.gamecenter.open.demo.HallPayActivity">
+        <title>平台货币充值</title>
+    	<description>平台货币充值</description>
+    </item>
+</config>

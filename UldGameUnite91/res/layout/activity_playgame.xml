@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/tvGameInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/uld_ingame" />
+
+    <Button
+        android:id="@+id/btnRecharge"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:text="@string/uld_recharge" />
+
+    <Button
+        android:id="@+id/btnViewUserInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:text="@string/uld_viewuserinfo" />
+
+    <Button
+        android:id="@+id/btnGotoPlatForm"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:visibility="gone"
+        android:text="进入平台" />
+
+    <Button
+        android:id="@+id/btnBBS"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nd_btn_bbs" />
+
+    <Button
+        android:id="@+id/btnUserFeedBack"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/nd_btn_userfeedback" />
+
+</LinearLayout>

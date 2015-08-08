@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/welcome" >
+
+
+        <LinearLayout
+            android:id="@+id/bar_father"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical" 
+            android:gravity="center">
+            <TextView
+                android:id="@+id/bar_tip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:text=""
+                android:visibility="visible" />
+        </LinearLayout>
+        
+        <TextView 
+            android:id="@+id/logout_notice"
+            android:layout_width="fill_parent"
+            android:layout_height="50dip"
+            android:layout_centerInParent="true"
+            android:background="#99000000"
+            android:textColor="#FFFFFFFF"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:layout_alignParentBottom="true"
+            android:paddingTop="12dip"
+            android:text="@string/logout_notice"
+            android:visibility="gone"
+            />
+        <ImageButton 
+            android:id="@+id/logout_entry"
+            android:layout_width="100dip"
+            android:layout_height="100dip"
+            android:background="#00000000"
+            android:scaleType="fitCenter"
+            android:layout_toLeftOf="@+id/logout_exit"
+            android:src="@drawable/com_lenovo_lsf_logout_entry"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="85dip"
+            />
+        <ImageButton 
+            android:id="@+id/logout_exit"
+            android:layout_width="75dip"
+            android:background="#00000000"
+            android:layout_height="75dip"
+            android:scaleType="fitCenter"
+            android:src="@drawable/com_lenovo_lsf_logout_exit"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="85dip"
+            />
+
+</RelativeLayout>

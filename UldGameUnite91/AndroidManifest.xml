@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.xuehu.aj.aj91"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 91社区 -->
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+    <!-- 91社区 -->
+
+
+    <!-- 91社区 -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- 91社区 -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_uc"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="uldAppId"
+            android:value="\0106670" />
+        <meta-data
+            android:name="uldAppKey"
+            android:value="b67abdb22bfd16d36dcf0328f48f2193476f32ca1ee8452f" />
+
+        <!-- 游戏本身界面 -->
+        <activity
+            android:name="uld.game.unite.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="sensor" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cn.cmgame.billing.ui.GameOpenActivity"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="uld.game.unite.PlayGameActivity"
+            android:screenOrientation="sensor" />
+
+        <!-- 游老大sdk界面 -->
+        <activity
+            android:name="uld.sdk.InitActivity"
+            android:theme="@style/MyDialogStyle" />
+        <activity android:name="uld.sdk.LoginActivity" />
+        <activity android:name="uld.sdk.RechargeActivity" />
+        <activity android:name="uld.sdk.RegisterResultActivity" />
+        <activity android:name="uld.sdk.RegisterActivity" />
+        <activity android:name="uld.sdk.RechargeConfirmActivity" />
+        <activity android:name="uld.sdk.RechargeConfirmAliActivity" />
+        <activity android:name="uld.sdk.RechargeWaitingActivity" />
+        <activity android:name="uld.sdk.ForgetPasswordActivity" />
+        <activity android:name="uld.sdk.ModifyPasswordActivity" />
+        <!-- 游老大界面结束 -->
+
+
+        <!-- 游老大sdk界面 -->
+        <activity android:name="uld.sdkui.LoginActivity" />
+        <activity android:name="uld.sdkui.RechargeActivity" />
+        <activity android:name="uld.sdkui.RegisterResultActivity" />
+        <activity android:name="uld.sdkui.RegisterActivity" />
+        <activity android:name="uld.sdkui.RechargeConfirmActivity" />
+        <activity android:name="uld.sdkui.RechargeConfirmAliActivity" />
+        <activity android:name="uld.sdkui.RechargeWaitingActivity" />
+        <activity android:name="uld.sdkui.ForgetPasswordActivity" />
+        <activity android:name="uld.sdkui.ModifyPasswordActivity" />
+        <activity android:name="uld.sdkui.RechargeBaoruanActivity" />
+        <activity android:name="uld.sdkui.RechargeConfirmBaoruanActivity" />
+        <!-- 游老大界面结束 -->
+
+
+        <!-- 游老大银联  开始 -->
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SplashActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.init.test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.IndexActivityGroup"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.index.test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.HomeActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.PayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AccountActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.BankCardInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SupportCardActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.UserProtocolActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AboutActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 游老大银联  结束 -->
+
+        <activity
+            android:name="com.shandagames.gameplus.sdk.lite.api.pay.PayActivity"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name="com.shandagames.gameplus.push.PushService"
+            android:label="GamePlus Push Service" />
+        <service android:name="com.shandagames.gameplus.push.ApkDownloadService" />
+
+        <receiver android:name="com.shandagames.gameplus.push.PushReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+                <category android:name="android.intent.category.Home" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.shandagames.gameplus.intent.action.LAUNCH" />
+            </intent-filter>
+        </receiver>
+
+        <!-- 91社区 -->
+        <activity
+            android:name="com.nd.commplatform.activity.SNSControlCenterActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowBackground="@null"
+            android:windowSoftInputMode="adjustPan" >
+        </activity>
+        <activity
+            android:name="com.nd.commplatform.activity.SNSLoginActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowBackground="@null"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name="com.nd.commplatform.gc.activity.ForumActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape" />
+
+        <receiver
+            android:name="com.nd.commplatform.versionupdate.ND2VersionUpdateNotify"
+            android:exported="false"
+            android:process="android.intent.nd.sns.commplatform.versionupdate" />
+
+        <service
+            android:name="com.nd.commplatform.versionupdate.ND2VersionUpdateService"
+            android:exported="false"
+            android:process="android.intent.nd.sns.commplatform.versionupdate" />
+        <service
+            android:name="com.nd.commplatform.service.NdNewMessageNotification"
+            android:enabled="true"
+            android:exported="false" />
+
+        <activity
+            android:name="com.nd.commplatform.activity.SNSAppPromotionActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowBackground="@null"
+            android:windowSoftInputMode="adjustPan" />
+
+        <service
+            android:name="com.nd.commplatform.service.NdDownloadService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":com.nd.commplatform.download" />
+        <!-- 91社区 -->
+
+
+        <!-- 支付宝钱包 -->
+        <activity
+            android:name="com.alipay.android.app.sdk.WapPayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 支付宝钱包 -->
+
+    </application>
+
+</manifest>

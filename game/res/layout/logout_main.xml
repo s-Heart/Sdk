@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/params"
+        android:gravity="center"
+        android:text="返回结果显示"
+        android:textColor="#f00"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/params"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="成功:" />
+
+            <EditText
+                android:id="@+id/success"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:hint="注销成功 的提示" />
+
+            <!-- <EditText -->
+            <!-- android:id="@+id/fail" -->
+            <!-- android:layout_width="fill_parent" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:hint="在此输入 自定义 登录失败 弹出的提示" /> -->
+
+
+            <!-- <EditText -->
+            <!-- android:id="@+id/cancle" -->
+            <!-- android:layout_width="fill_parent" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:hint="在此输入 关闭SDK登录框 弹出的提示" /> -->
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="点击注销" />
+    </LinearLayout>
+
+</RelativeLayout>

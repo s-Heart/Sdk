@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.xuehu.aj.aj17173"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <!-- 17173 begin -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 17173 end -->
+    
+    <!--
+    	如果渠道是小米，
+    	请在application 加点中加入
+    	android:name="uld.sdk.others.SdkXiaoMi"
+    -->
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_uc"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data
+            android:name="gameId"
+            android:value="\017" />
+        <meta-data
+            android:name="gameSecret"
+            android:value="\059746684b5fabfbec78e20ecbde1110e" />
+        <meta-data
+            android:name="distributionChannel"
+            android:value="\04" />
+        <meta-data
+            android:name="vendorName"
+            android:value="chuanglianshixun" />
+
+        <!-- 游戏本身界面 -->
+        <activity
+            android:name="uld.game.unite.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="cn.cmgame.billing.ui.GameOpenActivity"
+            android:screenOrientation="sensor"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="uld.game.unite.PlayGameActivity"
+            android:screenOrientation="landscape" />
+
+
+
+    </application>
+
+</manifest>

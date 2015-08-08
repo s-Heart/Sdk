@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">游老大_傲剑DEMO</string>
+    <string name="menu_settings">菜单</string>
+    <string name="uld_ingame">您已登录游戏</string>
+    <string name="uld_welcome">点击登录游戏</string>
+    <string name="uld_viewuserinfo">查看用户信息</string>
+    <string name="uld_recharge">充值</string>
+    <string name="uld_finish_game">退出游戏</string>
+</resources>

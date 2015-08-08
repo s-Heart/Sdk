@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.xuehu.aj.ajuld"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 银联支付必须权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_uc"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- 游戏本身界面 -->
+        <activity
+            android:name="uld.game.unite.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="uld.game.unite.PlayGameActivity"
+            android:screenOrientation="landscape" />
+
+		<!-- copy -->	
+			
+        <!-- 游老大sdk界面 -->
+        <activity android:name="uld.sdk.LoginActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdk.RechargeActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdk.RegisterResultActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdk.RegisterActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdk.RechargeConfirmActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdk.RechargeConfirmAliActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdk.RechargeWaitingActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdk.ForgetPasswordActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdk.ModifyPasswordActivity" android:screenOrientation="landscape"/>
+        <!-- 游老大界面结束 -->
+
+
+        <!-- 游老大sdk界面 -->
+        <activity android:name="uld.sdkui.LoginActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.RechargeActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.RegisterResultActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.RegisterActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.RechargeConfirmActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.RechargeConfirmAliActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.RechargeWaitingActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.ForgetPasswordActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.ModifyPasswordActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.RechargeBaoruanActivity" android:screenOrientation="landscape"/>
+        <activity android:name="uld.sdkui.RechargeConfirmBaoruanActivity" android:screenOrientation="landscape"/>
+        <!-- 游老大界面结束 -->
+        <activity android:name="uld.sdkui.FinishGameActivity" android:screenOrientation="landscape"/>
+
+        <!-- 游老大银联  开始 -->
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SplashActivity"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.init.test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.IndexActivityGroup"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.index.test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.HomeActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.PayActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AccountActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.BankCardInfoActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SupportCardActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.UserProtocolActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AboutActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <!-- 游老大银联  结束 -->
+		
+		<!-- copy -->
+    </application>
+
+</manifest>

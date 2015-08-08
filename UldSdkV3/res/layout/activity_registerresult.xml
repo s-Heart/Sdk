@@ -1,0 +1,126 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SdkStyle"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterResultActivity" >
+
+    <RelativeLayout
+        style="@style/TitleStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="46dp" >
+
+        <Button
+            android:id="@+id/btnBack"
+            style="@style/TitleButtonTitleLeftStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:text="@string/uld_back"/>
+
+        <TextView
+            style="@style/TitleFontStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/uld_userinfo" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/uld_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/uld_bg_login"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/tvResultTip"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:gravity="center"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/userPasswordInputStyle"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/uld_bg_text_top" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:src="@drawable/uld_img_user" />
+
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/uld_tvcolororange" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/userPasswordInputStyle"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/uld_bg_text_bottom" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:src="@drawable/uld_img_pwdkey" />
+
+                <TextView
+                    android:id="@+id/tvPassword"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/uld_tvcolororange" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            style="@style/doubleMarginLayoutStyle"
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnModifyPassword"
+                style="@style/ButtonShortNormalStyle"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="@string/uld_modifypassword" />
+
+            <Button
+                android:id="@+id/btnBackGame"
+                style="@style/ButtonShortBlueStyle"
+                android:layout_width="155dp"
+                android:layout_alignParentRight="true"
+                android:text="@string/uld_backgame" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

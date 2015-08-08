@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="cpersyncserver"
+  id="myeclipse.1357806141922"
+  context-root="/cpersyncserver"
+  j2ee-spec="5.0"
+  archive="cpersyncserver.war">
+  <attributes>
+    <attribute name="webrootdir" value="Root" />
+  </attributes>
+</project-module>
+

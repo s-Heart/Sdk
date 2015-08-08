@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.lenovo.id.pay.sample"
+    android:installLocation="preferExternal"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="4" />
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name" >
+
+        <!-- sample 配置开始 -->
+        <activity
+            android:name="com.lenovo.id.pay.sample.GameLauncherActivity"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="lenovoid.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.lenovo.id.pay.sample.PayActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        <!-- sample 配置结束 -->
+
+
+        <!-- 支付配置开始 -->
+        <activity
+            android:name="com.lenovo.mpay.ifmgr.PayManagerActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
+        <!-- 银联 -->
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.SplashActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.CardMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.PayMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.PayItActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.PayResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.AccountMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.ChooseBankActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.GetpassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.ResetpassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.EditpassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.EditinfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.AddCardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.AddCardFromAuthActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.UserProtocalActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.CheckCardBalanceActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.CardInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.CardBalanceResultActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.unionpay.upomp.bypay.activity.CardBankResultActivity"
+            android:screenOrientation="portrait" />
+        <!-- 一键支付 -->
+        <activity
+            android:name="com.fastpay.sdk.activity.FastPay"
+            android:configChanges="keyboardHidden|orientation|screenSize|navigation"
+            android:launchMode="singleTop"
+            android:screenOrientation="behind"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- 易联 -->
+        <activity
+            android:name="com.payeco.android.plugin.PayecoPluginLoadingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.payeco.android.plugin.PayecoOrderDetailActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.payeco.android.plugin.PayecoPayResultActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.payeco.android.plugin.PayecoWebViewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="com.payeco.android.plugin.PayecoRiskControlActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <!-- 易联 -->
+        <!-- 支付配置结束 -->
+
+
+        <!-- lenovo id 配置开始 -->
+        <!-- 是否显示第三方登录界面配置，详见文档document/Lenovo ID for android 应用开发指南.doc -->
+        <meta-data
+            android:name="isThirdPartyLoginHide"
+            android:value="hiden" >
+        </meta-data>
+        <!-- 用配置的方法 获取realm -->
+		<meta-data android:name="lenovoid:realm" android:value="lenovoid_example.lenovo.com"/>
+        <!-- 第三方应用的登陆需配置的名称 -->
+        <meta-data android:name="lenovoid:threadPatyAppName" android:value="测试应用名称" />
+        <!-- 配置欢迎浮动工具栏显示时间（0到10秒）时间>10则按照默认5秒显示，时间<=0则不显示欢迎浮动工具栏，不做配置将默认显示5秒-->
+        <meta-data android:name="lenovoid:welcomeFrame" android:value="5"/>
+
+         <!-- 配置splash界面 -->
+        <!-- WelcomeActivity必须通过android:screenOrientation属性来配置splash界面强制横屏或竖屏，默认横屏 -->
+		<activity
+            android:name="com.lenovo.lsf.account.WelcomeActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:windowSoftInputMode="stateHidden" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <!-- 配置splash界面完毕 -->
+        
+        <activity android:name="com.lenovo.lsf.account.PsUserSettingActivity" 
+                  android:configChanges="orientation|keyboard|keyboardHidden"
+                  android:launchMode="singleTask">
+			<intent-filter>
+				<action android:name="android.intent.action.USERSETTING" />
+				<action android:name="android.intent.action.MAIN" />
+			</intent-filter>
+		</activity>
+
+		<activity 
+		    android:name="com.lenovo.lsf.account.PsLoginActivity"
+            android:label="@string/com_lenovo_lsf_ui_name" 
+ 		    android:theme="@style/com_lenovo_lsf_ui"
+ 		    android:launchMode="singleTask"
+ 		    android:windowSoftInputMode="stateHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.LOGINREGISTER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="com.lenovo.lsf.sdk.test.openapp.lenovoid" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name="com.lenovo.lsf.account.ChangePasswordActivity"
+            android:label="@string/com_lenovo_lsf_ui_name" 
+ 		    android:theme="@style/com_lenovo_lsf_ui"
+ 		    android:windowSoftInputMode="stateHidden"
+ 		    android:configChanges="orientation|keyboardHidden"
+ 		    >
+            <intent-filter>
+                <action android:name="android.intent.action.CHANGEPASSWORD" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.lenovo.lsf.account.ForgetPasswordActivity"
+            android:label="@string/com_lenovo_lsf_ui_name" 
+ 		    android:theme="@style/com_lenovo_lsf_ui"
+ 		    android:windowSoftInputMode="stateHidden"
+ 		    android:configChanges="orientation|keyboardHidden"
+ 		    >
+            <intent-filter>
+                <action android:name="android.intent.action.FORGETPASSWORD" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.lenovo.lsf.account.ForgetResultActivity"
+            android:label="@string/com_lenovo_lsf_ui_name" 
+ 		    android:theme="@style/com_lenovo_lsf_ui"
+ 		    android:configChanges="orientation|keyboardHidden"
+ 		    >
+            <intent-filter>
+                <action android:name="android.intent.action.FORGETRESULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.lenovo.lsf.account.MyAccountActivity"
+            android:label="@string/com_lenovo_lsf_ui_name" 
+ 		    android:theme="@style/com_lenovo_lsf_ui"
+ 		    android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MYACCOUNT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.lenovo.lsf.account.AccountBindingActivity"
+            android:label="@string/com_lenovo_lsf_ui_name" 
+ 		    android:theme="@style/com_lenovo_lsf_ui"
+ 		    android:windowSoftInputMode="stateHidden"
+ 		    android:configChanges="orientation|keyboardHidden"
+ 		    >
+        </activity>
+        <activity
+            android:name="com.lenovo.lsf.account.ThirdLoginWebView"
+            android:label="@string/com_lenovo_lsf_ui_name" 
+ 		    android:theme="@style/com_lenovo_lsf_ui"
+ 		    android:windowSoftInputMode="stateHidden"
+ 		    android:configChanges="orientation|keyboardHidden"
+ 		    >
+        </activity>
+        <activity
+            android:name="com.lenovo.lsf.account.WebViewActivity"
+            android:label="@string/com_lenovo_lsf_ui_name" 
+ 		    android:theme="@style/com_lenovo_lsf_ui"
+ 		    android:windowSoftInputMode="stateHidden"
+ 		    android:configChanges="orientation|keyboardHidden"
+ 		    >
+        </activity>
+        
+        <activity 
+		    android:name="com.lenovo.lsf.account.KeyLoginActivity"
+ 		    android:theme="@android:style/Theme.Translucent"
+ 		    android:windowSoftInputMode="stateHidden"
+ 		    android:configChanges="orientation|keyboardHidden">
+        </activity>
+
+        <meta-data
+            android:name="lenovo:isTestMode"
+            android:value="true" />
+        <!--  配置分配给应用的数据采集 appkey,详见文档document/Lenovo ID for android 应用开发指南.doc -->
+        <meta-data
+            android:name="lenovo:applicationToken" android:value="OBBN6VK2RJ7U" />
+        <!--  配置分配给应用的数据采集 appkey结束 -->
+        <!-- 应用名称,详见文档document/Lenovo ID for android 应用开发指南.doc -->
+        <meta-data android:name="threadPatyAppName" android:value="hello" />
+                
+        <!-- lenovo id 配置结束 -->
+    </application>
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+    <!-- 权限添加请参考Lenovo ID for android 应用开发指南.doc和document/联想微支付平台Android SDK使用文档_V3.3.5.pdf-->
+    <!-- common -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- sms pay -->
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
+    <!-- lenovo -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.AUTHENTICATE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" >
+    </uses-permission>
+
+    <!-- 易联 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    
+</manifest>

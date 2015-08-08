@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="dcn_title_button_choosed">#7f7e77</color>
+    <color name="dcn_title_button_unchoosed">#53534a</color>
+    <color name="dcn_title_button_tag">#f39800</color>
+    <color name="dcn_hint">#d4d3d3</color>
+    <color name="dcn_text_status">#d4d3d3</color>
+    <color name="dcn_login_line">#eae6df</color>
+    <color name="dcn_info_bg">#fbf9f4</color>
+    <color name="dcn_info_title_text">#53534a</color>
+    <color name="dcn_info_text">#99988f</color>
+    <color name="dcn_info_button">#e43916</color>
+    <color name="dcn_info_title_text_choosed">#f35c3e</color>
+    <color name="dcn_info_line">#f2f1ef</color>
+    <color name="dcn_charge_line">#f1e8df</color>
+    <color name="dcn_transparent">#00000000</color>
+    <color name="dcn_charge_info_text">#4d4c47</color>
+    <color name="dcn_info_hint_text">#d0130d</color>
+    <color name="dcn_black">#000000</color>
+    <color name="dcn_white">#ffffff</color>
+    <color name="dcn_help_chapter_first_level_title">#030200</color>
+    <color name="dcn_henp_chapter_sencond_level_title">#51524d</color>
+    <color name="dcn_henp_chapter_sencond_level_content">#787878</color>
+    <color name="dcn_color_read_all_msg_enable">#f36f20</color>
+    <color name="dcn_color_read_all_msg_disable">#a1a1a1</color>
+</resources>

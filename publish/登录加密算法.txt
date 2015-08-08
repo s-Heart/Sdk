@@ -1,0 +1,76 @@
+2013-11-12 09:57修改
+传递参数
+userid      用户编号
+channelid   渠道编号
+channelname 渠道名称
+timesign    加密时间   
+  
+
+其中
+timesign =  RSA({"addvalue":"1","channelid":"13","md5":"8C5EABE5012EA60BEF37742D54E9C607","time": "2013-11-11 15:26:32","userid":"uld123456"})
+                按照 字母顺序排序
+MD5 = MD5(time + addValue + channelid + userid);
+
+time:时间字符串如：2013-11-11 15:26:32
+addValue:累加值
+
+
+// 01 解密timeSign
+// 02 校验 md5Sign
+// 03 校验单个用户addValue
+// 04 校验时间，由于服务器存在偏差（建议时间判断不要太精确）
+
+
+
+
+-------------------------------------------------------------
+2013-11-11 15:57修改
+传递参数
+userid      用户编号
+channelid   渠道编号
+channelname 渠道名称
+timesign    加密时间   
+  
+
+其中
+timesign =  RSA({"time": "2013-11-11 15:26:32","addValue":"1","channelid":"13","userid":"uld123456","MD5":"8C5EABE5012EA60BEF37742D54E9C607"})
+                按照 字母顺序排序
+MD5 = MD5(time + addValue + channelid + userid);
+
+time:时间字符串如：2013-11-11 15:26:32
+addValue:累加值
+
+
+// 01 解密timeSign
+// 02 校验 md5Sign
+// 03 校验单个用户addValue
+// 04 校验时间，由于服务器存在偏差（建议时间判断不要太精确）
+
+
+
+----旧版---
+
+传递参数
+userid      用户编号
+channelid   渠道编号
+channelname 渠道名称
+timesign    加密时间   
+  
+
+其中
+timesign =  RSA(time + '_' + addValue + '_' + md5Sign)
+md5Sign = userid + "_" + "channelid" + "_" + time
+
+time:时间字符串如：2013-11-11 15:26:32
+addValue:累加值
+
+timekey:加密key
+
+
+// 01 解密timeSign
+// 02 校验 md5Sign
+// 03 校验单个用户addValue
+// 04 校验时间，由于服务器存在偏差（建议时间判断不要太精确）
+
+
+

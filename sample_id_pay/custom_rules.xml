@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project name="smspay_precom" >
+
+    <!-- this file was created by Fat-Jar Eclipse Plug-in -->
+    <!-- the ANT-Export is in a very early stage, so this -->
+    <!-- is only experimental, ANT 1.6 or above is -->
+    <!-- required, feedback is always welcome: -->
+    <!-- http://sourceforge.net/projects/fjep -->
+    <!-- uncomment the following lines if using ANT outside Eclipse -->
+
+
+    <!-- jar file from where the tasks are loaded -->
+
+
+    <!-- Properties for Fat-Jar Eclipse Plug-in -->
+
+    <target name="-pre-build" >
+    </target>
+
+    <target name="-pre-compile" >
+    </target>
+
+    <target name="-post-compile" >
+    </target>
+
+    <target name="-post-build" >
+
+        <!-- 如果是外部编译，需要拷贝到项目目录 -->
+        <if>
+            <condition>
+                <and>
+                    <isset property="apk_name" />
+                    <isset property="apk_path" />
+                </and>
+            </condition>
+
+            <then>
+
+                <copy
+                    file="${out.final.file}"
+                    tofile="${apk_path}/${apk_name}" />
+
+			
+                <delete file="${out.final.file}" />
+            </then>
+        </if>
+    </target>
+
+</project>

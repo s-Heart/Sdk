@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="Bottom_Btn">
+	<item name="android:textColor">#ffffff</item>
+	<item name="android:textSize">17sp</item> 
+	<item name="android:textStyle">bold</item>
+	<item name="android:shadowColor">#ffffff</item> 
+	<item name="android:shadowRadius">3</item>
+	<item name="android:paddingBottom">8dip</item> 
+	</style>
+	<style name="qianbaihui">
+	<item name="android:textColor">#ffffff</item>
+	<item name="android:textSize">25sp</item> 
+	<item name="android:textStyle">bold</item>
+	<item name="android:paddingBottom">8dip</item> 
+	</style>
+	<style name="demo_layout">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:background">@drawable/layout_border</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="demo_btn">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
+</resources>

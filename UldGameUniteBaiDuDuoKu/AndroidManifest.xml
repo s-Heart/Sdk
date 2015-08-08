@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.xuehu.aj.DK"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="7"
+        android:targetSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 百度多酷 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.WRITE_SMS" />
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <!-- 百度多酷 -->
+
+
+    <!-- 银联支付必须权限 -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_uc"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- 百度多酷 -->
+        <meta-data
+            android:name="DUOKUSDK_CHANNEL"
+            android:value="700" />
+
+        <activity
+            android:name="com.duoku.platform.ui.DKPaymentCenterActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKLoginActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround.NoAnimation" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKAccountManagerActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround.NoAnimation" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKLoginBdActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround.NoAnimation" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKRegisterActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround.NoAnimation" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKFindPwdHintActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:excludeFromRecents="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround.NoAnimation" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKLicenceActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:excludeFromRecents="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround.NoAnimation" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKReqBindPhoneActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:excludeFromRecents="true"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround.NoAnimation" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKFindPwdActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround.NoAnimation" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKPrefectureActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround.NoAnimation" >
+        </activity>
+        
+        <!-- 多酷中最新添加的 -->
+        <activity
+            android:name="com.duoku.platform.ui.DKContainerActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:screenOrientation="landscape"
+            android:theme="@style/StyledIndicators" >
+        </activity>
+        <activity
+            android:name="com.duoku.platform.ui.DKPaycenterActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:screenOrientation="landscape"
+            android:theme="@style/DK.Theme.NoBackGround" >
+        </activity>
+
+        <!-- 多酷中最新添加的 -->
+        
+        <service android:name="com.duoku.platform.service.DKSuspensionService" />
+
+        <!-- push service client -->
+        <receiver android:name="com.duoku.platform.push.PushMessageReceiver" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.MESSAGE" />
+                <action android:name="com.baidu.android.pushservice.action.RECEIVE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.CLICK" />
+            </intent-filter>
+        </receiver>
+
+        <!-- push service -->
+        <receiver
+            android:name="com.baidu.android.pushservice.PushServiceReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="com.baidu.android.pushservice.action.notification.SHOW" />
+                <action android:name="com.baidu.android.pushservice.action.media.CLICK" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.baidu.android.pushservice.RegistrationReceiver"
+            android:process=":bdservice_v1" >
+            <intent-filter>
+                <action android:name="com.baidu.android.pushservice.action.METHOD" />
+                <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name="com.baidu.android.pushservice.PushService"
+            android:exported="true"
+            android:process=":bdservice_v1" />
+        <!-- 百度多酷 -->
+
+
+        <!-- 游戏本身界面 -->
+        <activity
+            android:name="uld.game.unite.MainActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:label="@string/app_name"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="uld.game.unite.PlayGameActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+
+        <!-- 游老大sdk界面 -->
+        <activity android:name="uld.sdk.LoginActivity" />
+        <activity android:name="uld.sdk.RechargeActivity" />
+        <activity android:name="uld.sdk.RegisterResultActivity" />
+        <activity android:name="uld.sdk.RegisterActivity" />
+        <activity android:name="uld.sdk.RechargeConfirmActivity" />
+        <activity android:name="uld.sdk.RechargeConfirmAliActivity" />
+        <activity android:name="uld.sdk.RechargeWaitingActivity" />
+        <activity android:name="uld.sdk.ForgetPasswordActivity" />
+        <activity android:name="uld.sdk.ModifyPasswordActivity" />
+        <!-- 游老大界面结束 -->
+
+
+        <!-- 游老大sdk界面 -->
+        <activity android:name="uld.sdkui.LoginActivity" />
+        <activity android:name="uld.sdkui.RechargeActivity" />
+        <activity android:name="uld.sdkui.RegisterResultActivity" />
+        <activity android:name="uld.sdkui.RegisterActivity" />
+        <activity android:name="uld.sdkui.RechargeConfirmActivity" />
+        <activity android:name="uld.sdkui.RechargeConfirmAliActivity" />
+        <activity android:name="uld.sdkui.RechargeWaitingActivity" />
+        <activity android:name="uld.sdkui.ForgetPasswordActivity" />
+        <activity android:name="uld.sdkui.ModifyPasswordActivity" />
+        <activity android:name="uld.sdkui.RechargeBaoruanActivity" />
+        <activity android:name="uld.sdkui.RechargeConfirmBaoruanActivity" />
+        <!-- 游老大界面结束 -->
+        <activity android:name="uld.sdkui.FinishGameActivity" />
+
+        <!-- 游老大银联  开始 -->
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SplashActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.init.test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.IndexActivityGroup"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.index.test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.HomeActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.PayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AccountActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.BankCardInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SupportCardActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.UserProtocolActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AboutActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 游老大银联  结束 -->
+
+    </application>
+
+</manifest>

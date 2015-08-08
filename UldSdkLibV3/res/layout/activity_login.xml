@@ -1,0 +1,173 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SdkStyle"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    tools:context=".LoginActivity" >
+
+    <RelativeLayout
+        style="@style/TitleStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="46dp" >
+
+        <Button
+            android:id="@+id/btnClose"
+            style="@style/TitleButtonTitleLeftStyle"
+            android:layout_width="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:text="@string/uld_close" />
+
+        <TextView
+            style="@style/TitleFontStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/uld_logintitle" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            style="@style/TitleButtonTitleNormalStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:text="@string/uld_registertitle" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/uld_bg"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/uld_bg_login"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                style="@style/userPasswordInputStyle"
+                android:layout_marginTop="20dp"
+                android:layout_height="46dp"
+                android:background="@drawable/uld_bg_text_top"
+                android:gravity="center_vertical" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+					android:layout_marginTop="8dp"
+                    android:layout_marginLeft="13dp"
+                    android:src="@drawable/uld_img_user" />
+
+                <EditText
+                    android:id="@+id/txtUserName"
+                    style="@style/EditTextStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="50dp"
+                    android:background="@null"
+                    android:hint="@string/uld_inputtip"
+                    android:singleLine="true" />
+
+                <Spinner
+                    android:id="@+id/spUserNames"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/uld_sp_triangle"
+                    android:layout_marginRight="5dp"
+                    android:paddingLeft="200dp" />
+            </RelativeLayout>
+
+            <LinearLayout
+                style="@style/userPasswordInputStyle"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/uld_bg_text_bottom" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="17dp"
+                    android:src="@drawable/uld_img_pwdkey" />
+
+                <EditText
+                    android:id="@+id/txtPassword"
+                    style="@style/EditTextStyle"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_margin="5dp"
+                    android:background="@null"
+                    android:freezesText="true"
+                    android:hint="@string/uld_inputpasswordtip"
+                    android:singleLine="true" />
+            </LinearLayout>
+
+            <RelativeLayout
+                style="@style/userPasswordInputStyle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp" >
+
+                <CheckBox
+                    android:id="@+id/cbRememberPassword"
+                    style="@style/FontSize16Style"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/uld_gray"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:button="@drawable/uld_checkbox"
+                    android:checked="true"
+                    android:text="@string/uld_rememberpassword" />
+
+                <uld.sdk.usercontrols.LinkTextView
+                    android:id="@+id/ltvForgetPassword"
+                    style="@style/FontSize16Style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:autoLink="web"
+                    android:text="@string/uld_forgetpassword" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            style="@style/doubleMarginLayoutStyle"
+            android:layout_width="393dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnLogin"
+                style="@style/ButtonShortNormalStyle"
+                android:layout_width="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:gravity="center"
+                android:text="@string/uld_login" />
+
+            <Button
+                android:id="@+id/btnRegisterQuick"
+                style="@style/ButtonShortBlueStyle"
+                android:layout_width="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:text="@string/uld_quickregister" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

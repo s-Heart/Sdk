@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.xuehu.aj.aj360"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="8" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!-- 添加 360SDK 必需要的权限。Begin -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permisson.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 添加 360SDK 必需要的权限  End -->
+
+
+    <!-- 快捷支付 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 快捷支付 -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_uc"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!-- 游戏本身界面 -->
+        <activity
+            android:name="uld.game.unite.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="sensor" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="uld.game.unite.PlayGameActivity"
+            android:screenOrientation="landscape" />
+
+        <!-- 游老大sdk界面 -->
+        <activity
+            android:name="uld.sdk.InitActivity"
+            android:theme="@style/MyDialogStyle" />
+        <activity android:name="uld.sdk.LoginActivity" />
+        <activity android:name="uld.sdk.RechargeActivity" />
+        <activity android:name="uld.sdk.RegisterResultActivity" />
+        <activity android:name="uld.sdk.RegisterActivity" />
+        <activity android:name="uld.sdk.RechargeConfirmActivity" />
+        <activity android:name="uld.sdk.RechargeConfirmAliActivity" />
+        <activity android:name="uld.sdk.RechargeWaitingActivity" />
+        <activity android:name="uld.sdk.ForgetPasswordActivity" />
+        <activity android:name="uld.sdk.ModifyPasswordActivity" />
+        <!-- 游老大界面结束 -->
+
+
+        <!-- 游老大sdk界面 -->
+        <activity android:name="uld.sdkui.LoginActivity" />
+        <activity android:name="uld.sdkui.RechargeActivity" />
+        <activity android:name="uld.sdkui.RegisterResultActivity" />
+        <activity android:name="uld.sdkui.RegisterActivity" />
+        <activity android:name="uld.sdkui.RechargeConfirmActivity" />
+        <activity android:name="uld.sdkui.RechargeConfirmAliActivity" />
+        <activity android:name="uld.sdkui.RechargeWaitingActivity" />
+        <activity android:name="uld.sdkui.ForgetPasswordActivity" />
+        <activity android:name="uld.sdkui.ModifyPasswordActivity" />
+        <activity android:name="uld.sdkui.RechargeBaoruanActivity" />
+        <activity android:name="uld.sdkui.RechargeConfirmBaoruanActivity" />
+        <!-- 游老大界面结束 -->
+
+
+        <!-- 游老大银联  开始 -->
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SplashActivity"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.init.test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.IndexActivityGroup"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.unionpay.upomp.lthj.android.plugin.index.test" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.HomeActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.PayActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AccountActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.BankCardInfoActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.SupportCardActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.UserProtocolActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name="com.unionpay.upomp.lthj.plugin.ui.AboutActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <!-- 游老大银联  结束 -->
+
+
+        <!-- 添加 360SDK 必需的 Begin -->
+        <activity
+            android:name="com.qihoopay.insdk.activity.ContainerActivity"
+            android:configChanges="fontScale|orientation|keyboardHidden|locale|navigation|screenSize|uiMode"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+        </activity>
+
+        <!-- 添加360SDK必需的activity：com.qihoopp.qcoinpay.QcoinActivity -->
+        <activity
+            android:name="com.qihoopp.qcoinpay.QcoinActivity"
+            android:configChanges="fontScale|orientation|keyboardHidden|locale|navigation|screenSize|uiMode"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize" >
+        </activity>
+
+        <!--
+添加 360SDK 必需的 meta-data：QHOPENSDK_APPKEY。此处 value 为 app_key。请在 360 应用开放平台
+http://open.app.360.cn/?from=open_dt 注册申请 app_key 和 app_secret
+测试appkey: 8689e00460eabb1e66277eb4232fde6f
+正式appkey: 6b98efcc57aae9f26ebd22c7d8c3ad9a
+        -->
+
+        <meta-data
+            android:name="QHOPENSDK_APPID"
+            android:value="201053886" >
+        </meta-data>
+        <meta-data
+            android:name="QHOPENSDK_APPKEY"
+            android:value="5823a17d508c744d0993272e17d52769" >
+        </meta-data>
+        <!--
+添加 360SDK 必需的 meta-data：QHOPENSDK_PRIVATEKEY。此处 value 为 private_key，其生成算法为
+md5(app_secret +”#”+ app_key)，全小写，详细算法请看开发文档附录。
+测试：4e04fe9ac8e2a73cbb27ba52ac076eb9
+正式：463f84dbb558633d26dad165f1f73368
+        -->
+
+        <meta-data
+            android:name="QHOPENSDK_PRIVATEKEY"
+            android:value="fb513940b9e8c2d066b90e3981849198" >
+        </meta-data>
+
+        <!--
+添加 360SDK 可选的 meta-data：QHOPENSDK_CHANNEL。此处 value 由应用方自定义，用于标识应用方的子
+渠道。
+        -->
+
+
+        <!-- 添加 360SDK 必需的 End -->
+
+
+        <!-- Start 快捷支付 -->
+        <activity
+            android:name="cn.paypalm.pppayment.InitialAct"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@style/dialogAct"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name="cn.paypalm.pppayment.UserMessageAct"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@style/dialogAct"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name="cn.paypalm.pppayment.BankcardPayAct"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@style/dialogAct"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name="cn.paypalm.pppayment.SuccessAct"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@style/dialogAct"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name="cn.paypalm.pppayment.BankcardAgreement"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="behind"
+            android:theme="@style/dialogAct"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <!-- 快捷支付 End -->
+
+    </application>
+
+</manifest>

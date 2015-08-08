@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="返回结果显示"
+        android:textColor="#f00"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/productId"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
+        android:hint="道具ID:必须填写"
+        android:text="1111"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/productName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="1111"
+        android:hint="道具名称:必须填写" />
+
+    <EditText
+        android:id="@+id/orderId"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="1111"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyz"
+        android:hint="订单ID:必须填写" />
+
+    <EditText
+        android:id="@+id/price"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="1111"
+        android:hint="购买道具的单价(虚拟币):必须填写"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/quantity"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="购买道具的数量(虚拟币):必须填写"
+        android:text="1"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:text="点击弹出支付界面" />
+
+</LinearLayout>

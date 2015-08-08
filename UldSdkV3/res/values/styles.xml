@@ -1,0 +1,152 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="FontWhiteStyle">
+        <item name="android:textColor">@color/uld_white</item>
+    </style>
+
+    <style name="FontBlackStyle">
+        <item name="android:textColor">@color/uld_black</item>
+    </style>
+
+    <style name="FontSize16Style" parent="FontBlackStyle">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="EditTextStyle" parent="FontBlackStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:textColor">@color/uld_tvcolor</item>
+    </style>
+
+    <style name="ButtonShortNormalStyle" parent="FontBlackStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/uld_btnbg_shortnormal_style</item>
+        <item name="android:textColor">@color/uld_gray</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <style name="ButtonShortBlueStyle" parent="FontWhiteStyle">
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@drawable/uld_btnbg_shortblue_style</item>
+        <item name="android:textColor">@color/uld_white</item>
+        <item name="android:layout_height">40dp</item>
+    </style>
+
+    <style name="SdkStyle">
+        <item name="android:background">@color/uld_bg</item>
+    </style>
+
+    <style name="TitleStyle" parent="FontWhiteStyle">
+        <item name="android:background">@drawable/uld_titlebj</item>
+    </style>
+
+    <style name="TitleFontStyle" parent="FontWhiteStyle">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TitleButtonTitleLeftStyle" parent="FontWhiteStyle">
+        <item name="android:background">@drawable/uld_btn_titleleft_style</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+
+    <style name="TitleButtonTitleNormalStyle" parent="FontWhiteStyle">
+        <item name="android:background">@drawable/uld_btn_titlenormal_style</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="userPasswordInputStyle">
+        <item name="android:layout_marginLeft">27dp</item>
+        <item name="android:layout_marginRight">25dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="doubleMarginLayoutStyle">
+        <item name="android:paddingLeft">35dp</item>
+        <item name="android:paddingRight">35dp</item>
+    </style>
+
+    <style name="ScrollStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:fadingEdge">vertical</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+    <style name="RechargeListTopStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:background">@drawable/uld_bg_layout_paytype_top</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="RechargeListMiddleStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:background">@drawable/uld_bg_layout_paytype_middle</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="RechargeListBottomStyle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:fadingEdge">vertical</item>
+        <item name="android:background">@drawable/uld_bg_layout_paytype_bottom</item>
+    </style>
+
+    <style name="RechargeNoIconPayTypeStringStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:textColor">@color/uld_gray</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+    
+    <!-- 选择充值方式  箭头图片样式 -->
+    <style name="RechargeListTopArrowStyle">
+        <item name="android:layout_width">9dp</item>
+        <item name="android:layout_height">13dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:src">@drawable/uld_icon_arrow</item>
+    </style>
+    
+    <style name="RechargeListMiddleArrowStyle">
+        <item name="android:layout_width">9dp</item>
+        <item name="android:layout_height">13dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:src">@drawable/uld_icon_arrow</item>
+    </style>
+    
+    <style name="RechargeListBottomArrowStyle">
+        <item name="android:layout_width">9dp</item>
+        <item name="android:layout_height">13dp</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:src">@drawable/uld_icon_arrow</item>
+    </style>
+
+</resources>

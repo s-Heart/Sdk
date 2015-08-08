@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="IconText.ListTitle">
+        <item name="android:textColor">@color/topbar_title_color_black</item>
+        <item name="android:textSize">@dimen/title_text_size</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#ffffffff</item>
+        <item name="android:gravity">center</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TabRadioButton.LbTopButton">
+        <item name="android:layout_width">@dimen/title_button_group_width</item>
+        <item name="android:layout_height">@dimen/lb_tab_button_height</item>
+        <item name="android:background">@drawable/tab_button_selector</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:textSize">@dimen/title_button_txt_size</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#ffffffff</item>
+    </style>
+
+    <style name="TabRadioButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:freezesText">false</item>
+    </style>
+
+    <style name="TabRadioButton.LbTopButtonChecked">
+        <item name="android:layout_width">@dimen/title_button_group_width</item>
+        <item name="android:layout_height">@dimen/lb_tab_button_height</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:textSize">@dimen/title_button_txt_size</item>
+        <item name="android:shadowDx">0.0</item>
+        <item name="android:shadowDy">1.0</item>
+        <item name="android:shadowRadius">1</item>
+        <item name="android:shadowColor">#ffffffff</item>
+    </style>
+
+    <style name="IconText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:drawablePadding">@dimen/name_icon_padding_right</item>
+        <item name="android:textColor">@color/topbar_title_color_black</item>
+        <item name="android:textSize">@dimen/info_item_txt_size</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+</resources>

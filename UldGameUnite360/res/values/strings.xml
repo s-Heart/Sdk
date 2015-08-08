@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">游老大游戏DEMO-360</string>
+    <string name="menu_settings">菜单</string>
+    <string name="uld_ingame">您已登录游戏</string>
+    <string name="uld_welcome">点击登录游戏</string>
+    <string name="uld_viewuserinfo">查看用户信息</string>
+    <string name="uld_recharge">充值</string>
+    <string name="nd_btn_userfeedback">反馈入口</string>
+    <string name="nd_btn_bbs">论坛</string>
+    <string name="nd_btn_floatingbar">显示浮动窗</string>
+    <string name="nd_btn_antiaddiction">防沉迷</string>
+    <string name="nd_btn_realnameregister">实名注册</string>
+
+</resources>
