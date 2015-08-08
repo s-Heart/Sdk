@@ -1,0 +1,76 @@
+﻿#Server for local test
+SERVERPORT=9409
+UldServerWelcome=欢迎使用SDK服务端程序 V1.5 2013-11-04  本地测试 测试 Port:
+ConnectionString=jdbc:sqlserver://192.168.20.110;databaseName=ULD;user=sa;password=q`1234;
+
+#楚汉争霸[3]>>>>>>>>>>>>>>>
+
+#360 相关gameId,appKeygameSecret配置  Begin
+360_appId_3=201029126
+360_appKey_3=6b98efcc57aae9f26ebd22c7d8c3ad9a
+360_appSecret_3=33c82a24a2a22f387d882e182f490449
+#360 相关gameId,appKeygameSecret配置  End
+
+#楚汉争霸[3]<<<<<<<<<<<<<<<
+
+
+#火影海贼王[6]>>>>>>>>>>>>>>>
+
+#17173 相关gameId, gameSecret配置  Begin
+#游戏在平台上分配的唯一标识
+17173_gameId_6 = 13
+#游戏平台给游戏分配的一个私密字符串,只有游戏开发商和平台知道，用于通信加密校验
+17173_gameSecret_6 = 099dd58fc308f2e51165c1d1e60c5998
+#17173 相关gameId, gameSecret配置  End
+
+#360 相关gameId,appKeygameSecret配置  Begin
+360_appId_6=201029126
+360_appKey_6=0886ee19727cba35c889165bb02e4245
+360_appSecret_6=c25eea49e62f76cd2dc370f3fbb8f9f0
+#360 相关gameId,appKeygameSecret配置  End
+
+#火影海贼王[6]<<<<<<<<<<<<<<<
+
+
+#火影海贼王测试[7]>>>>>>>>>>>>>>>
+
+#17173 相关gameId, gameSecret配置  Begin
+17173_gameId_7 = 13
+17173_gameSecret_7 = 099dd58fc308f2e51165c1d1e60c5998
+#17173 相关gameId, gameSecret配置  End
+
+#360 相关gameId,appKeygameSecret配置  Begin
+360_appId_7=201029126
+360_appKey_7=0886ee19727cba35c889165bb02e4245
+360_appSecret_7=c25eea49e62f76cd2dc370f3fbb8f9f0
+#360 相关gameId,appKeygameSecret配置  End
+
+#火影海贼王测试[7]<<<<<<<<<<<<<<<
+
+
+#傲剑[8]>>>>>>>>>>>>>>>
+
+#360 相关gameId,appKeygameSecret配置  Begin
+360_appId_8=201053886
+360_appKey_8=5823a17d508c744d0993272e17d52769
+360_appSecret_8=03cc99c73297440aae60c63ee691cffa
+#360 相关gameId,appKeygameSecret配置  End
+
+#17173 相关gameId, gameSecret配置  Begin
+17173_gameId_8 = 17
+17173_gameSecret_8 = 59746684b5fabfbec78e20ecbde1110e
+#17173 相关gameId, gameSecret配置  End
+
+#当乐 相关gameId, gameSecret配置  Begin
+Downjoy_appid_8 = 796
+Downjoy_appkey_8 = rZLwbpKh
+#当乐 相关gameId, gameSecret配置  End
+
+#傲剑处理时间加密
+GAME_TIMESIGN_RSA_PRIVATE_KEY_8=MIICdQIBADANBgkqhkiG9w0BAQEFAASCAl8wggJbAgEAAoGBAMYPHQgg3cQ3KSI8nQ4kTRhUWG79gWrr+/zFomZwrtO8agZbEi7hrDZWbt9w99EwvmezhknuLmv1u2Yl2Ds30DTrsV7Zh9C9ugPlDfmYGdfusE7zttYE3DKwIKc76mkH82yd9cfhez2c8amERrMFwbEZq8ie3320v4WbGwJTwrhTAgMBAAECgYBEludO8VLbqN6t5J/fTeMFEfCuP0yaYq8ZkrfzEgL5gL6XBOL/KVgiWTx8VPr9jwvhjeJrp/ibmrYTYffISkPn8w2sham5aolL5VXgoAYajy8EVrdMLVToR68BWUI7tyiWYN1aJiloFhCXWFYA+yHAaWh+58YizwfbtVi3U+smQQJBAPmZ024d2Om536n6DawoOwQouAv/XXqig8EHjlhhiydgadkd6KPb2XpgI4pd6kYPKoJPQS1i11TaskXoypjJZy0CQQDLIwJnSGkd35V+GnELLgrDnr2NQk/KjS3BFe1kWfpgTNW5hYrrpehtXdjkjaF7t/18pCxNPs8aYcWO5bwlEE1/AkBUpCVeoiB8oduG+JTKXJomvugqqV45yAKF4toSfoGByOAcEFhjuJn3NcLXmSFowJvZtKaVjX8X91GdA2Qwi5vBAkAWAcj034dj0SEk9EBi8a4A22W1tAVo8DqQvItnX8gcPra4zprqRKMVliE1QZLJEHnJ0w9pnvBY71az0He9nDKJAkAQNOd+765RRJmOiMCMqS20CFISJ82BorW42pHo+k09kD73qwC3b8dtl59PMm9YJM3G1IzAdQMfiA0vdwwBiBQx
+GAME_TIMESIGN_RSA_PUBLIC_KEY_8=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDGDx0IIN3ENykiPJ0OJE0YVFhu/YFq6/v8xaJmcK7TvGoGWxIu4aw2Vm7fcPfRML5ns4ZJ7i5r9btmJdg7N9A067Fe2YfQvboD5Q35mBnX7rBO87bWBNwysCCnO+ppB/NsnfXH4Xs9nPGphEazBcGxGavInt99tL+FmxsCU8K4UwIDAQAB
+
+#傲剑[8]<<<<<<<<<<<<<<<
+ 
+ 
+ 

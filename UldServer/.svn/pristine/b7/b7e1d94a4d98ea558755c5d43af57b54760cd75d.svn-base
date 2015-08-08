@@ -1,0 +1,186 @@
+package uld.sdk.bll;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+
+import uld.sdk.model.MessageReturn;
+import uld.sdk.tools.Base64;
+import uld.sdk.tools.Config;
+import uld.sdk.tools.LogHelper;
+import uld.sdk.tools.MyErr;
+import uld.sdk.tools.RSAEncrypt;
+import uld.sdk.tools.RefObject;
+import uld.sdk.tools.Utility;
+
+import com.alibaba.fastjson.JSON;
+
+/**
+ * 文档版本v2.2 最后更新2013年11月5日21:47:44
+ * 
+ * @author 史少杰
+ * 
+ */
+public class UserDownjoy {
+
+	public MessageReturn login(final int gameId, final int ServerId, final int mobileDeviceId, final int statisticAnalysisId,
+			final int channelid, final int channelSubId, final String memberId, String token) {
+		String url = "http://connect.d.cn/open/member/info/";
+		StringBuffer sb = new StringBuffer();
+		sb.append(url);
+		sb.append("?app_id=" + Config.getConfig("Downjoy_appid_" + gameId));
+		sb.append("&mid=" + memberId);
+		sb.append("&token=" + token);
+
+		// 由 token 与 app_key 拼接，再经 MD5 加密后的加密
+		// 串。用来保证接口访问者的合法性。
+		// 生成公式：sig=MD5(token|app_key) （中间有“|”）
+		String sign = token + "|" + Config.getConfig("Downjoy_appkey_" + gameId);
+		String sig = Utility.encodeMD5(sign);
+		sb.append("&sig=" + sig);
+
+		String returnJSON = null;
+		try {
+			returnJSON = Utility.getWebContent(sb.toString());
+		} catch (Exception e) {
+			LogHelper.log(Level.WARNING, e.getMessage());
+		}
+
+		MessageReturn messageReturn = new MessageReturn();
+		if (returnJSON != null) {
+			if (returnJSON.contains("error_msg")) {
+				int beginIndex = returnJSON.indexOf("\":\"") + 3;
+				int endIndex = returnJSON.indexOf("\"}");
+				String errormsg = returnJSON.substring(beginIndex, endIndex);
+				messageReturn.setErrMsg("error_msg:" + errormsg);
+			} else {
+				// 返回成功
+				Map<String, String> tempMap = new HashMap<String, String>();
+
+				DownjoyData jsonObject = JSON.parseObject(returnJSON, DownjoyData.class);
+				// 如果返回成功仍然会返回一个memberid的字段,这时取哪个都一样
+//				final String jsonMemberId = String.valueOf(jsonObject.getMemberId());
+				tempMap.put("memberId", String.valueOf(memberId));
+				tempMap.put("UserName", jsonObject.getUsername());
+
+				// 模拟登录
+				new Thread() {
+					public void run() {
+						LogHelper.log("UserUc->checkSid thread begin" + String.valueOf(ServerId));
+						UserUnite.getInstance().login(gameId, ServerId, channelid, channelSubId, memberId, mobileDeviceId,
+								statisticAnalysisId);
+						LogHelper.log("UserUc->checkSid thread end" + String.valueOf(ServerId));
+					}
+				}.start();
+
+				// 针对于傲剑游戏提供的时间签名
+				setTimeSignForAojian(messageReturn, gameId, tempMap,channelid,memberId);
+			}
+		} else {
+			messageReturn.setErrMsg("请求格式错误");
+		}
+		return messageReturn;
+	}
+
+	// 针对于傲剑游戏提供的时间签名，RSA签名之后将值返回给客户端
+	private void setTimeSignForAojian(MessageReturn messageReturn, final int gameId, Map<String, String> tempMap, int channelid, String memberId) {
+		if (gameId == 8) {
+			RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+			;
+			// 其中
+			// timesign = RSA({"time":
+			// "2013-11-11 15:26:32","addValue":"1","channelid":"13","userid":"uld123456","MD5":"8C5EABE5012EA60BEF37742D54E9C607"})
+			// MD5 = MD5(time + addValue + channelid + userid);
+			String time=Utility.getFormatDate();
+			int addValue = wh.member.bll.HBUser.getInstance().getMaxHbUserId(refMyErr);
+			String channelId=String.valueOf(channelid);
+			String userid=memberId;
+			//TODO: MD5加密排列方式的确定
+			String mD5String=Utility.encodeMD5(time+addValue+channelId+userid);
+			
+			TimeSignObject tso=new TimeSignObject();
+			tso.setTime(time);
+			tso.setAddValue(String.valueOf(addValue));
+			tso.setChannelid(channelId);
+			tso.setUserid(userid);
+			tso.setMD5(mD5String);
+			
+			
+			String timeString=JSON.toJSONString(tso);
+			String timeSign = "";
+
+			try {
+				RSAEncrypt rsaEncrypt = new RSAEncrypt();
+
+				// TODO：Change the constant value to
+				// appConfig.properties.
+				rsaEncrypt.loadPublicKey(Config.getConfig("GAME_TIMESIGN_RSA_PUBLIC_KEY_" + gameId));
+				rsaEncrypt.loadPrivateKey(Config.getConfig("GAME_TIMESIGN_RSA_PRIVATE_KEY_" + gameId));
+
+				byte[] encodeBytes = rsaEncrypt.encrypt(rsaEncrypt.getPublicKey(), timeString.getBytes("UTF-8"));
+				timeSign = Base64.encode(encodeBytes);
+			} catch (Exception e) {
+				LogHelper.log("RSA encode failed. ");
+			}
+
+			tempMap.put("TimeSign", timeSign);
+		}
+		messageReturn.setRetObject(tempMap);
+	}
+
+	/**
+	 * 创建游老大订单
+	 * 
+	 * @param model
+	 * @param channelUserId
+	 * @param channelId
+	 * @param channelSubId
+	 * @param playerId
+	 * @return
+	 */
+	public MessageReturn createOrder(wh.order.model.Order model, String channelUserId, int channelId, int channelSubId, String playerId) {
+		String userName = UserUnite.getUserNameByChannelUserId(channelId, channelSubId, channelUserId);
+		RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+		wh.member.model.User user = wh.member.bll.User.getInstance().getByName(userName, "", 1, refMyErr);
+		int userId = 0;
+		if (user != null) {
+			userId = user.getUserId();
+		}
+
+		model.setUserId(user.getUserId());
+		model.setChargedUserId(user.getUserId());
+		model.setChargedUserName(user.getUserName());
+
+		if (model.getPayAccount() == null) {
+			model.setPayAccount(BigDecimal.ZERO);
+		}
+		if (model.getRealPayAccount() == null) {
+			model.setRealPayAccount(BigDecimal.ZERO);
+		}
+
+		model.setCreateDate(new Date());
+		model.setModifyDate(new Date());
+
+		// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+		model.setServerId(ServerTools.getServerIdBySequenceNumber(model.getGameId(), model.getServerId(), "User17173-createOrder"));
+
+		MessageReturn messageReturn = wh.order.bll.Order.getInstance().createUpdate(model);
+
+		if (Utility.isEmpty(playerId)) {
+			playerId = String.valueOf(userId);
+		}
+
+		wh.order.model.OrderLog orderLog = new wh.order.model.OrderLog();
+		orderLog.setCreateDate(new Date());
+		orderLog.setLogName("playerid");
+		orderLog.setDescription(playerId);
+		/** messageReturn.getRetObject(); "Ret"=="return"; */
+		orderLog.setOrderId(Utility.getInt(messageReturn.getRetObject()));
+		wh.order.bll.OrderLog.getInstance().createUpdate(orderLog);
+
+		return messageReturn;
+	}
+
+}

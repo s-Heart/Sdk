@@ -1,0 +1,403 @@
+﻿package uld.sdk.bll;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Vector;
+import java.util.logging.Level;
+
+import uld.sdk.model.MessageReturn;
+import uld.sdk.tools.Base64;
+import uld.sdk.tools.Config;
+import uld.sdk.tools.LogHelper;
+import uld.sdk.tools.MyErr;
+import uld.sdk.tools.RSAEncrypt;
+import uld.sdk.tools.RefObject;
+import uld.sdk.tools.Utility;
+
+import com.alibaba.fastjson.JSON;
+
+/**
+ * 文档版本：1.0.8 SDK版本：1.0 最后更新：2013年10月24日16:06:05
+ * 
+ * @author 史少杰
+ * 
+ */
+public class User17173 {
+	/** 接口地址 */
+	private static String BASE_URL = "http://gop.37wanwan.com/api/";
+	/** 接口名字 */
+	private String apiName = "verifyUser";
+
+	/** 开发商的名称 */
+	private static String vendor = "chuanglianshixun";
+	/** 时间戳 */
+	private String date;
+	/** SDK版本 */
+	private static String version = "1.0";
+	/** 请求的集合 */
+	private HashMap<String, String> params = new HashMap<String, String>();
+
+	/**
+	 * token用来登陆验证来确定ChannelUserId 其他参数供游老大服务端登陆
+	 * 
+	 * @param gameId
+	 * @param ServerId
+	 * @param mobileDeviceId
+	 * @param statisticAnalysisId
+	 * @param channelid
+	 * @param channelSubId
+	 * @param token
+	 * @return
+	 * @throws Exception
+	 */
+	public MessageReturn login(final int gameId, final int ServerId, final int mobileDeviceId, final int statisticAnalysisId,
+			final int channelid, final int channelSubId, String token) {
+		String url = BASE_URL + apiName;
+		params.put("token", token);
+
+		String returnJSON = null;
+		try {
+			returnJSON = sendPostRequest(url, params, gameId);
+		} catch (Exception e) {
+			LogHelper.log(Level.WARNING, e.getMessage());
+		}
+
+		MessageReturn messageReturn = new MessageReturn();
+		if (returnJSON != null) {
+			if (returnJSON.contains("errorcode")) {
+				int beginIndex = returnJSON.indexOf("\"errcode\":" + 1);
+				int endIndex = returnJSON.indexOf(",");
+				messageReturn.setErrMsg("error:" + returnJSON.substring(beginIndex, endIndex));
+			} else {
+				// 返回成功
+				Map<String, String> tempMap = new HashMap<String, String>();
+				int beginIndex = returnJSON.indexOf(":\"") + 2;
+				int endIndex = returnJSON.indexOf("\"}");
+				final String usergameid = returnJSON.substring(beginIndex, endIndex);
+				// System.out.println("usergameid:" + usergameid);
+				tempMap.put("usergameid", usergameid);
+				tempMap.put("UserName", "");
+
+				// 模拟登录
+				new Thread() {
+					public void run() {
+						LogHelper.log("UserUc->checkSid thread begin" + String.valueOf(ServerId));
+						UserUnite.getInstance().login(gameId, ServerId, channelid, channelSubId, usergameid, mobileDeviceId,
+								statisticAnalysisId);
+						LogHelper.log("UserUc->checkSid thread end" + String.valueOf(ServerId));
+					}
+				}.start();
+
+				// 针对于傲剑游戏提供的时间签名
+				setTimeSignForAojian(messageReturn, gameId, tempMap, channelid, usergameid);
+			}
+		} else {
+			messageReturn.setErrMsg("请求格式错误");
+		}
+		return messageReturn;
+	}
+
+	// 针对于傲剑游戏提供的时间签名，RSA签名之后将值返回给客户端
+	private void setTimeSignForAojian(MessageReturn messageReturn, final int gameId, Map<String, String> tempMap, int channelid,
+			String usergameid) {
+		if (gameId == 8) {
+			RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+			;
+			// 其中
+			// timesign = RSA({"time":
+			// "2013-11-11 15:26:32","addValue":"1","channelid":"13","userid":"uld123456","MD5":"8C5EABE5012EA60BEF37742D54E9C607"})
+			// MD5 = MD5(time + addValue + channelid + userid);
+			String time = Utility.getFormatDate();
+			int addValue = wh.member.bll.HBUser.getInstance().getMaxHbUserId(refMyErr);
+			String channelId = String.valueOf(channelid);
+			String userid = usergameid;
+			// TODO: MD5加密排列方式的确定
+			String md5String = Utility.encodeMD5(time + addValue + channelId + userid);
+			TimeSignObject tso = new TimeSignObject();
+			tso.setTime(time);
+			tso.setAddValue(String.valueOf(addValue));
+			tso.setChannelid(channelId);
+			tso.setUserid(userid);
+			tso.setMd5(md5String);
+
+			String timeString = JSON.toJSONString(tso);
+
+			// 处理截取的字符串存入cutVector中，再将cutVector中的字符串依次加密
+			int timeStringLength = timeString.getBytes().length;
+			int cutLength = 100;
+
+			Vector<String> cutVector = new Vector<String>();
+			for (int i = 0; i < timeStringLength; i += cutLength) {
+				if (i < timeStringLength && timeStringLength / (cutLength + i) != 0) {
+					cutVector.add(timeString.substring(i, i + cutLength));
+				} else {
+					cutVector.add(timeString.substring(i, timeStringLength));
+				}
+			}
+
+			//签名准备
+			String timeSign = "";
+
+			RSAEncrypt rsaEncrypt = new RSAEncrypt();
+
+			try {
+				rsaEncrypt.loadPublicKey(Config.getConfig("GAME_TIMESIGN_RSA_PUBLIC_KEY_" + gameId));
+				rsaEncrypt.loadPrivateKey(Config.getConfig("GAME_TIMESIGN_RSA_PRIVATE_KEY_" + gameId));
+
+				Vector<String> signStrings = new Vector<String>();
+				for (int i = 0; i < cutVector.size(); i++) {
+					byte[] encodeBytes = rsaEncrypt.encrypt(rsaEncrypt.getPublicKey(), cutVector.get(i).getBytes("UTF-8"));
+					signStrings.add(Base64.encode(encodeBytes));
+				}
+
+				Iterator<String> iterator2 = signStrings.iterator();
+				while (iterator2.hasNext()) {
+					timeSign += iterator2.next();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			tempMap.put("TimeSign", timeSign);
+		}
+		messageReturn.setRetObject(tempMap);
+	}
+
+	/**
+	 * 创建游老大订单
+	 * 
+	 * @param model
+	 * @param channelUserId
+	 * @param channelId
+	 * @param channelSubId
+	 * @param playerId
+	 * @return
+	 */
+	public MessageReturn createOrder(wh.order.model.Order model, String channelUserId, int channelId, int channelSubId, String playerId) {
+		String userName = UserUnite.getUserNameByChannelUserId(channelId, channelSubId, channelUserId);
+		RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+		wh.member.model.User user = wh.member.bll.User.getInstance().getByName(userName, "", 1, refMyErr);
+		int userId = 0;
+		if (user != null) {
+			userId = user.getUserId();
+		}
+
+		model.setUserId(user.getUserId());
+		model.setChargedUserId(user.getUserId());
+		model.setChargedUserName(user.getUserName());
+
+		if (model.getPayAccount() == null) {
+			model.setPayAccount(BigDecimal.ZERO);
+		}
+		if (model.getRealPayAccount() == null) {
+			model.setRealPayAccount(BigDecimal.ZERO);
+		}
+
+		model.setCreateDate(new Date());
+		model.setModifyDate(new Date());
+
+		// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+		model.setServerId(ServerTools.getServerIdBySequenceNumber(model.getGameId(), model.getServerId(), "User17173-createOrder"));
+
+		MessageReturn messageReturn = wh.order.bll.Order.getInstance().createUpdate(model);
+
+		if (Utility.isEmpty(playerId)) {
+			playerId = String.valueOf(userId);
+		}
+
+		wh.order.model.OrderLog orderLog = new wh.order.model.OrderLog();
+		orderLog.setCreateDate(new Date());
+		orderLog.setLogName("playerid");
+		orderLog.setDescription(playerId);
+		/** messageReturn.getRetObject(); "Ret"=="return"; */
+		orderLog.setOrderId(Utility.getInt(messageReturn.getRetObject()));
+		wh.order.bll.OrderLog.getInstance().createUpdate(orderLog);
+
+		return messageReturn;
+	}
+
+	// -------------------------三七玩玩提供代码请求token验证用户---------------------------//
+	/**
+	 * 请求网络
+	 * 
+	 * @param path
+	 *            url路径
+	 * @param apiName
+	 *            接口名字
+	 * @param paramsMap
+	 *            参数集合
+	 * @return json字符串
+	 * @throws Exception
+	 */
+	private String sendPostRequest(String path, HashMap<String, String> paramsMap, int gameId) throws Exception {
+		URL url = new URL(path);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("POST");
+		conn.setConnectTimeout(5 * 1000);
+		conn.setReadTimeout(9 * 1000);
+		conn.setDoOutput(true);
+		conn.setRequestProperty("Connection", "Keep-Alive");
+		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+		// 设置请求头
+		conn.setRequestProperty("Accept", "application/json; version=" + version);
+		/** 计算时间戳 */
+		date = getDate();
+		conn.setRequestProperty("Date", date);
+		/** 设置请求头的参数不需要encode */
+		String headerParam = sortParams(paramsMap);
+
+		/** 游戏在平台上分配的唯一标识 */
+		String gameId_17173 = Config.getConfig("17173_gameId_" + gameId);
+		/** 游戏平台给游戏分配的一个私密字符串,只有游戏开发商和平台知道，用于通信加密校验 */
+		String gameSecret_17173 = Config.getConfig("17173_gameSecret_" + gameId);
+
+		conn.setRequestProperty("Authentication", getAuthentication(gameId_17173, gameSecret_17173, vendor, date, apiName, headerParam));
+		/** 设置请求体参数需要encode */
+		String bodyParam = sortEncoderParams(paramsMap);
+		byte[] entitydata = bodyParam.getBytes();
+		conn.setRequestProperty("Content-Length", String.valueOf(entitydata.length)); // 传递数据的长据
+		conn.connect();
+		OutputStream outStream = conn.getOutputStream();
+		outStream.write(entitydata);
+		outStream.flush();
+		outStream.close();
+		// System.out.println("ResponseCode=" + conn.getResponseCode());
+		if (conn.getResponseCode() != 200) {
+			// System.out.println("connent failed !");
+			conn.disconnect();
+			return null;
+		} else {
+			String result = inputStream2String(conn.getInputStream());
+			// System.out.println("connent success !");
+			// System.out.println("result = " + result);
+			conn.disconnect();
+			return result;
+		}
+	}
+
+	/** 将输入流转变为字符串 */
+	public static String inputStream2String(InputStream in) throws IOException {
+		StringBuffer out = new StringBuffer();
+		byte[] b = new byte[4096];
+		for (int n; (n = in.read(b)) != -1;) {
+			out.append(new String(b, 0, n));
+		}
+		String str = out.toString();
+		return str;
+	}
+
+	/**
+	 * 对参数进行排序
+	 * 
+	 * @param params
+	 * @return
+	 */
+	public static String sortParams(HashMap<String, String> params) {
+		List<String> keys = new ArrayList<String>(params.keySet());
+		Collections.sort(keys);
+		String prestr = "";
+		for (String key : keys) {
+			String value = params.get(key);
+			prestr = prestr + key + "=" + value + "&";
+		}
+		prestr = prestr.substring(0, prestr.length() - 1);
+		return prestr;
+	}
+
+	/**
+	 * 对参数进行排序+encode
+	 * 
+	 * @param params
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	public static String sortEncoderParams(HashMap<String, String> params) throws UnsupportedEncodingException {
+		List<String> keys = new ArrayList<String>(params.keySet());
+		Collections.sort(keys);
+		String prestr = "";
+		for (String key : keys) {
+			String value = params.get(key);
+			prestr = prestr + key + "=" + URLEncoder.encode(value, "utf-8") + "&";
+		}
+		prestr = prestr.substring(0, prestr.length() - 1);
+		return prestr;
+	}
+
+	/**
+	 * 生成时间戳
+	 * 
+	 * @return
+	 */
+	private String getDate() {
+		SimpleDateFormat dfs = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss ", Locale.US);
+		return dfs.format(new Date()).toString() + "GMT";
+	}
+
+	/**
+	 * 计算授权号
+	 * 
+	 * @param gameId
+	 * @param gameSecret
+	 * @param vendor
+	 * @param date
+	 * @param apiName
+	 * @param params
+	 * @return
+	 */
+	private static String getAuthentication(String gameId, String gameSecret, String vendor, String date, String apiName, String params) {
+		String sign = getSign(date, apiName, params, gameSecret);
+		String authentication = vendor + " " + gameId + ":" + sign;
+		return authentication;
+	}
+
+	/**
+	 * 计算签名
+	 * 
+	 * @param date
+	 * @param apiName
+	 * @param params
+	 * @param gameSecret
+	 * @return
+	 */
+	private static String getSign(String date, String apiName, String params, String gameSecret) {
+		String str = date + ":" + apiName + ":" + params + ":" + gameSecret;
+		return md5(str);
+	}
+
+	/**
+	 * MD5编码
+	 * 
+	 * @param data
+	 * @return
+	 */
+	public static String md5(String data) {
+		try {
+			MessageDigest md = MessageDigest.getInstance("md5");
+			md.update(data.getBytes());
+			byte[] digest = md.digest();
+			StringBuilder sb = new StringBuilder();
+			for (byte b : digest) {
+				sb.append(String.format("%02x", b & 0xFF));
+			}
+			return sb.toString();
+		} catch (Exception e) {
+			return "";
+		}
+	}
+}

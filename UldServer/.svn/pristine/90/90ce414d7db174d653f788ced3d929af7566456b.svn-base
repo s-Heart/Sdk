@@ -1,0 +1,157 @@
+﻿package uld.sdk.bll;
+
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSON;
+
+import uld.sdk.model.MessageReturn;
+import uld.sdk.nineone.LoginError;
+import uld.sdk.tools.Base64;
+import uld.sdk.tools.Config;
+import uld.sdk.tools.LogHelper;
+import uld.sdk.tools.MyErr;
+import uld.sdk.tools.RSAEncrypt;
+import uld.sdk.tools.RefObject;
+import uld.sdk.tools.Utility;
+import wh.game.model.GameEnum.GameMoneyType;
+
+public class User91 {
+	public MessageReturn login(final int gameId, final int serverId,
+			final int mobiledeviceId, final int statisticAnalysisId,
+			final int channelId, final int channelSubId, String sessionId,
+			final String uid, int appid, String appKey) {
+		MessageReturn messageReturn = new MessageReturn();
+
+		String url = "http://service.sj.91.com/usercenter/AP.aspx";
+		StringBuilder sb = new StringBuilder();
+		sb.append(url);
+		sb.append("?AppId=" + appid);
+		sb.append("&Act=4");
+		sb.append("&Uin=" + uid);
+		String signString = String.valueOf(appid) + String.valueOf(4) + uid
+				+ sessionId + appKey;
+		sb.append("&Sign=" + Utility.encodeMD5(signString));
+		sb.append("&SessionId=" + sessionId);
+		url = sb.toString();
+
+		try {
+			String result = Utility.getWebContent(url);
+			LoginError loginError = JSON.parseObject(result, LoginError.class);
+
+			if (loginError.ErrorCode.equals("1")) {
+				Map<String, String> tempMap = new HashMap<String, String>();
+				tempMap.put("UserId", uid);
+				tempMap.put("UserName", "");
+
+				RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+				wh.game.model.Game game = wh.game.bll.Game.getInstance().get(
+						gameId, refMyErr);
+
+				if (game != null) {
+					tempMap.put("GameRate",
+							String.valueOf(game.getGameMoneyRate()));
+					tempMap.put("GameMoneyType",
+							GameMoneyType.parse(game.getGameMoneyType())
+									.toString());
+				}
+				new Thread() {
+					public void run() {
+						UserUnite.getInstance().login(gameId, serverId,
+								channelId, channelSubId, uid, mobiledeviceId,
+								statisticAnalysisId);
+					}
+				}.start();
+
+				if (gameId == 8) {
+					int addValue = wh.member.bll.HBUser.getInstance()
+							.getMaxHbUserId(refMyErr);
+					String timeString = Utility.getFormatDate() + "_"
+							+ addValue;
+					String timeSign = "";
+
+					try {
+						RSAEncrypt rsaEncrypt = new RSAEncrypt();
+
+						// TODO：Change the constant value to
+						// appConfig.properties.
+						rsaEncrypt.loadPublicKey(Config
+								.getConfig("GAME_TIMESIGN_RSA_PUBLIC_KEY_"
+										+ gameId));
+						rsaEncrypt.loadPrivateKey(Config
+								.getConfig("GAME_TIMESIGN_RSA_PRIVATE_KEY_"
+										+ gameId));
+
+						byte[] encodeBytes = rsaEncrypt.encrypt(
+								rsaEncrypt.getPublicKey(),
+								timeString.getBytes("UTF-8"));
+						timeSign = Base64.encode(encodeBytes);
+					} catch (Exception e) {
+						LogHelper.log("RSA encode failed. ");
+					}
+
+					tempMap.put("TimeSign", timeSign);
+				}
+				messageReturn.setRetObject(tempMap);
+			} else {
+				messageReturn.setErr(-1, loginError.ErrorDesc);
+			}
+		} catch (Exception e) {
+			messageReturn.setErr(-1, "用户登录失败");
+		}
+
+		return messageReturn;
+	}
+
+	public MessageReturn createOrder(wh.order.model.Order model,
+			String channelUserId, int channelId, int channelSubId,
+			String playerId) {
+		String userName = UserUnite.getUserNameByChannelUserId(channelId,
+				channelSubId, channelUserId);
+		RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+		wh.member.model.User user = wh.member.bll.User.getInstance().getByName(
+				userName, "", 1, refMyErr);
+		int userId = 0;
+		if (user != null) {
+			userId = user.getUserId();
+		}
+
+		model.setUserId(user.getUserId());
+		model.setChargedUserId(user.getUserId());
+		model.setChargedUserName(user.getUserName());
+
+		if (model.getPayAccount() == null) {
+			model.setPayAccount(BigDecimal.ZERO);
+		}
+		if (model.getRealPayAccount() == null) {
+			model.setRealPayAccount(BigDecimal.ZERO);
+		}
+
+		model.setCreateDate(new Date());
+		model.setModifyDate(new Date());
+
+		// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+		model.setServerId(ServerTools.getServerIdBySequenceNumber(
+				model.getGameId(), model.getServerId(), "User91-createOrder"));
+
+		MessageReturn messageReturn = wh.order.bll.Order.getInstance()
+				.createUpdate(model);
+
+		if (Utility.isEmpty(playerId)) {
+			playerId = String.valueOf(userId);
+		}
+		wh.order.model.OrderLog orderLog = new wh.order.model.OrderLog();
+		orderLog.setCreateDate(new Date());
+		orderLog.setLogName("playerid");
+		orderLog.setDescription(playerId);
+		orderLog.setOrderId(Utility.getInt(messageReturn.getRetObject()));
+		orderLog.setStatus((byte) 1);
+		orderLog.setUserId(userId);
+		wh.order.bll.OrderLog.getInstance().createUpdate(orderLog);
+
+		return messageReturn;
+	}
+}

@@ -1,0 +1,191 @@
+﻿package uld.sdk.bll;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.alibaba.fastjson.JSONObject;
+
+import uld.sdk.model.MessageReturn;
+import uld.sdk.tools.Base64;
+import uld.sdk.tools.Config;
+import uld.sdk.tools.LogHelper;
+import uld.sdk.tools.MyErr;
+import uld.sdk.tools.RSAEncrypt;
+import uld.sdk.tools.RefObject;
+import uld.sdk.tools.Utility;
+import wh.order.model.OrderEnum;
+
+public class UserUC {
+
+	@SuppressWarnings("unchecked")
+	public MessageReturn checkSid(String sid, int gameIdp, int serverIdp, int channelIdp, int channelSubIdp, int mobiledeviceIdp,
+			int statisticAnalysisIdp) {
+		MessageReturn messageReturn = new MessageReturn();
+
+		final int gameId = gameIdp;
+		final int serverId = serverIdp;
+		final int channelId = channelIdp;
+		final int channelSubId = channelSubIdp;
+		final int mobiledeviceId = mobiledeviceIdp;
+		final int statisticAnalysisId = statisticAnalysisIdp;
+		LogHelper.log("UserUc->checkSid gameId：" + String.valueOf(gameId));
+		LogHelper.log("UserUc->checkSid serverId：" + String.valueOf(serverId));
+
+		String checkSidUrl = "http://payunite.ulaoda.com/UCCheckSid.ashx?sid=" + sid + "&gameId=" + gameId;
+		Map<String, String> retMap = null;
+		try {
+			String retValue = Utility.getWebContent(checkSidUrl);
+			if (!Utility.isEmpty(retValue)) {
+				retMap = (Map<String, String>) JSONObject.parseObject(retValue, Map.class);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		if (retMap != null) {
+			int errNo = Utility.getInt(retMap.get("ErrNo"));
+			if (errNo < 0) {
+				messageReturn.setErr(errNo, retMap.get("ErrMsg"));
+			} else {
+				Map<String, String> tempMap = new HashMap<String, String>();
+				tempMap.put("UserId", retMap.get("ucid"));
+				tempMap.put("UserName", retMap.get("nickName"));
+
+				final String channelUserId = tempMap.get("UserId");
+				
+				
+				// 模拟登录
+				new Thread() {
+					public void run() {
+						LogHelper.log("UserUc->checkSid thread begin" + String.valueOf(serverId));
+						UserUnite.getInstance().login(gameId, serverId, channelId, channelSubId, channelUserId, mobiledeviceId,
+								statisticAnalysisId);
+						LogHelper.log("UserUc->checkSid thread end" + String.valueOf(serverId));
+					}
+				}.start();
+				
+				//针对于傲剑游戏提供的时间签名
+				setTimeSignForAojian(messageReturn, gameId, tempMap);
+			}
+		}
+		return messageReturn;
+	}
+
+	//针对于傲剑游戏提供的时间签名，RSA签名之后将值返回给客户端
+	private void setTimeSignForAojian(MessageReturn messageReturn, final int gameId, Map<String, String> tempMap) {
+		if (gameId == 8) {
+			RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+			;
+			int addValue = wh.member.bll.HBUser.getInstance().getMaxHbUserId(refMyErr);
+			String timeString = Utility.getFormatDate() + "_" + addValue;
+			String timeSign = "";
+
+			try {
+				RSAEncrypt rsaEncrypt = new RSAEncrypt();
+
+				// TODO：Change the constant value to
+				// appConfig.properties.
+				rsaEncrypt.loadPublicKey(Config.getConfig("GAME_TIMESIGN_RSA_PUBLIC_KEY_" + gameId));
+				rsaEncrypt.loadPrivateKey(Config.getConfig("GAME_TIMESIGN_RSA_PRIVATE_KEY_" + gameId));
+
+				byte[] encodeBytes = rsaEncrypt.encrypt(rsaEncrypt.getPublicKey(), timeString.getBytes("UTF-8"));
+				timeSign = Base64.encode(encodeBytes);
+			} catch (Exception e) {
+				LogHelper.log("RSA encode failed. ");
+			}
+
+			tempMap.put("TimeSign", timeSign);
+		}
+		messageReturn.setRetObject(tempMap);
+	}
+
+	/**
+	 * 在我们平台创建订单
+	 * 
+	 * @param playerId
+	 *            角色编号，供订单充值成功后调用游戏服务器，传给游戏方
+	 * @param channelUserId
+	 *            渠道用户编号
+	 * @param channleId
+	 *            我们定义的渠道编号
+	 * @param channelSubId
+	 *            我们定义的渠道子编号
+	 * @param gameId
+	 *            我们定义的游戏编号
+	 * @param serverId
+	 *            我们定义的服务器编号
+	 * @param orderId
+	 *            渠道方的订单编号
+	 * @param amount
+	 *            渠道方的订单金额
+	 * @param payWay
+	 *            渠道方的充值方式
+	 * @param payWayName
+	 *            渠道方的充值方式名称
+	 * @return
+	 */
+	public MessageReturn checkOrder(String playerId, String channelUserId, int channleId, int channelSubId, int gameId, int serverId,
+			String orderId, float amount, int payWay, String payWayName) {
+
+		LogHelper.log("channelUserId:" + channelUserId);
+		LogHelper.log("channelId:" + channleId);
+		LogHelper.log("channelSubId:" + channelSubId);
+		LogHelper.log("gameId:" + gameId);
+		LogHelper.log("orderId:" + orderId);
+		LogHelper.log("amount:" + amount);
+
+		// 创建一下订单，不需要告知游戏方，因为会在客户端通知游戏方，订单提交成功
+		// 对于订单处理成功，渠道方会调用我们的一个地址，在那里需要通知游戏方订单处理成功
+		String userName = UserUnite.getUserNameByChannelUserId(channleId, channelSubId, channelUserId);
+		LogHelper.log("userName:" + userName);
+		RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+
+		wh.member.model.User user = wh.member.bll.User.getInstance().getByName(userName, "", 1, refMyErr);
+		int userId = 0;
+		if (user != null) {
+			userId = user.getUserId();
+
+			LogHelper.log("user is not null userId:" + userId);
+		}
+		LogHelper.log("userId:" + userId);
+		wh.order.model.Order order = new wh.order.model.Order();
+		order.setGameId(gameId);
+		order.setServerId(serverId);
+		order.setUserId(userId);
+		order.setChargedUserId(userId);
+		order.setChargedUserName(userName);
+		order.setPaySourceType(OrderEnum.PaySourceType.Android客户端.getValue());
+		order.setOrderType(OrderEnum.OrderType.已提交.getValue());
+		order.setAccountType(OrderEnum.AccountType.D币.getValue());
+		order.setChargeType(OrderEnum.ChargeType.充值游戏.getValue());
+		order.setCreateDate(new Date());
+		order.setModifyDate(new Date());
+
+		order.setTel(channelUserId + "_UCUSERIDORDERID_" + orderId);
+		order.setPayAccount(BigDecimal.valueOf((amount)));
+		order.setRealPayAccount(BigDecimal.valueOf(amount));
+
+		// 75为其他渠道充值
+		order.setPayType((byte) 75);
+		order.setStatus((byte) 1);
+
+		// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+		order.setServerId(ServerTools.getServerIdBySequenceNumber(order.getGameId(), order.getServerId(), "UserUC-checkOrder"));
+
+		MessageReturn messageReturn = wh.order.bll.Order.getInstance().createUpdate(order);
+
+		wh.order.model.OrderLog orderLog = new wh.order.model.OrderLog();
+		orderLog.setCreateDate(new Date());
+		orderLog.setLogName("playerid");
+		orderLog.setDescription(playerId);
+		orderLog.setOrderId(Utility.getInt(messageReturn.getRetObject()));
+		orderLog.setStatus((byte) 1);
+		orderLog.setUserId(userId);
+		wh.order.bll.OrderLog.getInstance().createUpdate(orderLog);
+
+		return messageReturn;
+	}
+}

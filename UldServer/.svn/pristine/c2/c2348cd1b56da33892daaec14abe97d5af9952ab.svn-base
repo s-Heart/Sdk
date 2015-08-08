@@ -1,0 +1,168 @@
+﻿package uld.sdk.bll;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.rmi.CORBA.Util;
+
+import uld.sdk.model.MessageReturn;
+import uld.sdk.tools.Base64;
+import uld.sdk.tools.Config;
+import uld.sdk.tools.HmacSha1;
+import uld.sdk.tools.LogHelper;
+import uld.sdk.tools.MyErr;
+import uld.sdk.tools.RSAEncrypt;
+import uld.sdk.tools.RefObject;
+import uld.sdk.tools.Utility;
+
+import com.alibaba.fastjson.JSON;
+
+public class UserXiaoMi {
+
+	public MessageReturn login(final int gameId, final int serverId,
+			final int mobiledeviceId, final int statisticAnalysisId,
+			final int channelId, final int channelSubId, String sessionId,
+			final String uid, String appid, String appKey) {
+		MessageReturn messageReturn = new MessageReturn();
+
+		String url = "http://mis.migc.xiaomi.com/api/biz/service/verifySession.do";
+		StringBuilder sb = new StringBuilder();
+		sb.append(url);
+		sb.append("?appId=" + appid);
+		sb.append("&session=" + sessionId);
+		sb.append("&uid=" + uid);
+		String signString = "appId=" + appid + "&session=" + sessionId
+				+ "&uid=" + uid;
+
+		String sign = "";
+		try {
+			sign = HmacSha1.HmacSHA1Encrypt(signString, appKey);
+		} catch (Exception e) {
+			LogHelper.log(e.getMessage());
+		}
+		sb.append("&signature=" + sign);
+		url = sb.toString();
+
+		LogHelper.log(url);
+		try {
+			String result = Utility.getWebContent(url);
+			LogHelper.log(result);
+			XiaoMiErrorMsg loginError = JSON.parseObject(result,
+					XiaoMiErrorMsg.class);
+			LogHelper.log(result);
+			if (loginError.ErrCode.equals("200")) {
+				Map<String, String> tempMap = new HashMap<String, String>();
+				tempMap.put("UserId", uid);
+				tempMap.put("UserName", "");
+
+				new Thread() {
+					public void run() {
+						UserUnite.getInstance().login(gameId, serverId,
+								channelId, channelSubId, uid, mobiledeviceId,
+								statisticAnalysisId);
+					}
+				}.start();
+
+				// [start]傲剑处理时间加密
+				if (gameId == 8) {
+					RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+					if (refMyErr == null) {
+						System.out.println("存储过程为空");
+					}
+					int addValue = wh.member.bll.HBUser.getInstance()
+							.getMaxHbUserId(refMyErr);
+					String timeString = Utility.getFormatDate() + "_"
+							+ addValue;
+					String timeSign = "";
+
+					try {
+						RSAEncrypt rsaEncrypt = new RSAEncrypt();
+
+						// TODO：Change the constant value to
+						// appConfig.properties.
+						rsaEncrypt
+								.loadPublicKey(Config.GAME_TIMESIGN_RSA_PUBLIC_KEY_8);
+						rsaEncrypt
+								.loadPrivateKey(Config.GAME_TIMESIGN_RSA_PRIVATE_KEY_8);
+
+						byte[] encodeBytes = rsaEncrypt.encrypt(
+								rsaEncrypt.getPublicKey(),
+								timeString.getBytes("UTF-8"));
+						timeSign = Base64.encode(encodeBytes);
+					} catch (Exception e) {
+						LogHelper.log("RSA encode failed. ");
+					}
+
+					tempMap.put("TimeSign", timeSign);
+				}
+				// [end]
+
+				messageReturn.setRetObject(tempMap);
+
+			} else {
+				// messageReturn.setErr(-1,"用户登录失败");
+				messageReturn.setErr(-1, loginError.ErrMsg);
+			}
+		} catch (Exception e) {
+			LogHelper.log(e.getMessage());
+			messageReturn.setErr(-1, "用户登录失败");
+
+		}
+
+		return messageReturn;
+	}
+
+	public MessageReturn createOrder(wh.order.model.Order model,
+			String channelUserId, int channelId, int channelSubId,
+			String playerId) {
+		String userName = UserUnite.getUserNameByChannelUserId(channelId,
+				channelSubId, channelUserId);
+		RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+		wh.member.model.User user = wh.member.bll.User.getInstance().getByName(
+				userName, "", 1, refMyErr);
+		int userId = 0;
+		if (user != null) {
+			userId = user.getUserId();
+		}
+
+		model.setUserId(user.getUserId());
+		model.setChargedUserId(user.getUserId());
+		model.setChargedUserName(user.getUserName());
+
+		if (model.getPayAccount() == null) {
+			model.setPayAccount(BigDecimal.ZERO);
+		}
+		if (model.getRealPayAccount() == null) {
+			model.setRealPayAccount(BigDecimal.ZERO);
+		}
+
+		model.setCreateDate(new Date());
+		model.setModifyDate(new Date());
+
+		// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+		model.setServerId(ServerTools.getServerIdBySequenceNumber(
+				model.getGameId(), model.getServerId(),
+				"UserXiaoMi-createOrder"));
+
+		MessageReturn messageReturn = wh.order.bll.Order.getInstance()
+				.createUpdate(model);
+
+		if (Utility.isEmpty(playerId)) {
+			playerId = String.valueOf(userId);
+		}
+
+		wh.order.model.OrderLog orderLog = new wh.order.model.OrderLog();
+		orderLog.setCreateDate(new Date());
+		orderLog.setLogName("playerid");
+		orderLog.setDescription(playerId);
+		orderLog.setOrderId(Utility.getInt(messageReturn.getRetObject()));
+		orderLog.setStatus((byte) 1);
+		orderLog.setUserId(userId);
+		wh.order.bll.OrderLog.getInstance().createUpdate(orderLog);
+
+		return messageReturn;
+	}
+}

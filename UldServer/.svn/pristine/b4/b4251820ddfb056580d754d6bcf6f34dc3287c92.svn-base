@@ -1,0 +1,370 @@
+package uld.sdk.bll;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SignatureException;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
+
+import uld.sdk.model.MessageReturn;
+import uld.sdk.tools.Base64;
+import uld.sdk.tools.Config;
+import uld.sdk.tools.MyErr;
+import uld.sdk.tools.RSAEncrypt;
+import uld.sdk.tools.RefObject;
+import uld.sdk.tools.Utility;
+import wh.order.model.OrderChannel;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+
+public class UserJinLi {
+
+	private static final String GIONEE_PAY_INIT = "https://pay.gionee.com/order/create";
+	private static final String API_KEY = "A696AE38311E43769560A4ACB9956BE2";
+	private static final String PRIVTE_KEY = "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJoTbCewaIkrArnhzCM9OiFl0TzE8icRO29egGiZCPo0waim7tpuveXu1R1FuMYmfIyp+kAAf9EcZsBoKmcrg9VJBEyF/kCNJE0k07EZOK2t5Xs+mdJ1v2pZj1pqsXssXOr2PIWY9pEavQsvltoirzBsDwclTe4B1sCA/v2L4sYHAgMBAAECgYAzlS8PdpL44UpvWvYSEiyFA+ZyNulvROimF3hcDGgiBEmVohWzUYIIGdaFj1MWG8p0+W9LwB8KrjyETBtuIPZoi4k0chXkd6HdA5UfikdlqtV6svaRPNglumW6IhTUN/jdZtUdzaGrq7szqr6hgqaBNDVD68UObSmkH0FKA/JBGQJBAM8YRj9EFxkVMn/pcgW3X9Ai/U9KaGsmkb5KOvFHq5GLqZkQKrxM3S2QUjZd2oul+9+WvI82CY/8jyoMORUz+tMCQQC+de+4JP8GDXCSPsP0VHFSUWElQiJTwqsAwvnKPFC1rOUBn2/vytXf6Pm6yRpFR9DLKphN2/ERC4UvQwasv199AkBDDFbh8MeRpV0+MHRsCVyJ5Goim7KGzmvtMdc3er6/VnpIRgWwBSqur8UOOQCiqdCMKR9PNm2OInSvZlms1bFlAkEAoIV/o8Cym6RKI0f5GXzuAYYLDT7e9Z9VRpANvQ/2qhfs7uA0lHJsrYmKqI2Dsa5kYEcnFD/xvf7qojmob4HfdQJBAIu+YK/UY3K+k2ab2Tx/63HQdimf3SosrYDn/0sBprHAHe0vVCzJRHADBWPj77NAFtqaVIFefWMDOhJWobQ/evg=";
+
+	/**
+	 * 修改bug,处理注册用户MobileDeviceId=0 ,添加设备Id识别的操作,如果设备Id为0,则根据新传递过来的sDeviceId
+	 * 来对mobiledeviceId与statisticAnalysisId赋值之后再做其他相关操作.
+	 * 
+	 * @param gameId
+	 * @param serverId
+	 * @param mobileDeviceId
+	 * @param statisticAnalysisId
+	 * @param channelId
+	 * @param channelSubId
+	 * @param sid
+	 * @param uid
+	 * @param sMobileDeviceName
+	 * @return
+	 */
+	public MessageReturn login(final int gameId, final int serverId, int mobileDeviceId, int statisticAnalysisId, final int channelId,
+			final int channelSubId, String sid, final String uid, String sMobileDeviceName) {
+		Date date = new Date();
+		RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+
+		if (mobileDeviceId == 0) {
+			// 移动设备表数据
+			wh.promotion.model.MobileDevice mobileDevice = wh.promotion.bll.MobileDevice.getInstance().getByName(sMobileDeviceName, "", 1,
+					refMyErr);
+			if (null == mobileDevice) {
+				mobileDevice = new wh.promotion.model.MobileDevice();
+				mobileDevice.setMobileDeviceName(sMobileDeviceName);
+				mobileDevice.setCreateDate(date);
+				mobileDevice.setModifyDate(date);
+				mobileDevice.setMobileDeviceId(wh.promotion.bll.MobileDevice.getInstance().createUpdate(mobileDevice, refMyErr));
+			}
+
+			mobileDeviceId = mobileDevice.getMobileDeviceId();
+		}
+
+		if (statisticAnalysisId == 0) {
+			// 统计分析表数据
+			wh.promotion.model.StatisticAnalysis statisticAnalysis = new wh.promotion.model.StatisticAnalysis();
+			statisticAnalysis.setMobileDeviceId(mobileDeviceId);
+			statisticAnalysis.setGameId(gameId);
+			statisticAnalysis.setChannelId(channelId);
+			statisticAnalysis.setChannelSubId(channelSubId);
+			if (statisticAnalysis.getChannelId() > 0 || statisticAnalysis.getChannelSubId() > 0) {
+				statisticAnalysis.setChannelType((byte) 2);
+			} else {
+				statisticAnalysis.setChannelType((byte) 1);
+			}
+
+			RefObject<Integer> totalCount = new RefObject<Integer>(0);
+
+			List<wh.promotion.model.StatisticAnalysis> saList = wh.promotion.bll.StatisticAnalysis.getInstance().getList(statisticAnalysis,
+					totalCount, false, 1, 1, "", 1, refMyErr);
+			if (saList.size() > 0) {
+				statisticAnalysis = saList.get(0);
+			} else {
+				statisticAnalysis.setCreateDate(date);
+				statisticAnalysis.setStatisticAnalysisId(wh.promotion.bll.StatisticAnalysis.getInstance().createUpdate(statisticAnalysis,
+						refMyErr));
+			}
+
+			statisticAnalysisId = statisticAnalysis.getStatisticAnalysisId();
+		}
+
+		final int fmobileDeviceId = mobileDeviceId;
+		final int fstatisticAnalysisId = statisticAnalysisId;
+
+		MessageReturn messageReturn = new MessageReturn();
+
+		Map<String, String> tempMap = new HashMap<String, String>();
+		tempMap.put("UserId", uid);
+		tempMap.put("UserName", "");
+		messageReturn.setRetObject(tempMap);
+
+		new Thread() {
+			public void run() {
+				UserUnite.getInstance().login(gameId, serverId, channelId, channelSubId, uid, fmobileDeviceId, fstatisticAnalysisId);
+			}
+		}.start();
+
+		// 针对于傲剑游戏提供的时间签名
+		setTimeSignForAojian(messageReturn, gameId, tempMap, channelId, uid);
+
+		// // http post 验证
+		//
+		// uld.sdk.tools.LogHelper.log("JinLi-sid:" + sid);
+		// uld.sdk.tools.LogHelper.log("JinLi-uid:" + uid);
+		// httpPostVerification(2446, 2447, sid, uid);
+
+		return messageReturn;
+	}
+
+	private void setTimeSignForAojian(MessageReturn messageReturn, int gameId, Map<String, String> tempMap, int channelId, String uid) {
+		if (gameId == 8) {
+			RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+			// 其中
+			// timesign = RSA({"time":
+			// "2013-11-11 15:26:32","addValue":"1","channelid":"13","userid":"uld123456","MD5":"8C5EABE5012EA60BEF37742D54E9C607"})
+			// MD5 = MD5(time + addValue + channelid + userid);
+			String time = Utility.getFormatDate();
+			int addValue = wh.member.bll.HBUser.getInstance().getMaxHbUserId(refMyErr);
+			String channelid = String.valueOf(channelId);
+			String userid = uid;
+			// TODO: MD5加密排列方式的确定
+			String md5String = Utility.encodeMD5(time + addValue + channelId + userid);
+			TimeSignObject tso = new TimeSignObject();
+			tso.setTime(time);
+			tso.setAddvalue(String.valueOf(addValue));
+			tso.setChannelid(channelid);
+			tso.setUserid(userid);
+			tso.setMd5(md5String);
+
+			String timeString = JSON.toJSONString(tso);
+
+			// 处理截取的字符串存入cutVector中，再将cutVector中的字符串依次加密
+			int timeStringLength = timeString.getBytes().length;
+			int cutLength = 100;
+
+			Vector<String> cutVector = new Vector<String>();
+			for (int i = 0; i < timeStringLength; i += cutLength) {
+				if (i < timeStringLength && timeStringLength / (cutLength + i) != 0) {
+					cutVector.add(timeString.substring(i, i + cutLength));
+				} else {
+					cutVector.add(timeString.substring(i, timeStringLength));
+				}
+			}
+
+			// 签名准备
+			String timeSign = "";
+
+			RSAEncrypt rsaEncrypt = new RSAEncrypt();
+
+			try {
+				rsaEncrypt.loadPublicKey(Config.getConfig("GAME_TIMESIGN_RSA_PUBLIC_KEY_" + gameId));
+				rsaEncrypt.loadPrivateKey(Config.getConfig("GAME_TIMESIGN_RSA_PRIVATE_KEY_" + gameId));
+
+				Vector<String> signStrings = new Vector<String>();
+				for (int i = 0; i < cutVector.size(); i++) {
+					byte[] encodeBytes = rsaEncrypt.encrypt(rsaEncrypt.getPublicKey(), cutVector.get(i).getBytes("UTF-8"));
+					signStrings.add(Base64.encode(encodeBytes));
+				}
+
+				Iterator<String> iterator2 = signStrings.iterator();
+				while (iterator2.hasNext()) {
+					timeSign += iterator2.next();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			tempMap.put("TimeSign", timeSign);
+		}
+		messageReturn.setRetObject(tempMap);
+
+	}
+
+	public MessageReturn createOrder(wh.order.model.Order model, String channelUserId, int channelId, int channelSubId, String playerId) {
+		String userName = UserUnite.getUserNameByChannelUserId(channelId, channelSubId, channelUserId);
+		RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+		wh.member.model.User user = wh.member.bll.User.getInstance().getByName(userName, "", 1, refMyErr);
+		int userId = 0;
+		if (user != null) {
+			userId = user.getUserId();
+		}
+
+		model.setUserId(user.getUserId());
+		model.setChargedUserId(user.getUserId());
+		model.setChargedUserName(user.getUserName());
+
+		if (model.getPayAccount() == null) {
+			model.setPayAccount(BigDecimal.ZERO);
+		}
+		if (model.getRealPayAccount() == null) {
+			model.setRealPayAccount(BigDecimal.ZERO);
+		}
+
+		Date createDate = new Date();
+		model.setCreateDate(createDate);
+		model.setModifyDate(new Date());
+
+		// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+		model.setServerId(ServerTools.getServerIdBySequenceNumber(model.getGameId(), model.getServerId(), "UserJinLi-createOrder"));
+
+		MessageReturn messageReturn = wh.order.bll.Order.getInstance().createUpdate(model);
+
+		// 将数据写入OrderChannel表中
+		// OrderChannel 需要的参数
+		// localOrderId 本地订单编号ok
+		// regChannelId 注册渠道编号---user.getChannelId()
+		// ocChannelId 实际渠道编号---channel.txt
+		// gameChannelId 游戏方渠道编号--->大渠道实际，小渠道7
+		// status=1
+		wh.order.model.OrderChannel orderChannelModel = new OrderChannel();
+		orderChannelModel.setLocalOrderId(Utility.getInt(messageReturn.getRetObject()));
+		orderChannelModel.setRegChannelId(user.getChannelId());
+		orderChannelModel.setOcChannelId(channelId);
+		orderChannelModel.setGameChannelId(channelId);
+		orderChannelModel.setStatus((byte) 1);
+		wh.order.bll.OrderChannel.getInstance().createUpdate(orderChannelModel);
+
+		if (Utility.isEmpty(playerId)) {
+			playerId = String.valueOf(userId);
+		}
+		wh.order.model.OrderLog orderLog = new wh.order.model.OrderLog();
+		orderLog.setCreateDate(new Date());
+		orderLog.setLogName("playerid");
+		orderLog.setDescription(playerId);
+		orderLog.setOrderId(Utility.getInt(messageReturn.getRetObject()));
+		orderLog.setStatus((byte) 1);
+		orderLog.setUserId(userId);
+		wh.order.bll.OrderLog.getInstance().createUpdate(orderLog);
+
+		// 向金立发送支付订单
+		String payvaule = String.valueOf(model.getRealPayAccount());
+		String orderid = String.valueOf(Utility.getInt(messageReturn.getRetObject()));
+		String orederjson = tojinlicreateorder(playerId, orderid, createDate, payvaule);
+
+		// 为了给客户端传更多的值 把messageReturn 放入mReturn 中的reMapandmrt的容器中;
+		// 到客户端进行解析mReturn 从而得到orederjson 和messageReturn;
+		MessageReturn mReturn = new MessageReturn();
+
+		HashMap<String, Object> reMapandmrt = new HashMap<String, Object>();
+
+		reMapandmrt.put("orederjson", orederjson);
+		reMapandmrt.put("messageReturn", messageReturn);
+
+		mReturn.setRetObject(reMapandmrt);
+		return mReturn;
+
+	}
+
+	private String tojinlicreateorder(String playerId, String orderid, Date createDate, String payvaule) {
+		// TODO Auto-generated method stub
+
+		// 用户id
+		String player_id = playerId;
+		// api_key
+		String api_key = API_KEY;
+		// 商品总金额
+		String deal_price = payvaule;
+		// 付款方式：1为立即付款，2为货到付款
+		String deliver_type = String.valueOf(1);
+		// 订单有效时间 默认值为10 用默认值则不参与签名
+		// String expire_time ="";
+		// 发给金立 uld的回调地址
+		String notify_url = "http://payunite.ulaoda.com/JinLiCallBack.ashx";
+		// 订单号
+		String out_order_no = orderid;
+		// 商品名称
+		String subject = "金锭";
+		// 订单创建时间
+		String submit_time = SubmitTimeUtilJinLi.toString(createDate);
+
+		String total_fee = payvaule;
+		String sign = "";
+
+		String signContent = api_key + deal_price + deliver_type + notify_url + out_order_no + subject + submit_time + total_fee;
+
+		System.out.println("signContent=" + signContent.length());
+
+		// 生成json字符串
+		JSONObject jspost = null;
+		try {
+			sign = RSASignatureJinLi.sign(signContent.toString(), PRIVTE_KEY, "utf-8");
+
+			jspost = new JSONObject();
+			jspost.put("player_id", player_id);
+			jspost.put("api_key", api_key);
+			jspost.put("deal_price", deal_price);
+			jspost.put("deliver_type", deliver_type);
+			jspost.put("notify_url", notify_url);
+			jspost.put("out_order_no", out_order_no);
+			jspost.put("subject", subject);
+			jspost.put("submit_time", submit_time);
+			jspost.put("total_fee", total_fee);
+			jspost.put("sign", sign);
+		} catch (InvalidKeyException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidKeySpecException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SignatureException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// 发送post 请求
+		String boby = jspost.toJSONString();
+		String result = "";
+		try {
+			System.out.println("GIONEE_PAY_INIT=" + GIONEE_PAY_INIT);
+			System.out.println("boby=" + boby);
+			result = HttpUtilsJinLi.post(GIONEE_PAY_INIT, boby);
+			uld.sdk.tools.LogHelper.log("Jinli-http-url:" + GIONEE_PAY_INIT);
+			uld.sdk.tools.LogHelper.log("Jinli-http-boby:" + boby);
+			uld.sdk.tools.LogHelper.log("Jinli-http-result:" + result);
+			System.out.println("result=" + result);
+			if (!Utility.isEmpty(result)) {
+				return result;
+			} else {
+				uld.sdk.tools.LogHelper.log("Jinli-http-result-error:" + result);
+				return "";
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+
+	}
+
+	// 若为空null或者是\t \n \f \r 这些值返回为真
+	static boolean isBlank(String str) {
+
+		if (null == str) {
+			return true;
+		}
+
+		str = str.replace("\t", " ");
+		str = str.replace("\n", " ");
+		str = str.replace("\f", " ");
+		str = str.replace("\r", " ");
+		for (int i = 0; i < str.length(); i++) {
+			str = str.replace(" ", "");
+		}
+		str = str.replace(" ", "");
+		boolean t = (null == str || str.length() == 0 || "null".equalsIgnoreCase(str));
+		return t;
+
+	}
+}

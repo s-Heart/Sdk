@@ -1,0 +1,974 @@
+﻿package uld.sdk.bll;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.security.interfaces.RSAPublicKey;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+
+import com.alibaba.fastjson.JSON;
+import com.upomp.pay.help.CreateOriginal;
+import com.upomp.pay.httpservice.XmlHttpConnection;
+import com.upomp.pay.info.Upomp_Pay_Info;
+import com.upomp.pay.info.XmlDefinition;
+import com.upomp.pay.sign.SignBy;
+
+import uld.sdk.model.GameInterface;
+import uld.sdk.model.MessageReturn;
+import uld.sdk.tools.Base64;
+import uld.sdk.tools.Config;
+import uld.sdk.tools.LogHelper;
+import uld.sdk.tools.MyErr;
+import uld.sdk.tools.RSAEncrypt;
+import uld.sdk.tools.RefObject;
+import uld.sdk.tools.Utility;
+import wh.game.model.GameEnum.GameMoneyType;
+import wh.game.model.GameInterfaceEnum.InterfaceType;
+import wh.game.model.GameInterfaceParamsEnum.ParamInType;
+import wh.game.model.GameInterfaceParamsEnum.ParamType;
+import wh.game.model.GameInterfaceParamsEnum.SignType;
+import wh.member.model.HBUserEnum.DealType;
+import wh.order.model.OrderEnum;
+import wh.order.model.OrderEnum.ChargeType;
+import wh.order.model.OrderEnum.PaySourceType;
+
+public class User {
+	private static User instance = new User();
+
+	public static User getInstance() {
+		return instance;
+	}
+
+	private RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+	private RefObject<Integer> totalCount = new RefObject<Integer>(0);
+
+	/**
+	 * 获取游戏登录接口
+	 * 
+	 * @param model
+	 *            用户
+	 * @return 消息对象
+	 */
+	public MessageReturn createUpdate(String deviceId,
+			wh.member.model.User model) {
+		MessageReturn messageReturn = new MessageReturn();
+		if (null == model) {
+			messageReturn.setErr(-1, "对象为空，请重试");
+		} else {
+
+			if (model.getUserName().length() < model.getUserName().getBytes().length) {
+				messageReturn.setErr(-1, "注册失败，用户名中不能包含中文");
+				return messageReturn;
+			}
+
+			Date date = new Date();
+			model.setCreateDate(date);
+			model.setModifyDate(date);
+
+			// 根据deviceId获取deviceServerId，如果deviceId不存在，则新建一条MobileDevice，此情况一般不会出现
+			if (0 == model.getMobileDeviceId()) {
+				wh.promotion.model.MobileDevice mobileDevice = wh.promotion.bll.MobileDevice
+						.getInstance().getByName(deviceId, "", 1, refMyErr);
+				if (null == mobileDevice) {
+					mobileDevice = new wh.promotion.model.MobileDevice();
+					mobileDevice.setMobileDeviceName(deviceId);
+					mobileDevice.setCreateDate(date);
+					mobileDevice.setModifyDate(date);
+					mobileDevice.setMobilePhone(model.getMobilePhone());
+					mobileDevice
+							.setMobileDeviceId(wh.promotion.bll.MobileDevice
+									.getInstance().createUpdate(mobileDevice,
+											refMyErr));
+				}
+
+				model.setMobileDeviceId(mobileDevice.getMobileDeviceId());
+			}
+
+			// 根据deviceServerId取最新的一条统计分析记录，如果不存在，则新建一条StatisticAnalysis，此情况一般不会出现
+			if (0 == model.getStatisticAnalysisId()
+					&& model.getMobileDeviceId() > 0) {
+				wh.promotion.model.StatisticAnalysis statisticAnalysis = new wh.promotion.model.StatisticAnalysis();
+				statisticAnalysis.setMobileDeviceId(model.getMobileDeviceId());
+				statisticAnalysis.setGameId(model.getRegisterGameId());
+				statisticAnalysis.setChannelId(model.getChannelId());
+				statisticAnalysis.setChannelSubId(model.getChannelSubId());
+				if (statisticAnalysis.getChannelId() > 0
+						|| statisticAnalysis.getChannelSubId() > 0) {
+					statisticAnalysis.setChannelType((byte) 2);
+				} else {
+					statisticAnalysis.setChannelType((byte) 1);
+				}
+
+				List<wh.promotion.model.StatisticAnalysis> saList = wh.promotion.bll.StatisticAnalysis
+						.getInstance().getList(statisticAnalysis, totalCount,
+								false, 1, 1, "", 1, refMyErr);
+				if (saList.size() > 0) {
+					statisticAnalysis = saList.get(0);
+				} else {
+					statisticAnalysis.setCreateDate(date);
+					statisticAnalysis
+							.setStatisticAnalysisId(wh.promotion.bll.StatisticAnalysis
+									.getInstance().createUpdate(
+											statisticAnalysis, refMyErr));
+				}
+
+				model.setStatisticAnalysisId(statisticAnalysis
+						.getStatisticAnalysisId());
+			}
+
+			// 如果渠道文件不存在则认为是游老大官网用户
+			if (model.getChannelId() == 0 && model.getChannelSubId() == 0) {
+				model.setChannelId(7);
+				model.setChannelSubId(13);
+			}
+
+			if (model.getChannelId() > 0 || model.getChannelSubId() > 0) {
+				model.setChannelType(wh.promotion.model.ChannelEnum.ChannelType.推广渠道
+						.getValue());
+			} else {
+				model.setChannelType(wh.promotion.model.ChannelEnum.ChannelType.自然渠道
+						.getValue());
+			}
+			model.setStatus(wh.member.model.UserEnum.UserStatus.有效.getValue());
+
+			// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+			model.setRegisterServerId(ServerTools.getServerIdBySequenceNumber(
+					model.getRegisterGameId(), model.getRegisterServerId(),
+					"User-createUpdate"));
+
+			model.setUserId(wh.member.bll.User.getInstance().createUpdate(
+					model, refMyErr));
+
+			if (model.getUserId() > 0) {
+				int hbUserId = SetRegisterOrLogin(model.getUserId(),
+						model.getRegisterGameId(), model.getRegisterServerId(),
+						model.getMobileDeviceId());
+				messageReturn = getGameInterface(model,
+						model.getRegisterGameId(), model.getRegisterServerId(),
+						hbUserId);
+				// FIXME 发送注册 正常注册
+
+				sendRegisterMsgToAoJian(model.getRegisterGameId(),
+						model.getChannelId(), String.valueOf(model.getUserId()));
+			} else if (refMyErr.argvalue.findErr()) {
+				messageReturn.setErr(refMyErr.argvalue.getErrNo(),
+						refMyErr.argvalue.getErrMsg());
+			} else {
+				messageReturn.setErr(-1, "注册失败，请重试");
+			}
+		}
+		return messageReturn;
+	}
+
+	/**
+	 * 快速注册帐号
+	 * 
+	 * @param deviceId
+	 * @param model
+	 * @return
+	 */
+	public MessageReturn registerQuick(String deviceId,
+			wh.member.model.User model) {
+		String userName = String
+				.valueOf((new Date().getTime() % 100000000) % 10000);
+		userName = Utility.getRandomLetter(3) + Utility.getRandomStr(4)
+				+ userName;
+		String password = Utility.getRandomStr(8);
+
+		// 如果渠道文件不存在则认为是游老大官网用户
+		if (model.getChannelId() == 0 && model.getChannelSubId() == 0) {
+			model.setChannelId(7);
+			model.setChannelSubId(13);
+		}
+
+		if (model.getChannelId() > 0 || model.getChannelSubId() > 0) {
+			model.setChannelType(wh.promotion.model.ChannelEnum.ChannelType.推广渠道
+					.getValue());
+		} else {
+			model.setChannelType(wh.promotion.model.ChannelEnum.ChannelType.自然渠道
+					.getValue());
+		}
+		model.setStatus(wh.member.model.UserEnum.UserStatus.有效.getValue());
+
+		model.setUserName(userName);
+		model.setPassword(Utility.encodeMD5(password));
+		model.setRawPassword(password);
+
+		MessageReturn messageReturn = createUpdateNoLogin(deviceId, model);
+		if (!messageReturn.findErr()) {
+			GameInterface gameInterface = (GameInterface) messageReturn
+					.getRetObject();
+			if (gameInterface != null) {
+				gameInterface.setUserName(userName);
+				gameInterface.setPassword(password);
+				messageReturn.setRetObject(gameInterface);
+			}
+		}
+		return messageReturn;
+	}
+
+	/**
+	 * 获取游戏登录接口
+	 * 
+	 * @param model
+	 *            用户
+	 * @return 消息对象
+	 */
+	public MessageReturn createUpdateNoLogin(String deviceId,
+			wh.member.model.User model) {
+		MessageReturn messageReturn = new MessageReturn();
+		if (null == model) {
+			messageReturn.setErr(-1, "对象为空，请重试");
+		} else {
+			if (model.getUserName().length() < model.getUserName().getBytes().length) {
+				messageReturn.setErr(-1, "注册失败，用户名中不能包含中文");
+				return messageReturn;
+			}
+
+			Date date = new Date();
+			model.setCreateDate(date);
+			model.setModifyDate(date);
+
+			// 根据deviceId获取deviceServerId，如果deviceId不存在，则新建一条MobileDevice，此情况一般不会出现
+			if (0 == model.getMobileDeviceId()) {
+				wh.promotion.model.MobileDevice mobileDevice = wh.promotion.bll.MobileDevice
+						.getInstance().getByName(deviceId, "", 1, refMyErr);
+				if (null == mobileDevice) {
+					mobileDevice = new wh.promotion.model.MobileDevice();
+					mobileDevice.setMobileDeviceName(deviceId);
+					mobileDevice.setCreateDate(date);
+					mobileDevice.setModifyDate(date);
+					mobileDevice.setMobilePhone(model.getMobilePhone());
+					mobileDevice
+							.setMobileDeviceId(wh.promotion.bll.MobileDevice
+									.getInstance().createUpdate(mobileDevice,
+											refMyErr));
+				}
+
+				model.setMobileDeviceId(mobileDevice.getMobileDeviceId());
+			}
+
+			// 根据deviceServerId取最新的一条统计分析记录，如果不存在，则新建一条StatisticAnalysis，此情况一般不会出现
+			if (0 == model.getStatisticAnalysisId()
+					&& model.getMobileDeviceId() > 0) {
+				wh.promotion.model.StatisticAnalysis statisticAnalysis = new wh.promotion.model.StatisticAnalysis();
+				statisticAnalysis.setMobileDeviceId(model.getMobileDeviceId());
+				statisticAnalysis.setGameId(model.getRegisterGameId());
+				statisticAnalysis.setChannelId(model.getChannelId());
+				statisticAnalysis.setChannelSubId(model.getChannelSubId());
+				if (statisticAnalysis.getChannelId() > 0
+						|| statisticAnalysis.getChannelSubId() > 0) {
+					statisticAnalysis.setChannelType((byte) 2);
+				} else {
+					statisticAnalysis.setChannelType((byte) 1);
+				}
+
+				List<wh.promotion.model.StatisticAnalysis> saList = wh.promotion.bll.StatisticAnalysis
+						.getInstance().getList(statisticAnalysis, totalCount,
+								false, 1, 1, "", 1, refMyErr);
+				if (saList.size() > 0) {
+					statisticAnalysis = saList.get(0);
+				} else {
+					statisticAnalysis.setCreateDate(date);
+					statisticAnalysis
+							.setStatisticAnalysisId(wh.promotion.bll.StatisticAnalysis
+									.getInstance().createUpdate(
+											statisticAnalysis, refMyErr));
+				}
+
+				model.setStatisticAnalysisId(statisticAnalysis
+						.getStatisticAnalysisId());
+			}
+
+			// 如果渠道文件不存在则认为是游老大官网用户
+			if (model.getChannelId() == 0 && model.getChannelSubId() == 0) {
+				model.setChannelId(7);
+				model.setChannelSubId(13);
+			}
+
+			if (model.getChannelId() > 0 || model.getChannelSubId() > 0) {
+				model.setChannelType(wh.promotion.model.ChannelEnum.ChannelType.推广渠道
+						.getValue());
+			} else {
+				model.setChannelType(wh.promotion.model.ChannelEnum.ChannelType.自然渠道
+						.getValue());
+			}
+			model.setStatus(wh.member.model.UserEnum.UserStatus.有效.getValue());
+
+			// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+			model.setRegisterServerId(ServerTools.getServerIdBySequenceNumber(
+					model.getRegisterGameId(), model.getRegisterServerId(),
+					"User-createUpdateNoLogin"));
+
+			model.setUserId(wh.member.bll.User.getInstance().createUpdate(
+					model, refMyErr));
+
+			if (model.getUserId() > 0) {
+				// 使用hbUserId作为时间加密累加值
+				int hbUserId = wh.member.bll.HBUser.getInstance()
+						.getMaxHbUserId(refMyErr);
+				messageReturn = getGameInterface(model,
+						model.getRegisterGameId(), model.getRegisterServerId(),
+						hbUserId);
+
+				sendRegisterMsgToAoJian(model.getRegisterGameId(),
+						model.getChannelId(), String.valueOf(model.getUserId()));
+
+			} else if (refMyErr.argvalue.findErr()) {
+				messageReturn.setErr(refMyErr.argvalue.getErrNo(),
+						refMyErr.argvalue.getErrMsg());
+			} else {
+				messageReturn.setErr(-1, "注册失败，请重试");
+			}
+		}
+		return messageReturn;
+	}
+
+	/**
+	 * 获取游戏登录接口
+	 * 
+	 * @param userName
+	 *            用户名称
+	 * @param password
+	 *            密码
+	 * @return 消息对象
+	 */
+	public MessageReturn login(String userName, String password, int gameId,
+			int sequenceNumber) {
+		MessageReturn messageReturn = new MessageReturn();
+
+		if (userName.length() < userName.getBytes().length) {
+			messageReturn.setErr(-1, "登录失败，用户名中不能包含中文");
+			return messageReturn;
+		}
+
+		wh.member.model.User model = wh.member.bll.User.getInstance().login(
+				userName, password, refMyErr);
+		if (model != null) {
+
+			// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+			int serverId = ServerTools.getServerIdBySequenceNumber(gameId,
+					sequenceNumber, "UserUnite-login");
+			int hbUserId = SetRegisterOrLogin(model.getUserId(), gameId,
+					serverId, model.getMobileDeviceId());
+
+			messageReturn = getGameInterface(sequenceNumber, model, gameId,
+					hbUserId);
+
+			// 登录信息给天神
+			sendLoginMsgToAojian(gameId, model.getChannelId(), String.valueOf(model.getUserId()));
+
+		} else {
+			messageReturn.setErr(-1, "登录失败，用户名或密码错误");
+		}
+		return messageReturn;
+	}
+
+	/**
+	 * 记录用户登录游戏日志
+	 * 
+	 * @param userId
+	 * @param mobileDeviceId
+	 */
+	private int SetRegisterOrLogin(int userId, int gameId, int serverId,
+			int mobileDeviceId) {
+		wh.member.model.HBUser hbUser = new wh.member.model.HBUser();
+		hbUser.setLocalUserId(userId);
+		hbUser.setDealType(DealType.登录游戏未处理.getValue());
+		hbUser.setCreateDate(new Date());
+		hbUser.setOtherInfo("0_" + gameId + "_" + serverId + "_"
+				+ mobileDeviceId);
+		uld.sdk.tools.LogHelper
+				.log("GameCategoryId_GameId_ServerId_MobileDeviceId:"
+						+ hbUser.getOtherInfo());
+		return wh.member.bll.HBUser.getInstance()
+				.createUpdate(hbUser, refMyErr);
+
+		// FIXME 发送登录数据 不能在这处理
+	}
+
+	/**
+	 * 修改密码
+	 * 
+	 * @param userId
+	 * @param userName
+	 * @param oldPassword
+	 * @param newPassword
+	 * @return
+	 */
+	public MessageReturn modifyPassword(int userId, String userName,
+			String oldPassword, String newPassword) {
+		MessageReturn messageReturn = new MessageReturn();
+		wh.member.model.User user = wh.member.bll.User.getInstance().get(
+				userId, refMyErr);
+		if (user == null) {
+			user = wh.member.bll.User.getInstance().login(userName,
+					Utility.encodeMD5(oldPassword), refMyErr);
+		}
+		if (user != null) {
+			if (!user.getPassword().equals(Utility.encodeMD5(oldPassword))) {
+				messageReturn.setErr(01, "旧密码输入不正确");
+			} else {
+				user.setPassword(Utility.encodeMD5(newPassword));
+				user.setRawPassword(newPassword);
+				user.setModifyDate(new Date());
+				wh.member.bll.User.getInstance().createUpdate(user, refMyErr);
+				if (refMyErr.argvalue.findErr()) {
+					messageReturn.setErr(refMyErr.argvalue.getErrNo(),
+							refMyErr.argvalue.getErrMsg());
+				}
+			}
+		} else {
+			messageReturn.setErr(-1, "原始用户不存在");
+		}
+		return messageReturn;
+	}
+
+	/**
+	 * 获取游戏登录接口
+	 * 
+	 * @param model
+	 *            用户，需要在外部判断 model!=null
+	 * @param gameId
+	 *            游戏编号
+	 * @param serverId
+	 *            服务器编号
+	 * @return 游戏登录接口消息
+	 */
+	private MessageReturn getGameInterface(wh.member.model.User model,
+			int gameId, int serverId, int addValue) {
+		MessageReturn messageReturn = new MessageReturn();
+		wh.game.model.Game game = wh.game.bll.Game.getInstance().get(gameId,
+				refMyErr);
+		int sequenceNumber = 0;
+		if (serverId > 0) {
+			wh.game.model.Server server = wh.game.bll.Server.getInstance().get(
+					serverId, refMyErr);
+			if (null != server) {
+				sequenceNumber = server.getSequenceNumber();
+			}
+		}
+		uld.sdk.model.GameInterface gameInterface = getLoginGameInterface(
+				gameId, sequenceNumber, model.getUserId());
+
+		if (null != game && gameInterface != null) {
+			gameInterface.setUserId(model.getUserId());
+			gameInterface.setRechargeRate(game.getGameMoneyRate());
+			gameInterface.setRechargeUnit(GameMoneyType.parse(
+					game.getGameMoneyType()).toString());
+			gameInterface.putString("Content", game.getContent());
+
+			// 针对于傲剑游戏提供的时间签名
+			setTimeSignForAojian(messageReturn, gameId, gameInterface,
+					model.getChannelId(), model.getUserId());
+		}
+		return messageReturn;
+	}
+
+	private void setTimeSignForAojian(MessageReturn messageReturn, int gameId,
+			GameInterface gameInterface, int channelId, int userId) {
+		if (gameId == 8) {
+			RefObject<MyErr> refMyErr = new RefObject<MyErr>(null);
+			;
+			// 其中
+			// timesign = RSA({"time":
+			// "2013-11-11 15:26:32","addValue":"1","channelid":"13","userid":"uld123456","MD5":"8C5EABE5012EA60BEF37742D54E9C607"})
+			// MD5 = MD5(time + addValue + channelid + userid);
+			String time = Utility.getFormatDate();
+			int addValue = wh.member.bll.HBUser.getInstance().getMaxHbUserId(
+					refMyErr);
+			String channelid = String.valueOf(channelId);
+			String userid = String.valueOf(userId);
+			// MD5 = MD5(time + addValue + channelid + userid);
+			String md5String = Utility.encodeMD5(time + addValue + channelId
+					+ userid);
+			TimeSignObject tso = new TimeSignObject();
+
+			tso.setTime(time);
+			tso.setAddvalue(String.valueOf(addValue));
+			tso.setChannelid(channelid);
+			tso.setUserid(userid);
+			tso.setMd5(md5String);
+
+			String timeString = JSON.toJSONString(tso);
+
+			// 处理截取的字符串存入cutVector中，再将cutVector中的字符串依次加密
+			int timeStringLength = timeString.getBytes().length;
+			int cutLength = 100;
+
+			Vector<String> cutVector = new Vector<String>();
+			for (int i = 0; i < timeStringLength; i += cutLength) {
+				if (i < timeStringLength
+						&& timeStringLength / (cutLength + i) != 0) {
+					cutVector.add(timeString.substring(i, i + cutLength));
+				} else {
+					cutVector.add(timeString.substring(i, timeStringLength));
+				}
+			}
+
+			// 签名准备
+			String timeSign = "";
+
+			RSAEncrypt rsaEncrypt = new RSAEncrypt();
+
+			try {
+				rsaEncrypt.loadPublicKey(Config
+						.getConfig("GAME_TIMESIGN_RSA_PUBLIC_KEY_" + gameId));
+				rsaEncrypt.loadPrivateKey(Config
+						.getConfig("GAME_TIMESIGN_RSA_PRIVATE_KEY_" + gameId));
+
+				Vector<String> signStrings = new Vector<String>();
+				for (int i = 0; i < cutVector.size(); i++) {
+					byte[] encodeBytes = rsaEncrypt
+							.encrypt(rsaEncrypt.getPublicKey(), cutVector
+									.get(i).getBytes("UTF-8"));
+					signStrings.add(Base64.encode(encodeBytes));
+				}
+
+				Iterator<String> iterator2 = signStrings.iterator();
+				while (iterator2.hasNext()) {
+					timeSign += iterator2.next();
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			gameInterface.putString("TimeSign", timeSign);
+		}
+		messageReturn.setRetObject(gameInterface);
+	}
+
+	/**
+	 * 获取游戏登录接口
+	 * 
+	 * @param model
+	 *            用户，需要在外部判断 model!=null
+	 * @return 游戏登录接口消息
+	 */
+	private MessageReturn getGameInterface(int sequenceNumber,
+			wh.member.model.User model, int gameId, int addValue) {
+		MessageReturn messageReturn = new MessageReturn();
+		wh.game.model.Game game = wh.game.bll.Game.getInstance().get(gameId,
+				refMyErr);
+		uld.sdk.model.GameInterface gameInterface = getLoginGameInterface(
+				gameId, sequenceNumber, model.getUserId());
+
+		if (null != game && gameInterface != null) {
+			gameInterface.setUserId(model.getUserId());
+			gameInterface.setRechargeRate(game.getGameMoneyRate());
+			gameInterface.setRechargeUnit(GameMoneyType.parse(
+					game.getGameMoneyType()).toString());
+			gameInterface.putString("Content", game.getContent());
+
+			// 为傲剑设置时间签名
+			setTimeSignForAojian(messageReturn, gameId, gameInterface,
+					model.getChannelId(), model.getUserId());
+		}
+
+		messageReturn.setRetObject(gameInterface);
+
+		return messageReturn;
+	}
+
+	/**
+	 * 获取登录接口
+	 * 
+	 * @param gameId
+	 *            游戏编号
+	 * @param sequenceNumber
+	 *            服务器序列号，eg：1服，2服，3服，对应：1,2,3
+	 * @param userId
+	 *            用户编号
+	 * @return
+	 */
+	public uld.sdk.model.GameInterface getLoginGameInterface(int gameId,
+			int sequenceNumber, int userId) {
+		// 初始化返回值
+		uld.sdk.model.GameInterface gameInterface = new uld.sdk.model.GameInterface();
+
+		// 构造查询条件，得到游戏接口 wh.game.model.GameInterface gInterface
+		wh.game.model.GameInterface gInterface = new wh.game.model.GameInterface();
+		gInterface.setGameId(gameId);
+		gInterface.setInterfaceType(InterfaceType.登录.getValue());
+		RefObject<Integer> totalCount = new RefObject<Integer>(0);
+		List<wh.game.model.GameInterface> gameInterfaces = wh.game.bll.GameInterface
+				.getInstance().getList(gInterface, totalCount, true, 1, 1, "",
+						1, refMyErr);
+		if (gameInterfaces.size() > 0) {
+			gInterface = gameInterfaces.get(0);
+		}
+
+		if (gInterface.getGameInterfaceId() > 0) {
+			// 设置进入游戏的IntentAction
+			gameInterface.setIntentAction(gInterface.getUrl());
+
+			// 构造查询条件，到得游戏接口参数列表 List<wh.game.model.GameInterfaceParams> params
+			wh.game.model.GameInterfaceParams param = new wh.game.model.GameInterfaceParams();
+			param.setGameInterfaceId(gInterface.getGameInterfaceId());
+			param.setGameId(gameId);
+			param.setParamType(ParamType.传入参数.getValue());
+			List<wh.game.model.GameInterfaceParams> params = wh.game.bll.GameInterfaceParams
+					.getInstance().getList(param, totalCount, true, 1, 1,
+							"SignIndex", 0, refMyErr);
+
+			// 签名值对应的名称
+			String signName = "";
+			// 签名值
+			String signValue = "";
+			// 签名参数值
+			String signParmValue = "";
+			// 参数值
+			String tempParamValue = "";
+			for (wh.game.model.GameInterfaceParams m : params) {
+				tempParamValue = "";
+				signParmValue = "";
+
+				// 格式化参数值
+				if (m.getParamInType() == ParamInType.服务器.getValue()) {
+					tempParamValue = m.getParamValue().replace("{0}",
+							String.valueOf(sequenceNumber));
+				} else if (m.getParamInType() == ParamInType.时间.getValue()) {
+					tempParamValue = String
+							.valueOf(new Date().getTime() / 1000);
+				} else if (m.getParamInType() == ParamInType.帐号.getValue()) {
+					tempParamValue = String.valueOf(userId);
+				} else {
+					tempParamValue = m.getParamValue();
+				}
+
+				if (m.getParamInType() == ParamInType.签名.getValue()) {
+					// 获取签名值对应的名称
+					signName = m.getParamName();
+				} else if (m.getParamInType() != ParamInType.签名.getValue()
+						&& m.getParamInType() != ParamInType.签名Key.getValue()
+						&& m.getParamInType() != ParamInType.Base64签名
+								.getValue()) {
+					// 把正常的不需要进行签名的参数，以Key Value的方式存储
+					gameInterface.putString(m.getParamName(), tempParamValue);
+				}
+
+				// 处理需要参与签名的一些参数
+				if (m.getSignType() == SignType.参与签名.getValue()) {
+					if (!Utility.isEmpty(m.getSignFormatValue())
+							&& m.getSignFormatValue().contains("{0}")) {
+						// 把需要进行格式化的签名值进行格式化，再赋值给签名参数值
+						signParmValue = m.getSignFormatValue().replace("{0}",
+								tempParamValue);
+					} else {
+						// 不需要格式化的直接赋值给签名参数值
+						signParmValue = tempParamValue;
+					}
+
+					// 把需要签名的值按一定的连接方式进行处理
+					if (Utility.isEmpty(signValue)) {
+						// 第一个签名参数值
+						signValue = signParmValue;
+					} else {
+						// 不是第一个签名参数值，则按一个的连接方式，进行连接
+						signValue += gInterface.getSignJoinSymbol()
+								+ signParmValue;
+					}
+				}
+			}
+			// 把需要签名的签名值进行MD5签名
+			signValue = Utility.encodeMD5(signValue);
+			// 把签名值对应的签名名称和签名值以Key Value的方式存储
+			gameInterface.putString(signName, signValue);
+		}
+
+		return gameInterface;
+	}
+
+	/**
+	 * 卡充值
+	 * 
+	 * @param userId
+	 * @param cardNo
+	 * @param cardPwd
+	 * @param payType
+	 * @param gameId
+	 * @param serverId
+	 * @param payAccount
+	 * @param mobilePhone
+	 * @return
+	 */
+	public MessageReturn payCard(int userId, String cardNo, String cardPwd,
+			wh.order.model.OrderEnum.PayType payType, int gameId, int serverId,
+			String playerId, int payAccount, String mobilePhone) {
+		MessageReturn messageReturn = new MessageReturn();
+		StringBuilder sBuilder = new StringBuilder();
+		sBuilder.append("http://paycard.ulaoda.com/req.ashx?");
+		sBuilder.append("UserId=" + userId);
+		sBuilder.append("&Sign="
+				+ Utility.encodeMD5(userId + "_ulaoda_recharge"));
+		sBuilder.append("&paySourceType=" + PaySourceType.Android客户端.getValue());
+		sBuilder.append("&ChargeType=" + ChargeType.充值游戏.getValue());
+		sBuilder.append("&PayType=" + payType.getValue());
+		sBuilder.append("&GameId=" + gameId);
+		sBuilder.append("&ServerId=" + serverId);
+		sBuilder.append("&PlayerId=" + playerId);
+		sBuilder.append("&PayAccount=" + payAccount);
+		sBuilder.append("&MobilePhone=" + mobilePhone);
+		sBuilder.append("&Title=UldGame");
+		sBuilder.append("&CardNo=" + cardNo);
+		sBuilder.append("&CardPwd=" + cardPwd);
+
+		int orderId = 0;
+		String result = "";
+		try {
+			result = Utility.getWebContent(sBuilder.toString());
+		} catch (IOException e) {
+			LogHelper.log(Level.SEVERE, e.getMessage(), e);
+		}
+		MyErr myErr = (MyErr) com.alibaba.fastjson.JSON.parseObject(result,
+				MyErr.class);
+		if (myErr != null) {
+			messageReturn.setErr(myErr.getErrNo(), myErr.getErrMsg());
+			if (!messageReturn.findErr()) {
+				orderId = Utility.getInt(myErr.getErrMsg());
+			}
+		} else {
+			messageReturn.setErr(-1, "请交失败，请重试");
+		}
+
+		messageReturn.setRetObject(orderId);
+		return messageReturn;
+	}
+
+	/**
+	 * 创建订单
+	 * 
+	 * @param userId
+	 * @param payTypeValue
+	 * @param gameId
+	 * @param serverId
+	 * @param playerId
+	 * @param payAccount
+	 * @param mobilePhone
+	 * @return
+	 */
+	public Integer createOrder(Integer userId, Integer payTypeValue,
+			Integer gameId, Integer serverId, String playerId,
+			Integer payAccount, String mobilePhone) {
+		wh.member.model.User user = wh.member.bll.User.getInstance().get(
+				userId, refMyErr);
+		String userName = "";
+		if (user != null) {
+			userName = user.getUserName();
+		}
+		LogHelper.log("userId:" + userId);
+		wh.order.model.Order order = new wh.order.model.Order();
+		order.setGameId(gameId);
+		order.setServerId(serverId);
+		order.setUserId(userId);
+		order.setChargedUserId(userId);
+		order.setChargedUserName(userName);
+		order.setPaySourceType(OrderEnum.PaySourceType.Android客户端.getValue());
+		order.setOrderType(OrderEnum.OrderType.已提交.getValue());
+		order.setAccountType(OrderEnum.AccountType.D币.getValue());
+		order.setChargeType(OrderEnum.ChargeType.充值游戏.getValue());
+		order.setCreateDate(new Date());
+		order.setModifyDate(new Date());
+
+		order.setTel(playerId);
+		order.setPayAccount(BigDecimal.valueOf((payAccount)));
+		order.setRealPayAccount(BigDecimal.valueOf(payAccount));
+
+		int payTypeValueInt = payTypeValue;
+		order.setPayType((byte) payTypeValueInt);
+		order.setStatus((byte) 1);
+
+		// 注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+		order.setServerId(ServerTools.getServerIdBySequenceNumber(
+				order.getGameId(), order.getServerId(), "UldServer-createOrder"));
+
+		Integer orderId = wh.order.bll.Order.getInstance().createUpdate(order,
+				refMyErr);
+
+		wh.order.model.OrderLog orderLog = new wh.order.model.OrderLog();
+		orderLog.setCreateDate(new Date());
+		orderLog.setLogName("playerid");
+		orderLog.setDescription(playerId);
+		orderLog.setOrderId(orderId);
+		orderLog.setStatus((byte) 1);
+		orderLog.setUserId(userId);
+		wh.order.bll.OrderLog.getInstance().createUpdate(orderLog);
+
+		return orderId;
+	}
+
+	public MessageReturn payYinLian(Integer userId, Integer payTypeValue,
+			Integer gameId, Integer serverId, String playerId,
+			Integer payAccount, String mobilePhone) {
+		MessageReturn messageReturn = new MessageReturn();
+
+		// 创建订单
+		Integer orderId = createOrder(userId, payTypeValue, gameId, serverId,
+				playerId, payAccount, mobilePhone);
+
+		String orderIdString = String.valueOf(orderId);
+		int length = orderIdString.length();
+		if (length < 12) {
+			int fixLength = 12 - length;
+			while (fixLength-- > 0) {
+				orderIdString = orderIdString + "X";
+			}
+		}
+
+		// 创建订单提交的7位签名原串
+		Upomp_Pay_Info.merchantOrderId = String.valueOf(orderIdString);
+		Upomp_Pay_Info.merchantOrderTime = Utility
+				.getFormatDate("yyyyMMddHHmmss");
+		Upomp_Pay_Info.merchantOrderAmt = String.valueOf(payAccount * 100);
+		Upomp_Pay_Info.merchantOrderDesc = "充值" + payAccount + "元";
+		Upomp_Pay_Info.originalsign = CreateOriginal.CreateOriginal_Sign(7);
+		LogHelper.log("创建订单提交的7位签名原串Upomp_Pay_Info.originalsign:"
+				+ Upomp_Pay_Info.originalsign);
+
+		// 获取订单提交时，sign节点的签名值
+		InputStream PrivateSign = null;
+		try {
+			PrivateSign = new FileInputStream(Upomp_Pay_Info.PrivatePath);
+		} catch (FileNotFoundException e) {
+			LogHelper.log(Level.SEVERE, e.getMessage(), e);
+		}
+		Upomp_Pay_Info.xmlSign = SignBy.createSign(Upomp_Pay_Info.originalsign,
+				Upomp_Pay_Info.alias, Upomp_Pay_Info.password, PrivateSign);
+		try {
+			PrivateSign.close();
+			PrivateSign = null;
+		} catch (IOException e1) {
+			LogHelper.log(e1.getMessage());
+		}
+		LogHelper.log("这是订单提交的7位签名Upomp_Pay_Info.xmlSign:"
+				+ Upomp_Pay_Info.xmlSign);
+
+		// 生成订单提交报文，提交数据
+		String Submit = XmlDefinition.ReturnXml(Upomp_Pay_Info.xmlSign, 7,
+				XmlDefinition.application_chose[0]);
+		LogHelper.log("这是订单提交报文:" + Submit);
+
+		// 定义前置网络通信地址
+		XmlHttpConnection httpConnection = new XmlHttpConnection(
+				Upomp_Pay_Info.YinlianConnectionUrl, 6000);
+		// 向前置提交标准报文
+		httpConnection.sendMsg(Submit);
+		// 输出前置返回的报文
+		String retMsg = httpConnection.getReMeg();
+		LogHelper.log("这是前置返回的报文:" + retMsg);
+		if (retMsg != null && retMsg.indexOf("<respCode>0000</respCode>") > 0) {
+
+			Upomp_Pay_Info.originalsign = CreateOriginal.CreateOriginal_Sign(3);
+			LogHelper.log("Upomp_Pay_Info.originalsign:"
+					+ Upomp_Pay_Info.originalsign);
+
+			try {
+				PrivateSign = new FileInputStream(Upomp_Pay_Info.PrivatePath);
+			} catch (FileNotFoundException e) {
+				LogHelper.log(Level.SEVERE, e.getMessage(), e);
+			}
+			Upomp_Pay_Info.xmlSign = SignBy.createSign(
+					Upomp_Pay_Info.originalsign, Upomp_Pay_Info.alias,
+					Upomp_Pay_Info.password, PrivateSign);
+			if (Utility.isEmpty(Upomp_Pay_Info.xmlSign)) {
+				messageReturn.setErr(-1, "签名失败");
+			} else {
+				retMsg = XmlDefinition.ReturnXml(Upomp_Pay_Info.xmlSign, 3,
+						XmlDefinition.application_chose[1]);
+				messageReturn.setRetObject(retMsg);
+			}
+		}
+
+		LogHelper.log("ErrNo:" + messageReturn.getErrNo());
+		LogHelper.log("ErrMsg:" + messageReturn.getErrMsg());
+
+		LogHelper.log("这是前置返回的报文加密后:" + retMsg);
+		return messageReturn;
+	}
+
+	/**
+	 * 获取订单状态
+	 * 
+	 * @param orderId
+	 * @return
+	 */
+	public MessageReturn getOrderType(int orderId) {
+		MessageReturn messageReturn = new MessageReturn();
+		if (orderId <= 0) {
+			messageReturn.setErr(-1, "订单号错误");
+		} else {
+			wh.order.model.Order order = wh.order.bll.Order.getInstance().get(
+					orderId, refMyErr);
+			if (order != null) {
+				messageReturn.setRetObject(wh.order.model.OrderEnum.OrderType
+						.parse(order.getOrderType()));
+			} else {
+				messageReturn.setErr(-1, "订单号不存在");
+			}
+		}
+		return messageReturn;
+	}
+
+	/**
+	 * 为天神发送注册信息
+	 * 
+	 * @param gameId
+	 * @param channelId
+	 */
+	private void sendRegisterMsgToAoJian(final int gameId, final int channelId, final String channelUserId) {
+		new Thread() {
+			@Override
+			public void run() {
+				if (gameId == 8) {
+					// 发送注册信息
+					String date = Utility.getFormatDate(new Date());
+
+					String body = "gameid=16&logname=log_yunyinguser&logs={\"f_dept\":\""
+							+ channelId
+							+ "\",\"f_game_id\":\"16\",\"f_time\":\""
+							+ date
+							+ "\",\"f_yunying_id\":\"" + channelUserId + "\"}";
+					int responseCode = uld.sdk.bll.UserWebApi.getInstance()
+							.requestHttpPost(body);
+					
+					LogHelper.log("body:channelUserId="+channelUserId);
+				}
+
+			}
+
+		}.start();
+	}
+
+	/**
+	 * 为天神发送登录信息
+	 * 
+	 * @param gameId
+	 * @param channelId
+	 */
+	private void sendLoginMsgToAojian(final int gameId, final int channelId, final String channelUserId) {
+		// 发送登录信息
+
+		new Thread() {
+			public void run() {
+				if (gameId == 8) {
+					String date = Utility.getFormatDate(new Date());
+					String body = "gameid=16&logname=log_yunyinguser_sdk_login&logs={\"f_dept\":\""
+							+ channelId
+							+ "\",\"f_game_id\":\"16\",\"f_time\":\""
+							+ date
+							+ "\",\"f_yunying_id\":\"" + channelUserId + "\"}";
+					int responseCode = uld.sdk.bll.UserWebApi.getInstance()
+							.requestHttpPost(body);
+				}
+
+			};
+		}.start();
+	}
+
+}

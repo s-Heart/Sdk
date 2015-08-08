@@ -1,0 +1,52 @@
+2014-7-29 16:13:39 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-7-29 16:13:42 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-7-29 16:13:44 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-7-29 16:13:44 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-7-29 16:13:44 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-7-29 16:13:45 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->registerQuick
+2014-7-29 16:13:48 uld.sdk.tools.LogHelper log
+信息: 7
+2014-7-29 16:13:48 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-gameId:8
+2014-7-29 16:13:48 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-sequenceNumber:1001
+2014-7-29 16:13:48 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-serverList.get(0).getServerId():28
+2014-7-29 16:13:48 uld.sdk.tools.LogHelper log
+信息: GameCategoryId_GameId_ServerId_MobileDeviceId:0_8_28_17
+2014-7-29 16:13:48 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->login
+2014-7-29 16:14:00 uld.sdk.tools.LogHelper log
+信息: 7
+2014-7-29 16:14:00 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-gameId:8
+2014-7-29 16:14:00 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-sequenceNumber:1001
+2014-7-29 16:14:01 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-serverList.get(0).getServerId():28
+2014-7-29 16:14:01 uld.sdk.tools.LogHelper log
+信息: GameCategoryId_GameId_ServerId_MobileDeviceId:0_8_28_17
+2014-7-29 16:14:01 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->login
+2014-7-29 16:14:42 uld.sdk.tools.LogHelper log
+信息: [ChannelId]7
+2014-7-29 16:14:42 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-gameId:8
+2014-7-29 16:14:42 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-sequenceNumber:1001
+2014-7-29 16:14:42 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-serverList.get(0).getServerId():28
+2014-7-29 16:14:42 uld.sdk.tools.LogHelper log
+信息: GameCategoryId_GameId_ServerId_MobileDeviceId:0_8_28_17
+2014-7-29 16:14:43 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->login
+2014-7-29 16:19:45 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-7-29 16:29:46 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat

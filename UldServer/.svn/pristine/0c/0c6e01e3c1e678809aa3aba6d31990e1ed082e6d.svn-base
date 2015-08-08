@@ -1,0 +1,159 @@
+﻿package uld.sdk.bll;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.logging.Level;
+
+import uld.sdk.model.MessageReturn;
+import uld.sdk.tools.LogHelper;
+import uld.sdk.tools.MyErr;
+import uld.sdk.tools.Utility;
+import wh.order.model.Order;
+import wh.order.model.OrderEnum;
+import wh.order.model.OrderEnum.ChargeType;
+import wh.order.model.OrderEnum.PaySourceType;
+
+public class UserBaoruan {
+
+	private static final String BAORUAN_USERNAME = "clsx";
+	private static final String BAORUAN_PASSWORD = "ac053e13";
+
+	private static final String BAORUAN_CHZB_GAMEID = "121";
+	private static final String BAORUAN_CHZB_KEY = "744b3c6478c318854c";
+
+	/**
+	 * 宝软卡充值
+	 * 
+	 * @param userId
+	 * @param cardNo
+	 * @param cardPwd
+	 * @param payType
+	 * @param gameId
+	 * @param serverId
+	 * @param payAccount
+	 * @param mobilePhone
+	 * @return
+	 */
+	public MessageReturn payCard(int userId, String cardNo, String cardPwd, wh.order.model.OrderEnum.PayType payType, int gameId,
+			int serverId, String playerId, int payAccount, String mobilePhone) {
+
+		MessageReturn messageReturn = new MessageReturn();
+
+		// 创建订单
+		wh.order.model.Order order = new wh.order.model.Order();
+		order.setGameId(gameId);
+		order.setServerId(serverId);
+		order.setUserId(userId);
+		order.setChargedUserId(userId);
+		order.setPaySourceType(OrderEnum.PaySourceType.Android客户端.getValue());
+		order.setOrderType(OrderEnum.OrderType.已提交.getValue());
+		order.setAccountType(OrderEnum.AccountType.D币.getValue());
+		order.setChargeType(OrderEnum.ChargeType.充值游戏.getValue());
+		order.setCreateDate(new Date());
+		order.setModifyDate(new Date());
+
+		order.setPayAccount(BigDecimal.valueOf(payAccount));
+		order.setRealPayAccount(BigDecimal.valueOf(payAccount));
+
+		// 75为其他渠道充值,宝软只有3中充值方式，均为充值卡
+		order.setPayType(payType.getValue());
+		order.setStatus((byte) 1);
+
+		//注：因从客户端传过来的ServerId实际为SequenceNumber，所以在此要转化一下
+		order.setServerId(ServerTools.getServerIdBySequenceNumber(order.getGameId(), order.getServerId(),"UserBaoruan-payCard"));
+		serverId = order.getServerId();
+		messageReturn = wh.order.bll.Order.getInstance().createUpdate(order);
+
+		if (messageReturn.findErr()) {
+			messageReturn.setErr(-1, "请交失败，请重试");
+			return messageReturn;
+		}
+
+		int orderId = Utility.getInt(messageReturn.getRetObject());
+
+		wh.order.model.OrderLog orderLog = new wh.order.model.OrderLog();
+		orderLog.setCreateDate(new Date());
+		orderLog.setLogName("playerid");
+		orderLog.setDescription(playerId);
+		orderLog.setOrderId(Utility.getInt(messageReturn.getRetObject()));
+		orderLog.setStatus((byte) 1);
+		orderLog.setUserId(userId);
+		wh.order.bll.OrderLog.getInstance().createUpdate(orderLog);
+
+		// 支付通道编码(pc_id) 支付方式编码(pm_id) 支付通道省份 支付方式描述
+		// CMJFK00010001 CMJFK 全国移动充值卡
+		// CMJFK00010014 CMJFK 福建移动呱呱通充值卡
+		// CMJFK00010112 CMJFK 浙江移动缴费券
+		// DXJFK00010001 DXJFK 中国电信充值付费卡
+		// LTJFK00020000 LTJFK 全国联通一卡充
+
+		String pc_id = "";
+		String pm_id = "";
+
+		if (payType == OrderEnum.PayType.神州行) {
+			pc_id = "CMJFK00010001";
+			pm_id = "CMJFK";
+		} else if (payType == OrderEnum.PayType.联通) {
+			pc_id = "DXJFK00010001";
+			pm_id = "DXJFK";
+		} else if (payType == OrderEnum.PayType.电信) {
+			pc_id = "LTJFK00020000";
+			pm_id = "LTJFK";
+		}
+
+		// 调用宝软
+
+		StringBuilder sBuilder = new StringBuilder();
+
+		// 测试地址
+		//sBuilder.append("http://221.179.175.55/app/netgame/api/card_pay.php?");
+		// 正式地址，正式上线修改
+		sBuilder.append("http://pay.baoruan.com/netgame/api/card_pay.php?");
+
+		StringBuilder signBuilder = new StringBuilder();
+		signBuilder.append("order_id=" + orderId);
+		signBuilder.append("&order_time=" + order.getCreateDate());
+		signBuilder.append("&game_id=" + BAORUAN_CHZB_GAMEID);
+		signBuilder.append("&key=" + BAORUAN_CHZB_KEY);
+		signBuilder.append("&amount=" + payAccount + ".00");
+		signBuilder.append("&cardnum=" + cardNo);
+		signBuilder.append("&cardpwd=" + cardPwd);
+		signBuilder.append("&pm_id=" + pm_id);
+		signBuilder.append("&pc_id=" + pc_id);
+		String orignSign = signBuilder.toString();
+
+		String validate_string = Utility.encodeMD5(orignSign);
+
+		sBuilder.append("order_id=" + orderId);
+		sBuilder.append("&order_time=" + order.getCreateDate());
+		sBuilder.append("&game_id=" + BAORUAN_CHZB_GAMEID);
+		sBuilder.append("&user_name=" + BAORUAN_USERNAME);
+		sBuilder.append("&password=" + BAORUAN_PASSWORD);
+		sBuilder.append("&validate_string=" + validate_string);
+		// 保留到两位小数
+		sBuilder.append("&amount=" + payAccount + ".00");
+		sBuilder.append("&cardnum=" + cardNo);
+		sBuilder.append("&cardpwd=" + cardPwd);
+		sBuilder.append("&pm_id=" + pm_id);
+		sBuilder.append("&pc_id=" + pc_id);
+
+		// LogHelper.log("Baoruanq订单请求-原始串" + orignSign);
+		// LogHelper.log("Baoruanq订单请求-请求地址" + sBuilder.toString());
+
+		String result = "";
+		try {
+			result = Utility.getWebContent(sBuilder.toString());
+			result = result.replace("\r", "");
+			result = result.replace("\n", "");
+		} catch (IOException e) {
+			// LogHelper.log(Level.SEVERE, e.getMessage(), e);
+		}
+
+		LogHelper.log("Baoruanq订单请求-请求返回结果" + result);
+		if (!result.equals("success")) {
+			messageReturn.setErr(-1, "请交失败，请重试");
+		}
+		return messageReturn;
+	}
+}

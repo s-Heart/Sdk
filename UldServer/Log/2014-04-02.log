@@ -1,0 +1,104 @@
+2014-4-2 18:35:47 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-4-2 18:36:59 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-4-2 18:37:04 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-4-2 18:37:07 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-4-2 18:37:07 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-4-2 18:37:07 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-4-2 18:37:09 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->registerQuick
+2014-4-2 18:37:09 uld.sdk.tools.LogHelper log
+信息: body:channelUserId=265389
+2014-4-2 18:39:18 uld.sdk.tools.LogHelper log
+信息: 调用方法：wh.member.bll.User->checkUserName
+2014-4-2 18:39:21 uld.sdk.tools.LogHelper log
+信息: User-createUpdate-gameId:8
+2014-4-2 18:39:21 uld.sdk.tools.LogHelper log
+信息: User-createUpdate-sequenceNumber:1001
+2014-4-2 18:39:21 uld.sdk.tools.LogHelper log
+信息: User-createUpdate-serverList.get(0).getServerId():28
+2014-4-2 18:39:22 uld.sdk.tools.LogHelper log
+信息: GameCategoryId_GameId_ServerId_MobileDeviceId:0_8_28_71970
+2014-4-2 18:39:22 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->createUpdate
+2014-4-2 18:39:25 uld.sdk.tools.LogHelper log
+信息: body:channelUserId=265390
+2014-4-2 18:44:31 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-4-2 18:44:31 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-4-2 18:44:32 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-4-2 18:44:33 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->registerQuick
+2014-4-2 18:44:33 uld.sdk.tools.LogHelper log
+信息: body:channelUserId=265391
+2014-4-2 18:45:11 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-4-2 18:45:11 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-4-2 18:45:12 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-4-2 18:45:12 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->registerQuick
+2014-4-2 18:45:12 uld.sdk.tools.LogHelper log
+信息: body:channelUserId=265392
+2014-4-2 18:47:27 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-4-2 18:47:27 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-4-2 18:47:28 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-4-2 18:47:29 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->registerQuick
+2014-4-2 18:47:29 uld.sdk.tools.LogHelper log
+信息: body:channelUserId=265393
+2014-4-2 18:47:54 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-4-2 18:47:54 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-4-2 18:47:58 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-4-2 18:47:58 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->registerQuick
+2014-4-2 18:47:58 uld.sdk.tools.LogHelper log
+信息: body:channelUserId=265394
+2014-4-2 18:49:41 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-4-2 18:49:41 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-4-2 18:49:43 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-4-2 18:50:17 uld.sdk.tools.LogHelper log
+信息: body:channelUserId=265396
+2014-4-2 18:55:44 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->registerQuick
+2014-4-2 18:55:56 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-4-2 18:55:56 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-4-2 18:55:56 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-4-2 18:56:43 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->registerQuick
+2014-4-2 18:56:43 uld.sdk.tools.LogHelper log
+信息: body:channelUserId=265397
+2014-4-2 18:56:52 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-4-2 18:56:52 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-4-2 18:56:52 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-4-2 18:59:09 uld.sdk.tools.LogHelper log
+信息: body:channelUserId=265398
+2014-4-2 19:02:23 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-4-2 19:02:23 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-4-2 19:02:27 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28

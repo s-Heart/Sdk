@@ -1,0 +1,301 @@
+2014-9-4 15:53:50 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 15:53:52 uld.sdk.tools.LogHelper log
+信息: [ChannelId]7
+2014-9-4 15:53:52 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-gameId:8
+2014-9-4 15:53:52 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-sequenceNumber:1001
+2014-9-4 15:53:52 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-serverList.get(0).getServerId():28
+2014-9-4 15:53:52 uld.sdk.tools.LogHelper log
+信息: GameCategoryId_GameId_ServerId_MobileDeviceId:0_8_28_277466
+2014-9-4 15:53:53 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->login
+2014-9-4 15:54:04 uld.sdk.tools.LogHelper log
+信息: userId:265477
+2014-9-4 15:54:04 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-gameId:8
+2014-9-4 15:54:04 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-sequenceNumber:1001
+2014-9-4 15:54:04 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-serverList.get(0).getServerId():28
+2014-9-4 15:54:04 uld.sdk.tools.LogHelper log
+信息: 创建订单提交的7位签名原串Upomp_Pay_Info.originalsign:merchantName=游老大&merchantId=802310048990745&merchantOrderId=80035XXXXXXX&merchantOrderTime=20140904155404&merchantOrderAmt=100&merchantOrderDesc=充值1元&transTimeout=
+2014-9-4 15:54:04 uld.sdk.tools.LogHelper log
+信息: 这是订单提交的7位签名Upomp_Pay_Info.xmlSign:kjH1tyaq9Wu+g2cscomvDk9fYWHaidLGtVRN7kIFpuQtRHQz8jaA4SMgTO68IQyN7ZKSRFVQIxut6Uopcxrit+JuIJHyL44qlbUirT/Hs7pE/9bcypoQm+heFoIFwyB4WFMX4F7TE4Lw1ZaSTcV+jO3UDka09wG9huMZ4PJ6ZV4=
+2014-9-4 15:54:04 uld.sdk.tools.LogHelper log
+信息: 这是订单提交报文:<?xml version='1.0' encoding='utf-8' standalone='yes'?><upomp  application='SubmitOrder.Req' version='1.0.0'><merchantName>游老大</merchantName><merchantId>802310048990745</merchantId><merchantOrderId>80035XXXXXXX</merchantOrderId><merchantOrderTime>20140904155404</merchantOrderTime><merchantOrderAmt>100</merchantOrderAmt><merchantOrderDesc>充值1元</merchantOrderDesc><transTimeout></transTimeout><backEndUrl>http://payyinlian.ulaoda.com/callback.ashx</backEndUrl><sign>kjH1tyaq9Wu+g2cscomvDk9fYWHaidLGtVRN7kIFpuQtRHQz8jaA4SMgTO68IQyN7ZKSRFVQIxut6Uopcxrit+JuIJHyL44qlbUirT/Hs7pE/9bcypoQm+heFoIFwyB4WFMX4F7TE4Lw1ZaSTcV+jO3UDka09wG9huMZ4PJ6ZV4=</sign><merchantPublicCert>MIID3jCCA0egAwIBAgIQSnJ1jAgRMbjOJbAalx0C7jANBgkqhkiG9w0BAQUFADAqMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMB4XDTEzMDQyMjA4NDExOVoXDTE1MDQyMjA4NDExOVowgZAxCzAJBgNVBAYTAkNOMRswGQYDVQQKExJDRkNBIE9wZXJhdGlvbiBDQTIxETAPBgNVBAsTCExvY2FsIFJBMRQwEgYDVQQLEwtFbnRlcnByaXNlczE7MDkGA1UEAxQyMDQxQDgzMTAwMDAwMDAwODMwNDBAODAyMzEwMDQ4OTkwNzQ1OlNJR05AMDAwMDA5MTYwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALPTK5MXO/xQuknMH+79tAlsNA2eQzvl+ccnTM72b7k0nSbztnz7Zq5fPE6U/jHEHNMv57ZgiNpMG1x5IxllQKrlyIva7TKki3UmzjUHUWsNZvG3n8lhYZa43K+U+MSbEJl7M6CUtl9HVmbeNMeYosuAnnpxbe7+K0fYdckRelFfAgMBAAGjggGcMIIBmDAfBgNVHSMEGDAWgBTwje2zQbv77wgeVQLDMTfvPBROzTAdBgNVHQ4EFgQU+/f+/xI3/VMJrXduzu9iyZyFZP8wCwYDVR0PBAQDAgTwMAwGA1UdEwQFMAMBAQAwOwYDVR0lBDQwMgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcDAwYIKwYBBQUHAwQGCCsGAQUFBwMIMIH9BgNVHR8EgfUwgfIwVqBUoFKkUDBOMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMQwwCgYDVQQLEwNDUkwxFDASBgNVBAMTC2NybDEwNF84MTA0MIGXoIGUoIGRhoGObGRhcDovL2NlcnQ4NjMuY2ZjYS5jb20uY246Mzg5L0NOPWNybDEwNF84MTA0LE9VPUNSTCxPPUNGQ0EgT3BlcmF0aW9uIENBMixDPUNOP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RjbGFzcz1jUkxEaXN0cmlidXRpb25Qb2ludDANBgkqhkiG9w0BAQUFAAOBgQAkoXOP9q7l+qpBmRp4uPXyRIo1f+jhBYHzSTj+SCxNrgComq9Pj0gMORx0zL5ewIzEsiCoxIHQ30Gk57K4cH0p+So8Pe4ZbmBf2HUtrsEc7wH06QcDN3ELJ2CsZPYYzOzbNAvJa/wCj6uWNr9bqJXAgeytUelKYOsnyEIQ2DGoxA==</merchantPublicCert></upomp>
+2014-9-4 15:54:05 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文:<?xml version="1.0" encoding="UTF-8" standalone="yes"?><upomp application="SubmitOrder.Rsp"><merchantId>802310048990745</merchantId><merchantOrderId>80035XXXXXXX</merchantOrderId><merchantOrderTime>20140904155404</merchantOrderTime><respCode>0000</respCode><respDesc>操作成功</respDesc><merchantOrderAmt>100</merchantOrderAmt></upomp>
+2014-9-4 15:54:05 uld.sdk.tools.LogHelper log
+信息: Upomp_Pay_Info.originalsign:merchantId=802310048990745&merchantOrderId=80035XXXXXXX&merchantOrderTime=20140904155404
+2014-9-4 15:54:05 uld.sdk.tools.LogHelper log
+信息: ErrNo:0
+2014-9-4 15:54:05 uld.sdk.tools.LogHelper log
+信息: ErrMsg:
+2014-9-4 15:54:05 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文加密后:<?xml version='1.0' encoding='UTF-8' ?><upomp  application='lanchpay.Req' version='1.0.0' ><merchantId>802310048990745</merchantId><merchantOrderId>80035XXXXXXX</merchantOrderId><merchantOrderTime>20140904155404</merchantOrderTime><sign>r1A9LLn9RNxshbkcNxKlrSUlmuI21aGPDbBPpV85fD4vhjikokDc4B7cNT8ewLK63jWKM/Qe/fgRaibGQT4I4Ju18WGrhDTLJrN8brSNMPvcBlJVjavWmh0l0IqFTSrNihpGFYA0EBZbB9Ggz03k7ot2ZDSMh1pC48htHAQjroU=</sign></upomp>
+2014-9-4 15:54:05 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->payYinLian
+2014-9-4 15:54:29 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 15:54:44 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 15:54:46 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 15:54:48 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-gameId:8
+2014-9-4 15:54:48 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-sequenceNumber:1001
+2014-9-4 15:54:48 uld.sdk.tools.LogHelper log
+信息: User-createUpdateNoLogin-serverList.get(0).getServerId():28
+2014-9-4 15:54:48 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->registerQuick
+2014-9-4 15:54:50 uld.sdk.tools.LogHelper log
+信息: [ChannelId]7
+2014-9-4 15:54:50 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-gameId:8
+2014-9-4 15:54:50 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-sequenceNumber:1001
+2014-9-4 15:54:50 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-serverList.get(0).getServerId():28
+2014-9-4 15:54:50 uld.sdk.tools.LogHelper log
+信息: GameCategoryId_GameId_ServerId_MobileDeviceId:0_8_28_277466
+2014-9-4 15:54:50 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->login
+2014-9-4 15:54:56 uld.sdk.tools.LogHelper log
+信息: userId:265478
+2014-9-4 15:54:56 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-gameId:8
+2014-9-4 15:54:56 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-sequenceNumber:1001
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-serverList.get(0).getServerId():28
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: 创建订单提交的7位签名原串Upomp_Pay_Info.originalsign:merchantName=游老大&merchantId=802310048990745&merchantOrderId=80036XXXXXXX&merchantOrderTime=20140904155457&merchantOrderAmt=1000&merchantOrderDesc=充值10元&transTimeout=
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: 这是订单提交的7位签名Upomp_Pay_Info.xmlSign:LxhNql59oXxAQ0GlOunXaRg7yN3Ab066Bxmx1Pkf3NkskTv+mdG9MAQaYryGcqAavMOAcvXDF9kvzOvrbs3K11N9VdZ7Cx8VLFRtNVXWrAznc/nmV5df4+3Mzi14/2d5lHzyYQFSbgrkqAJXEcHQYFit27+KCjLon+7wmadDoEg=
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: 这是订单提交报文:<?xml version='1.0' encoding='utf-8' standalone='yes'?><upomp  application='SubmitOrder.Req' version='1.0.0'><merchantName>游老大</merchantName><merchantId>802310048990745</merchantId><merchantOrderId>80036XXXXXXX</merchantOrderId><merchantOrderTime>20140904155457</merchantOrderTime><merchantOrderAmt>1000</merchantOrderAmt><merchantOrderDesc>充值10元</merchantOrderDesc><transTimeout></transTimeout><backEndUrl>http://payyinlian.ulaoda.com/callback.ashx</backEndUrl><sign>LxhNql59oXxAQ0GlOunXaRg7yN3Ab066Bxmx1Pkf3NkskTv+mdG9MAQaYryGcqAavMOAcvXDF9kvzOvrbs3K11N9VdZ7Cx8VLFRtNVXWrAznc/nmV5df4+3Mzi14/2d5lHzyYQFSbgrkqAJXEcHQYFit27+KCjLon+7wmadDoEg=</sign><merchantPublicCert>MIID3jCCA0egAwIBAgIQSnJ1jAgRMbjOJbAalx0C7jANBgkqhkiG9w0BAQUFADAqMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMB4XDTEzMDQyMjA4NDExOVoXDTE1MDQyMjA4NDExOVowgZAxCzAJBgNVBAYTAkNOMRswGQYDVQQKExJDRkNBIE9wZXJhdGlvbiBDQTIxETAPBgNVBAsTCExvY2FsIFJBMRQwEgYDVQQLEwtFbnRlcnByaXNlczE7MDkGA1UEAxQyMDQxQDgzMTAwMDAwMDAwODMwNDBAODAyMzEwMDQ4OTkwNzQ1OlNJR05AMDAwMDA5MTYwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALPTK5MXO/xQuknMH+79tAlsNA2eQzvl+ccnTM72b7k0nSbztnz7Zq5fPE6U/jHEHNMv57ZgiNpMG1x5IxllQKrlyIva7TKki3UmzjUHUWsNZvG3n8lhYZa43K+U+MSbEJl7M6CUtl9HVmbeNMeYosuAnnpxbe7+K0fYdckRelFfAgMBAAGjggGcMIIBmDAfBgNVHSMEGDAWgBTwje2zQbv77wgeVQLDMTfvPBROzTAdBgNVHQ4EFgQU+/f+/xI3/VMJrXduzu9iyZyFZP8wCwYDVR0PBAQDAgTwMAwGA1UdEwQFMAMBAQAwOwYDVR0lBDQwMgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcDAwYIKwYBBQUHAwQGCCsGAQUFBwMIMIH9BgNVHR8EgfUwgfIwVqBUoFKkUDBOMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMQwwCgYDVQQLEwNDUkwxFDASBgNVBAMTC2NybDEwNF84MTA0MIGXoIGUoIGRhoGObGRhcDovL2NlcnQ4NjMuY2ZjYS5jb20uY246Mzg5L0NOPWNybDEwNF84MTA0LE9VPUNSTCxPPUNGQ0EgT3BlcmF0aW9uIENBMixDPUNOP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RjbGFzcz1jUkxEaXN0cmlidXRpb25Qb2ludDANBgkqhkiG9w0BAQUFAAOBgQAkoXOP9q7l+qpBmRp4uPXyRIo1f+jhBYHzSTj+SCxNrgComq9Pj0gMORx0zL5ewIzEsiCoxIHQ30Gk57K4cH0p+So8Pe4ZbmBf2HUtrsEc7wH06QcDN3ELJ2CsZPYYzOzbNAvJa/wCj6uWNr9bqJXAgeytUelKYOsnyEIQ2DGoxA==</merchantPublicCert></upomp>
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文:<?xml version="1.0" encoding="UTF-8" standalone="yes"?><upomp application="SubmitOrder.Rsp"><merchantId>802310048990745</merchantId><merchantOrderId>80036XXXXXXX</merchantOrderId><merchantOrderTime>20140904155457</merchantOrderTime><respCode>0000</respCode><respDesc>操作成功</respDesc><merchantOrderAmt>1000</merchantOrderAmt></upomp>
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: Upomp_Pay_Info.originalsign:merchantId=802310048990745&merchantOrderId=80036XXXXXXX&merchantOrderTime=20140904155457
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: ErrNo:0
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: ErrMsg:
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文加密后:<?xml version='1.0' encoding='UTF-8' ?><upomp  application='lanchpay.Req' version='1.0.0' ><merchantId>802310048990745</merchantId><merchantOrderId>80036XXXXXXX</merchantOrderId><merchantOrderTime>20140904155457</merchantOrderTime><sign>s7QrFzW8ZbgV2ocnUKbL0PKWrtwt9JWsXH9I21Zg67W//nm0S2+vut7MhgJZUUR9axuCMoaq+WdQ2OIQE/qlTeE6WpfsDGtZi90CbEnBPxHmfSx4mil8+4uelPOfxTYFxngbGLd73WxZoDX+FYcWkX2EifqfS2mx0H9EMhwIkSY=</sign></upomp>
+2014-9-4 15:54:57 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->payYinLian
+2014-9-4 15:58:51 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 15:58:58 uld.sdk.tools.LogHelper log
+严重: 该语句没有返回结果集。
+com.microsoft.sqlserver.jdbc.SQLServerException: 该语句没有返回结果集。
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDriverError(SQLServerException.java:190)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:408)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:350)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:5696)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1715)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:180)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:155)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeQuery(SQLServerPreparedStatement.java:285)
+	at uld.sdk.tools.SQLHelper.runProcedure(SQLHelper.java:555)
+	at wh.member.dal.User.get(User.java:120)
+	at wh.member.bll.User.get(User.java:74)
+	at uld.sdk.bll.UserQianbao.createOrder(UserQianbao.java:96)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at uld.sdk.tools.Utility.Invoke(Utility.java:255)
+	at uld.sdk.server.ThreadProcess.run(ThreadProcess.java:62)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+2014-9-4 15:58:58 uld.sdk.tools.LogHelper log
+严重: null
+java.lang.reflect.InvocationTargetException
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at uld.sdk.tools.Utility.Invoke(Utility.java:255)
+	at uld.sdk.server.ThreadProcess.run(ThreadProcess.java:62)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.NullPointerException
+	at uld.sdk.bll.UserQianbao.createOrder(UserQianbao.java:98)
+	... 9 more
+2014-9-4 15:58:58 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.UserQianbao->createOrder
+2014-9-4 15:58:58 uld.sdk.tools.LogHelper log
+警告: 调用 方法报错:null
+2014-9-4 15:59:46 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 15:59:50 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 15:59:52 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 15:59:54 uld.sdk.tools.LogHelper log
+信息: [ChannelId]7
+2014-9-4 15:59:54 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-gameId:8
+2014-9-4 15:59:54 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-sequenceNumber:1001
+2014-9-4 15:59:54 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-serverList.get(0).getServerId():28
+2014-9-4 15:59:54 uld.sdk.tools.LogHelper log
+信息: GameCategoryId_GameId_ServerId_MobileDeviceId:0_8_28_277466
+2014-9-4 15:59:54 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->login
+2014-9-4 16:00:01 uld.sdk.tools.LogHelper log
+信息: UserUld-createOrder-gameId:8
+2014-9-4 16:00:01 uld.sdk.tools.LogHelper log
+信息: UserUld-createOrder-sequenceNumber:1001
+2014-9-4 16:00:02 uld.sdk.tools.LogHelper log
+信息: UserUld-createOrder-serverList.get(0).getServerId():28
+2014-9-4 16:00:02 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.UserQianbao->createOrder
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: userId:265478
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-gameId:8
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-sequenceNumber:1001
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-serverList.get(0).getServerId():28
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: 创建订单提交的7位签名原串Upomp_Pay_Info.originalsign:merchantName=游老大&merchantId=802310048990745&merchantOrderId=80038XXXXXXX&merchantOrderTime=20140904160018&merchantOrderAmt=100&merchantOrderDesc=充值1元&transTimeout=
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: 这是订单提交的7位签名Upomp_Pay_Info.xmlSign:h7I1Q7U4vUNmme1WUUrjXYDJP0Rp5VTec7zmh7xiVD+M6jD2P1tMwYezY6vV+rlj4KKwSmi/aKzLbTJSvCq6Zw4G9//kiMvWB0jSe1kPgBpFUgTUVB9/KyDNYkGm05kMW18hfIwx2lZLTeXPVn0q/nelpIOumCHOmaQ9uJpyhn4=
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: 这是订单提交报文:<?xml version='1.0' encoding='utf-8' standalone='yes'?><upomp  application='SubmitOrder.Req' version='1.0.0'><merchantName>游老大</merchantName><merchantId>802310048990745</merchantId><merchantOrderId>80038XXXXXXX</merchantOrderId><merchantOrderTime>20140904160018</merchantOrderTime><merchantOrderAmt>100</merchantOrderAmt><merchantOrderDesc>充值1元</merchantOrderDesc><transTimeout></transTimeout><backEndUrl>http://payyinlian.ulaoda.com/callback.ashx</backEndUrl><sign>h7I1Q7U4vUNmme1WUUrjXYDJP0Rp5VTec7zmh7xiVD+M6jD2P1tMwYezY6vV+rlj4KKwSmi/aKzLbTJSvCq6Zw4G9//kiMvWB0jSe1kPgBpFUgTUVB9/KyDNYkGm05kMW18hfIwx2lZLTeXPVn0q/nelpIOumCHOmaQ9uJpyhn4=</sign><merchantPublicCert>MIID3jCCA0egAwIBAgIQSnJ1jAgRMbjOJbAalx0C7jANBgkqhkiG9w0BAQUFADAqMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMB4XDTEzMDQyMjA4NDExOVoXDTE1MDQyMjA4NDExOVowgZAxCzAJBgNVBAYTAkNOMRswGQYDVQQKExJDRkNBIE9wZXJhdGlvbiBDQTIxETAPBgNVBAsTCExvY2FsIFJBMRQwEgYDVQQLEwtFbnRlcnByaXNlczE7MDkGA1UEAxQyMDQxQDgzMTAwMDAwMDAwODMwNDBAODAyMzEwMDQ4OTkwNzQ1OlNJR05AMDAwMDA5MTYwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALPTK5MXO/xQuknMH+79tAlsNA2eQzvl+ccnTM72b7k0nSbztnz7Zq5fPE6U/jHEHNMv57ZgiNpMG1x5IxllQKrlyIva7TKki3UmzjUHUWsNZvG3n8lhYZa43K+U+MSbEJl7M6CUtl9HVmbeNMeYosuAnnpxbe7+K0fYdckRelFfAgMBAAGjggGcMIIBmDAfBgNVHSMEGDAWgBTwje2zQbv77wgeVQLDMTfvPBROzTAdBgNVHQ4EFgQU+/f+/xI3/VMJrXduzu9iyZyFZP8wCwYDVR0PBAQDAgTwMAwGA1UdEwQFMAMBAQAwOwYDVR0lBDQwMgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcDAwYIKwYBBQUHAwQGCCsGAQUFBwMIMIH9BgNVHR8EgfUwgfIwVqBUoFKkUDBOMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMQwwCgYDVQQLEwNDUkwxFDASBgNVBAMTC2NybDEwNF84MTA0MIGXoIGUoIGRhoGObGRhcDovL2NlcnQ4NjMuY2ZjYS5jb20uY246Mzg5L0NOPWNybDEwNF84MTA0LE9VPUNSTCxPPUNGQ0EgT3BlcmF0aW9uIENBMixDPUNOP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RjbGFzcz1jUkxEaXN0cmlidXRpb25Qb2ludDANBgkqhkiG9w0BAQUFAAOBgQAkoXOP9q7l+qpBmRp4uPXyRIo1f+jhBYHzSTj+SCxNrgComq9Pj0gMORx0zL5ewIzEsiCoxIHQ30Gk57K4cH0p+So8Pe4ZbmBf2HUtrsEc7wH06QcDN3ELJ2CsZPYYzOzbNAvJa/wCj6uWNr9bqJXAgeytUelKYOsnyEIQ2DGoxA==</merchantPublicCert></upomp>
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文:<?xml version="1.0" encoding="UTF-8" standalone="yes"?><upomp application="SubmitOrder.Rsp"><merchantId>802310048990745</merchantId><merchantOrderId>80038XXXXXXX</merchantOrderId><merchantOrderTime>20140904160018</merchantOrderTime><respCode>0000</respCode><respDesc>操作成功</respDesc><merchantOrderAmt>100</merchantOrderAmt></upomp>
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: Upomp_Pay_Info.originalsign:merchantId=802310048990745&merchantOrderId=80038XXXXXXX&merchantOrderTime=20140904160018
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: ErrNo:0
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: ErrMsg:
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文加密后:<?xml version='1.0' encoding='UTF-8' ?><upomp  application='lanchpay.Req' version='1.0.0' ><merchantId>802310048990745</merchantId><merchantOrderId>80038XXXXXXX</merchantOrderId><merchantOrderTime>20140904160018</merchantOrderTime><sign>J0cQYZqSlhtY5UwoQx3KuLUSKGGFrTnC49BkVDtz+86z3oEDlCMS+E9jMCH9/AZgNV6EzcQwcAG7sog4jBbiAzITDRqlpe+hOmfMTt1raK2x6TOF1Ise+mwW0aEuzvFOHTwDp00jBpRaLEqNdl+sKioNBEYDpnL8J29Ni9wRV/w=</sign></upomp>
+2014-9-4 16:00:18 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->payYinLian
+2014-9-4 16:05:19 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 16:41:09 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 16:41:11 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 16:41:14 uld.sdk.tools.LogHelper log
+信息: [ChannelId]7
+2014-9-4 16:41:14 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-gameId:8
+2014-9-4 16:41:14 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-sequenceNumber:1001
+2014-9-4 16:41:14 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-serverList.get(0).getServerId():28
+2014-9-4 16:41:14 uld.sdk.tools.LogHelper log
+信息: GameCategoryId_GameId_ServerId_MobileDeviceId:0_8_28_277466
+2014-9-4 16:41:14 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->login
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: userId:265478
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-gameId:8
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-sequenceNumber:1001
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-serverList.get(0).getServerId():28
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: 创建订单提交的7位签名原串Upomp_Pay_Info.originalsign:merchantName=游老大&merchantId=802310048990745&merchantOrderId=80048XXXXXXX&merchantOrderTime=20140904164122&merchantOrderAmt=1000&merchantOrderDesc=充值10元&transTimeout=
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: 这是订单提交的7位签名Upomp_Pay_Info.xmlSign:HI9p7RHcFd3eJABA12P9xoMZzqOA3bfv255ZAgKI3trmSOwo/7ww0IkR1j/nMMdZMS/XZGwYhupQJrziapSSnXM3vMs4qoanIZ50qfPv/nPcj8hwzykgjs4yK8SGUiP9lrUjwpURwCNZ+XNQ0kA/FOyAlOhso+AHVtRT9PucXNo=
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: 这是订单提交报文:<?xml version='1.0' encoding='utf-8' standalone='yes'?><upomp  application='SubmitOrder.Req' version='1.0.0'><merchantName>游老大</merchantName><merchantId>802310048990745</merchantId><merchantOrderId>80048XXXXXXX</merchantOrderId><merchantOrderTime>20140904164122</merchantOrderTime><merchantOrderAmt>1000</merchantOrderAmt><merchantOrderDesc>充值10元</merchantOrderDesc><transTimeout></transTimeout><backEndUrl>http://payyinlian.ulaoda.com/callback.ashx</backEndUrl><sign>HI9p7RHcFd3eJABA12P9xoMZzqOA3bfv255ZAgKI3trmSOwo/7ww0IkR1j/nMMdZMS/XZGwYhupQJrziapSSnXM3vMs4qoanIZ50qfPv/nPcj8hwzykgjs4yK8SGUiP9lrUjwpURwCNZ+XNQ0kA/FOyAlOhso+AHVtRT9PucXNo=</sign><merchantPublicCert>MIID3jCCA0egAwIBAgIQSnJ1jAgRMbjOJbAalx0C7jANBgkqhkiG9w0BAQUFADAqMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMB4XDTEzMDQyMjA4NDExOVoXDTE1MDQyMjA4NDExOVowgZAxCzAJBgNVBAYTAkNOMRswGQYDVQQKExJDRkNBIE9wZXJhdGlvbiBDQTIxETAPBgNVBAsTCExvY2FsIFJBMRQwEgYDVQQLEwtFbnRlcnByaXNlczE7MDkGA1UEAxQyMDQxQDgzMTAwMDAwMDAwODMwNDBAODAyMzEwMDQ4OTkwNzQ1OlNJR05AMDAwMDA5MTYwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALPTK5MXO/xQuknMH+79tAlsNA2eQzvl+ccnTM72b7k0nSbztnz7Zq5fPE6U/jHEHNMv57ZgiNpMG1x5IxllQKrlyIva7TKki3UmzjUHUWsNZvG3n8lhYZa43K+U+MSbEJl7M6CUtl9HVmbeNMeYosuAnnpxbe7+K0fYdckRelFfAgMBAAGjggGcMIIBmDAfBgNVHSMEGDAWgBTwje2zQbv77wgeVQLDMTfvPBROzTAdBgNVHQ4EFgQU+/f+/xI3/VMJrXduzu9iyZyFZP8wCwYDVR0PBAQDAgTwMAwGA1UdEwQFMAMBAQAwOwYDVR0lBDQwMgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcDAwYIKwYBBQUHAwQGCCsGAQUFBwMIMIH9BgNVHR8EgfUwgfIwVqBUoFKkUDBOMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMQwwCgYDVQQLEwNDUkwxFDASBgNVBAMTC2NybDEwNF84MTA0MIGXoIGUoIGRhoGObGRhcDovL2NlcnQ4NjMuY2ZjYS5jb20uY246Mzg5L0NOPWNybDEwNF84MTA0LE9VPUNSTCxPPUNGQ0EgT3BlcmF0aW9uIENBMixDPUNOP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RjbGFzcz1jUkxEaXN0cmlidXRpb25Qb2ludDANBgkqhkiG9w0BAQUFAAOBgQAkoXOP9q7l+qpBmRp4uPXyRIo1f+jhBYHzSTj+SCxNrgComq9Pj0gMORx0zL5ewIzEsiCoxIHQ30Gk57K4cH0p+So8Pe4ZbmBf2HUtrsEc7wH06QcDN3ELJ2CsZPYYzOzbNAvJa/wCj6uWNr9bqJXAgeytUelKYOsnyEIQ2DGoxA==</merchantPublicCert></upomp>
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文:<?xml version="1.0" encoding="UTF-8" standalone="yes"?><upomp application="SubmitOrder.Rsp"><merchantId>802310048990745</merchantId><merchantOrderId>80048XXXXXXX</merchantOrderId><merchantOrderTime>20140904164122</merchantOrderTime><respCode>0000</respCode><respDesc>操作成功</respDesc><merchantOrderAmt>1000</merchantOrderAmt></upomp>
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: Upomp_Pay_Info.originalsign:merchantId=802310048990745&merchantOrderId=80048XXXXXXX&merchantOrderTime=20140904164122
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: ErrNo:0
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: ErrMsg:
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文加密后:<?xml version='1.0' encoding='UTF-8' ?><upomp  application='lanchpay.Req' version='1.0.0' ><merchantId>802310048990745</merchantId><merchantOrderId>80048XXXXXXX</merchantOrderId><merchantOrderTime>20140904164122</merchantOrderTime><sign>UbI7U7c1lppA4nXAehfbmeCGdIM6mJS9W7C4cupB9fbjYKybiw14jOmvRQKWgXAfHed4h4V4SuTIKnpNhLchBR1QU/IkBFZFPTnUd/86dh3XJVF1OyiFrXJraHz6exh0b8NeAGuMNbXMjcN+oAeeTZQV4gXyXvgLlKV0vNTbnkA=</sign></upomp>
+2014-9-4 16:41:22 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->payYinLian
+2014-9-4 16:43:04 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 16:43:06 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.StatisticAnalysis->Stat
+2014-9-4 16:43:08 uld.sdk.tools.LogHelper log
+信息: [ChannelId]7
+2014-9-4 16:43:08 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-gameId:8
+2014-9-4 16:43:08 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-sequenceNumber:1001
+2014-9-4 16:43:08 uld.sdk.tools.LogHelper log
+信息: UserUnite-login-serverList.get(0).getServerId():28
+2014-9-4 16:43:08 uld.sdk.tools.LogHelper log
+信息: GameCategoryId_GameId_ServerId_MobileDeviceId:0_8_28_277466
+2014-9-4 16:43:09 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->login
+2014-9-4 16:43:16 uld.sdk.tools.LogHelper log
+信息: userId:265478
+2014-9-4 16:43:16 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-gameId:8
+2014-9-4 16:43:16 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-sequenceNumber:1001
+2014-9-4 16:43:16 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-serverList.get(0).getServerId():28
+2014-9-4 16:43:16 uld.sdk.tools.LogHelper log
+信息: 创建订单提交的7位签名原串Upomp_Pay_Info.originalsign:merchantName=游老大&merchantId=802310048990745&merchantOrderId=80049XXXXXXX&merchantOrderTime=20140904164316&merchantOrderAmt=1000&merchantOrderDesc=充值10元&transTimeout=
+2014-9-4 16:43:16 uld.sdk.tools.LogHelper log
+信息: 这是订单提交的7位签名Upomp_Pay_Info.xmlSign:Wvn0Dl7Lhz6HQA5M0HUt9zDAtpoHxRJDbu47S9iFJ1pJyvM9u/Wrjc+TDkx/ZlZFzdt3euxUOLGP7nsFKVBth0AfpUoPOpLfZKsxg8qBXhF4O0hD4FNHmTILaFl7ObI+Ts8yTJOzl5Izez5IO8uK7Rw+Ffmb3pUdW5U1QASWm7Y=
+2014-9-4 16:43:16 uld.sdk.tools.LogHelper log
+信息: 这是订单提交报文:<?xml version='1.0' encoding='utf-8' standalone='yes'?><upomp  application='SubmitOrder.Req' version='1.0.0'><merchantName>游老大</merchantName><merchantId>802310048990745</merchantId><merchantOrderId>80049XXXXXXX</merchantOrderId><merchantOrderTime>20140904164316</merchantOrderTime><merchantOrderAmt>1000</merchantOrderAmt><merchantOrderDesc>充值10元</merchantOrderDesc><transTimeout></transTimeout><backEndUrl>http://payyinlian.ulaoda.com/callback.ashx</backEndUrl><sign>Wvn0Dl7Lhz6HQA5M0HUt9zDAtpoHxRJDbu47S9iFJ1pJyvM9u/Wrjc+TDkx/ZlZFzdt3euxUOLGP7nsFKVBth0AfpUoPOpLfZKsxg8qBXhF4O0hD4FNHmTILaFl7ObI+Ts8yTJOzl5Izez5IO8uK7Rw+Ffmb3pUdW5U1QASWm7Y=</sign><merchantPublicCert>MIID3jCCA0egAwIBAgIQSnJ1jAgRMbjOJbAalx0C7jANBgkqhkiG9w0BAQUFADAqMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMB4XDTEzMDQyMjA4NDExOVoXDTE1MDQyMjA4NDExOVowgZAxCzAJBgNVBAYTAkNOMRswGQYDVQQKExJDRkNBIE9wZXJhdGlvbiBDQTIxETAPBgNVBAsTCExvY2FsIFJBMRQwEgYDVQQLEwtFbnRlcnByaXNlczE7MDkGA1UEAxQyMDQxQDgzMTAwMDAwMDAwODMwNDBAODAyMzEwMDQ4OTkwNzQ1OlNJR05AMDAwMDA5MTYwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALPTK5MXO/xQuknMH+79tAlsNA2eQzvl+ccnTM72b7k0nSbztnz7Zq5fPE6U/jHEHNMv57ZgiNpMG1x5IxllQKrlyIva7TKki3UmzjUHUWsNZvG3n8lhYZa43K+U+MSbEJl7M6CUtl9HVmbeNMeYosuAnnpxbe7+K0fYdckRelFfAgMBAAGjggGcMIIBmDAfBgNVHSMEGDAWgBTwje2zQbv77wgeVQLDMTfvPBROzTAdBgNVHQ4EFgQU+/f+/xI3/VMJrXduzu9iyZyFZP8wCwYDVR0PBAQDAgTwMAwGA1UdEwQFMAMBAQAwOwYDVR0lBDQwMgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcDAwYIKwYBBQUHAwQGCCsGAQUFBwMIMIH9BgNVHR8EgfUwgfIwVqBUoFKkUDBOMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMQwwCgYDVQQLEwNDUkwxFDASBgNVBAMTC2NybDEwNF84MTA0MIGXoIGUoIGRhoGObGRhcDovL2NlcnQ4NjMuY2ZjYS5jb20uY246Mzg5L0NOPWNybDEwNF84MTA0LE9VPUNSTCxPPUNGQ0EgT3BlcmF0aW9uIENBMixDPUNOP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RjbGFzcz1jUkxEaXN0cmlidXRpb25Qb2ludDANBgkqhkiG9w0BAQUFAAOBgQAkoXOP9q7l+qpBmRp4uPXyRIo1f+jhBYHzSTj+SCxNrgComq9Pj0gMORx0zL5ewIzEsiCoxIHQ30Gk57K4cH0p+So8Pe4ZbmBf2HUtrsEc7wH06QcDN3ELJ2CsZPYYzOzbNAvJa/wCj6uWNr9bqJXAgeytUelKYOsnyEIQ2DGoxA==</merchantPublicCert></upomp>
+2014-9-4 16:43:17 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文:<?xml version="1.0" encoding="UTF-8" standalone="yes"?><upomp application="SubmitOrder.Rsp"><merchantId>802310048990745</merchantId><merchantOrderId>80049XXXXXXX</merchantOrderId><merchantOrderTime>20140904164316</merchantOrderTime><respCode>0000</respCode><respDesc>操作成功</respDesc><merchantOrderAmt>1000</merchantOrderAmt></upomp>
+2014-9-4 16:43:17 uld.sdk.tools.LogHelper log
+信息: Upomp_Pay_Info.originalsign:merchantId=802310048990745&merchantOrderId=80049XXXXXXX&merchantOrderTime=20140904164316
+2014-9-4 16:43:17 uld.sdk.tools.LogHelper log
+信息: ErrNo:0
+2014-9-4 16:43:17 uld.sdk.tools.LogHelper log
+信息: ErrMsg:
+2014-9-4 16:43:17 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文加密后:<?xml version='1.0' encoding='UTF-8' ?><upomp  application='lanchpay.Req' version='1.0.0' ><merchantId>802310048990745</merchantId><merchantOrderId>80049XXXXXXX</merchantOrderId><merchantOrderTime>20140904164316</merchantOrderTime><sign>n0hqFbG7jeiWJC157TwSYmo5EhqI0+Y79Qj7EiTPs5L04qUPgL29Rt9jzQ1I36KdZ1RhG0/qgoRSFcr5uY8dXt3+Q3dSK+0+fxuhsKq6ddIAtAQtZZqU8xLi0BXOwCT+RyzfbxwBfc9+i/rfZlCUqH2Q9fm61bAhkOeX2dQ0PCU=</sign></upomp>
+2014-9-4 16:43:17 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->payYinLian
+2014-9-4 16:43:44 uld.sdk.tools.LogHelper log
+信息: userId:265478
+2014-9-4 16:43:44 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-gameId:8
+2014-9-4 16:43:44 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-sequenceNumber:1001
+2014-9-4 16:43:44 uld.sdk.tools.LogHelper log
+信息: UldServer-createOrder-serverList.get(0).getServerId():28
+2014-9-4 16:43:44 uld.sdk.tools.LogHelper log
+信息: 创建订单提交的7位签名原串Upomp_Pay_Info.originalsign:merchantName=游老大&merchantId=802310048990745&merchantOrderId=80050XXXXXXX&merchantOrderTime=20140904164344&merchantOrderAmt=1000&merchantOrderDesc=充值10元&transTimeout=
+2014-9-4 16:43:44 uld.sdk.tools.LogHelper log
+信息: 这是订单提交的7位签名Upomp_Pay_Info.xmlSign:smbCoqvPhy+jcCfwx6JWQBD0g0hmkapBfB64N6y6apzI+OYEPB0UgvPduYHsZEqezqN32AB1M9f9hxjzpGB9KeE9iru6+lsMqIRa76knTPcMao8XxBYog2d/MUCdEp7g51nA9w0BnGCFiHXEVcDU1JUCBIObpSp7wqsCOm84+Jk=
+2014-9-4 16:43:44 uld.sdk.tools.LogHelper log
+信息: 这是订单提交报文:<?xml version='1.0' encoding='utf-8' standalone='yes'?><upomp  application='SubmitOrder.Req' version='1.0.0'><merchantName>游老大</merchantName><merchantId>802310048990745</merchantId><merchantOrderId>80050XXXXXXX</merchantOrderId><merchantOrderTime>20140904164344</merchantOrderTime><merchantOrderAmt>1000</merchantOrderAmt><merchantOrderDesc>充值10元</merchantOrderDesc><transTimeout></transTimeout><backEndUrl>http://payyinlian.ulaoda.com/callback.ashx</backEndUrl><sign>smbCoqvPhy+jcCfwx6JWQBD0g0hmkapBfB64N6y6apzI+OYEPB0UgvPduYHsZEqezqN32AB1M9f9hxjzpGB9KeE9iru6+lsMqIRa76knTPcMao8XxBYog2d/MUCdEp7g51nA9w0BnGCFiHXEVcDU1JUCBIObpSp7wqsCOm84+Jk=</sign><merchantPublicCert>MIID3jCCA0egAwIBAgIQSnJ1jAgRMbjOJbAalx0C7jANBgkqhkiG9w0BAQUFADAqMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMB4XDTEzMDQyMjA4NDExOVoXDTE1MDQyMjA4NDExOVowgZAxCzAJBgNVBAYTAkNOMRswGQYDVQQKExJDRkNBIE9wZXJhdGlvbiBDQTIxETAPBgNVBAsTCExvY2FsIFJBMRQwEgYDVQQLEwtFbnRlcnByaXNlczE7MDkGA1UEAxQyMDQxQDgzMTAwMDAwMDAwODMwNDBAODAyMzEwMDQ4OTkwNzQ1OlNJR05AMDAwMDA5MTYwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBALPTK5MXO/xQuknMH+79tAlsNA2eQzvl+ccnTM72b7k0nSbztnz7Zq5fPE6U/jHEHNMv57ZgiNpMG1x5IxllQKrlyIva7TKki3UmzjUHUWsNZvG3n8lhYZa43K+U+MSbEJl7M6CUtl9HVmbeNMeYosuAnnpxbe7+K0fYdckRelFfAgMBAAGjggGcMIIBmDAfBgNVHSMEGDAWgBTwje2zQbv77wgeVQLDMTfvPBROzTAdBgNVHQ4EFgQU+/f+/xI3/VMJrXduzu9iyZyFZP8wCwYDVR0PBAQDAgTwMAwGA1UdEwQFMAMBAQAwOwYDVR0lBDQwMgYIKwYBBQUHAwEGCCsGAQUFBwMCBggrBgEFBQcDAwYIKwYBBQUHAwQGCCsGAQUFBwMIMIH9BgNVHR8EgfUwgfIwVqBUoFKkUDBOMQswCQYDVQQGEwJDTjEbMBkGA1UEChMSQ0ZDQSBPcGVyYXRpb24gQ0EyMQwwCgYDVQQLEwNDUkwxFDASBgNVBAMTC2NybDEwNF84MTA0MIGXoIGUoIGRhoGObGRhcDovL2NlcnQ4NjMuY2ZjYS5jb20uY246Mzg5L0NOPWNybDEwNF84MTA0LE9VPUNSTCxPPUNGQ0EgT3BlcmF0aW9uIENBMixDPUNOP2NlcnRpZmljYXRlUmV2b2NhdGlvbkxpc3Q/YmFzZT9vYmplY3RjbGFzcz1jUkxEaXN0cmlidXRpb25Qb2ludDANBgkqhkiG9w0BAQUFAAOBgQAkoXOP9q7l+qpBmRp4uPXyRIo1f+jhBYHzSTj+SCxNrgComq9Pj0gMORx0zL5ewIzEsiCoxIHQ30Gk57K4cH0p+So8Pe4ZbmBf2HUtrsEc7wH06QcDN3ELJ2CsZPYYzOzbNAvJa/wCj6uWNr9bqJXAgeytUelKYOsnyEIQ2DGoxA==</merchantPublicCert></upomp>
+2014-9-4 16:43:45 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文:<?xml version="1.0" encoding="UTF-8" standalone="yes"?><upomp application="SubmitOrder.Rsp"><merchantId>802310048990745</merchantId><merchantOrderId>80050XXXXXXX</merchantOrderId><merchantOrderTime>20140904164344</merchantOrderTime><respCode>0000</respCode><respDesc>操作成功</respDesc><merchantOrderAmt>1000</merchantOrderAmt></upomp>
+2014-9-4 16:43:45 uld.sdk.tools.LogHelper log
+信息: Upomp_Pay_Info.originalsign:merchantId=802310048990745&merchantOrderId=80050XXXXXXX&merchantOrderTime=20140904164344
+2014-9-4 16:43:45 uld.sdk.tools.LogHelper log
+信息: ErrNo:0
+2014-9-4 16:43:45 uld.sdk.tools.LogHelper log
+信息: ErrMsg:
+2014-9-4 16:43:45 uld.sdk.tools.LogHelper log
+信息: 这是前置返回的报文加密后:<?xml version='1.0' encoding='UTF-8' ?><upomp  application='lanchpay.Req' version='1.0.0' ><merchantId>802310048990745</merchantId><merchantOrderId>80050XXXXXXX</merchantOrderId><merchantOrderTime>20140904164344</merchantOrderTime><sign>ekDLtUSQSVpLCZGjyYs1gjTw2hJhWqW370/8kud1Mn9fr6MBmZS/lN7nEu6Ex4d7vGfgq/wfujt+a192QxarSbSOhPhKzx0EInt+Ktb5/vT7lRZHljdwsiu4cmaE0nL+GGgNjFV4Gf3Pan4W+DcDNTLfv+F1Ol9D9SVuVh5PnRY=</sign></upomp>
+2014-9-4 16:43:45 uld.sdk.tools.LogHelper log
+信息: 调用方法：uld.sdk.bll.User->payYinLian
